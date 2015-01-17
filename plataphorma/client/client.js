@@ -1,7 +1,6 @@
-var currentUser = null;
+﻿var currentUser = null;
 var currentRoom= null;
 var playing=false;
-
 // Nos suscribimos al catalogo de juegos
 Meteor.subscribe("all_games");
 //Nos suscribimos al canal de los jugadores para los rankings
