@@ -139,7 +139,7 @@ var Coor = function(x,y){
 	    if (this.totalFichas > 0) {
 	        //var indice = this.aleatorio(Math.floor(Math.random()*this.piezas.length()));
 	        //var pieza = new Pieza(this.piezas.piezas[indice]);
-	        if (this.totalFichas == 72) { var indice = 17 }
+	        if (this.totalFichas == 72) { var indice = 7 }
 	        else { var indice = Math.floor(Math.random() * this.piezas.length); }
 	        var pieza = this.piezas[indice];
 	        this.npiezas[indice] = this.npiezas[indice] - 1;
@@ -199,8 +199,9 @@ var Coor = function(x,y){
 				if(array.indexOf(cooraux3)==-1)
 					array.push(cooraux3);
 			}
-		}return array;	
+		}
 		pieza.EncajaCon = array;	
+    return array;  
 	}
 	
 	 this.puedocolocar = function(pieza,x,y){

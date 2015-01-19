@@ -88,6 +88,8 @@ nuevaPartida: function(parametros_game){
 
 	//Coloca una ficha en una posición, devuelve la lista de posiciones donde se puede colocar un seguidor si se ha conseguido, 0 en caso de que no se pueda
 	colocarFicha: function (id_game, pieza, posicion, giros, id_jugador) {
+      
+    
 	    if (ArrPartidas[id_game]) {
 	        var encaja = false;
 			Partida = ArrPartidas[id_game];
@@ -95,6 +97,8 @@ nuevaPartida: function(parametros_game){
 			for(i=0;i<giros;i++){
 				pieza= pieza.girar();
 			}
+      var poscion = Partida.posiblelugar(pieza);
+      
 			//El if comprueba que la posicion este dentro de las posibles posicones donde podemos colocar
 			if(Partida.posiblelugar(pieza).indexof(posicion)<=0){
 				encaja = Partida.coloco(pieza);
@@ -106,6 +110,8 @@ nuevaPartida: function(parametros_game){
 			    var seguidores = Partida.posibleseguidor(pieza);
 			}
 			ArrPartidas[id_game] = Partida;
+      
+      console.log("TENGO ESTOS SEGUIDORES: ", seguidores);
 			return seguidores;
 
 		}else{

@@ -174,7 +174,7 @@ function SetPlayers (err, data) {
 	}
 	nJugadores = data.length;
 	
-	Meteor.subscribe("partidas", idParty);
+	//Meteor.subscribe("partidas", idParty);
 	
 	var u = Rooms.findOne({_id:idParty})
 	console.log(u);
@@ -531,11 +531,12 @@ Ficha_abajo = function(cx,cy) {
     		if (CurrentMove == 0 && getTurno().id == Meteor.userId())  {
     			
     			Meteor.call("robarFicha", idParty, function(err, data) { 
-    					if (data == 0) {
+    					if (data[0] == undefined) {
     						alert("Fin de partida");
     						return;
     					}
-    						NuevaPieza = new PiezaMapa(CurrentScroll.x + 7,CurrentScroll.y + 5, data[0].tipo,0);
+    				NuevaPieza = new PiezaMapa(CurrentScroll.x + 7,CurrentScroll.y + 5, data[0].tipo,0);
+            
 						if(Juego.keys['silenciar']){
     							sonar = !sonar;
    						}
@@ -552,9 +553,14 @@ Ficha_abajo = function(cx,cy) {
 
 		} else if (CurrentMove == 1 && getTurno().id == Meteor.userId()) {
 			if (SetFichaEn(NuevaPieza, Posiciones)) {
-				Meteor.call("ColocarFicha", idParty, NuevaPieza.sprite, {x: NuevaPieza.x/100 + CurrentScroll.x, y: NuevaPieza.y/100 +CurrentScroll.y}, (NuevaPieza.rotation / -90), getTurno().id, function(err, data) { 
-					if (data != 0) {
-    					Juego.setBoard(8,new Set(NuevaPieza));
+          if(Juego.keys['sacar_ficha']) {
+         
+          
+         Meteor.call("colocarFicha", idParty, NuevaPieza.sprite, {x: NuevaPieza.x/100 + CurrentScroll.x, y: NuevaPieza.y/100 +CurrentScroll.y}, (NuevaPieza.rotation / -90), getTurno().id, function(err, data)
+         {
+           console.log("QUIERO COLOCAR LA FICHA MOTHERFUCKA a estos SEguidores: ", data);
+  				if (data != 0) {
+    				Juego.setBoard(8,new Set(NuevaPieza));
 						CurrentMove = 2;
 						PosicionesSeg = data;
 						console.log(data);
@@ -564,6 +570,11 @@ Ficha_abajo = function(cx,cy) {
 					}
 					
 				});
+         
+         
+          }
+        
+				
 			} else {
 				alert("No puedes colocar la ficha ahí");
 			}
