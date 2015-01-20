@@ -165,6 +165,14 @@ Meteor.methods({
         var j;
         var i;
 
+
+        var unJugador = JoinPlayer.findOne({user_id:Puntuacion.user_id[0]});
+        var room = unjugador.id_room;
+
+        JoinPlayer.remove(id_room:room);
+        Rooms.remove(_id:room)
+
+
         for(j=0;j<Puntuacion.puntos.length;j++){
 
             if (aux<Puntuacion.puntos[j]){
@@ -177,7 +185,7 @@ Meteor.methods({
         if (this.userId){
 
             for(i=0;i<Puntuacion.user_id.length;i++){
-                if(i=j){
+                if(i==haGanado){
                     Meteor.users.update({_id:Puntuacion.user_id[i]}, { $inc: { total_points: +Puntuacion.puntos[i] , victories: +1 } });
                 }else{
                     Meteor.users.update({_id:Puntuacion.user_id[i]}, { $inc: { total_points: +Puntuacion.puntos[i] , defeats: +1 } });
