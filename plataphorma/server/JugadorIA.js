@@ -1,17 +1,30 @@
-jugadorIA=function(id_jugador){
-
+jugadorIA=function(id_jugador, Tablero){
+	var nuevaficha;
     this.robar = function () {
         var robado = Tablero.saca_pieza();
-        this.nuevaficha = new Pieza(robado, 0, 0);
-        var posicion = Tablero.posiblelugar(this.nuevaficha);
-        if (this.posicion.length == 0 && Tablero.totalFichas != 71) { this.robar() }
+        var TotalPosiciones = [];
+        nuevaficha = new Pieza(robado, 0, 0);       
+        for(var i = 0; i < 3; i++)
+        {
+			nuevaficha = nuevaficha.girar();
+			console.log("ESTAMOS ROTANDO: ", nuevaficha);
+		    posicion = Tablero.posiblelugar(nuevaficha);
+		    console.log("¿La cantidad de posiciones son ? ",posicion.length);
+		    if(posicion.length != 0)
+		    {
+				TotalPosiciones.push(posicion);
+				console.log("¿La posicion nueva es? ",posicion);	
+			}
+		}
+		console.log("¿La posiciones TOTALES SON? ", TotalPosiciones);
+        if (TotalPosiciones.length == 0 && Tablero.totalFichas != 71) { this.robar() }
     };
 
     this.robar();
 
     var TipoJugada = { puntos: 0, coorx: 0, coory: 0, giros: 0, }
     var ProbarColocarFicha = function (ngiros) {
-        TableroAux = new ObjTablero(10000000);
+        TableroAux = new Tablero(10000000);
         TableroAux.iniciar();
         for (i in Tablero.posicion) {
              TableroAux.posicion[i] = Tablero.posicion[i] 
@@ -39,17 +52,18 @@ jugadorIA=function(id_jugador){
         }
     }
 
-    for (coordenadas in this.nuevaficha.EncajaCon) { //Esto nos sirve para ver con que piezas nos encaja la nuestra
+    for (coordenadas in nuevaficha.EncajaCon) { //Esto nos sirve para ver con que piezas nos encaja la nuestra
+        
         ProbarColocarFicha(0);
         this.nuevaficha = this.nuevaficha.girar();
         ProbarColocarFicha(1);
         this.nuevaficha = this.nuevaficha.girar();
         this.nuevaficha = this.nuevaficha.girar();
-        colocarFicha(2);
+        ProbarColocarFicha(2);
         this.nuevaficha = this.nuevaficha.girar();
         this.nuevaficha = this.nuevaficha.girar();
         this.nuevaficha = this.nuevaficha.girar();
-        colocarFicha(3);
+        ProbarColocarFicha(3);
     }
 
     return [this.nuevaFicha.Tipo, TipoJugada];

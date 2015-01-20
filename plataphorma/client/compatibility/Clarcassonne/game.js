@@ -124,7 +124,7 @@ function SetSeguidorEn (Seguidor, Posiciones) {
 	var posible;
 	for (pos in Posiciones) {
 
-		posible = Seguidortraducir (Posiciones[pos].n);
+		posible = Seguidortraducir(Posiciones[pos].n);
 		console.log(traducirTipoSeguidor(Seguidor.t), Posiciones[pos].t);
 		if (posible.x == Seguidor.x && posible.y == Seguidor.y && traducirTipoSeguidor(Seguidor.t) ==  Posiciones[pos].t) {
 			encaja = true;	
@@ -159,10 +159,9 @@ function SetFichaEn (NuevaPieza, Posiciones) {
 LastData = undefined;
 
 function SetPlayers (err, data) {
-	console.log(data);
-	console.log("PACOOOO");
+	console.log("ARRANCAMOS EL JUEGO Nº: ", data);
 	Jugador1 = {nombre: data[0].nombre.slice(0,6), color: "ficha_rojo", puntos: data[0].puntuacion, id:data[0].id, turno:1};
-	Jugador2 = {nombre: data[1].nombre.slice(0,6) , color: "ficha_azul", puntos:data[1].puntuacion, id: data[1].id, turno: 0};
+	Jugador2 = {nombre: data[1].nombre.slice(0,6) , color: "ficha_azul", puntos:data[1].puntuacion, id: data[1].id, turno:  0};
 	if (data.length >= 3) {
 	Jugador3 = {nombre: data[2].nombre.slice(0,6)  , color: "ficha_amarillo", puntos:data[2].puntuacion, id: data[2].id, turno: 0};
 	}
@@ -176,6 +175,8 @@ function SetPlayers (err, data) {
 	
 	//Meteor.subscribe("partidas", idParty);
 	
+	Meteor.call('turnoActual', idParty, function(err, data){ console.log("¿EN QUE TURNO ESTAMOS? ",data); })
+	/*
 	var u = Rooms.findOne({_id:idParty})
 	console.log(u);
 	if (u.movimientos) {
@@ -196,8 +197,10 @@ function SetPlayers (err, data) {
 		
 		}
 	
-	} 
 	
+	
+	} 
+	*/
 	
 	
 	Deps.autorun(function(){
@@ -210,7 +213,7 @@ function SetPlayers (err, data) {
 			return;
 		}
 		
-		console.log (Rooms.findOne({_id:idParty}));
+		console.log ("TENEMOS QUE ROOOOOOOOOM???",Rooms.findOne({_id:idParty}));
 		var last = Rooms.findOne({_id:idParty}).movimientos;
 		if (last != undefined) {
 			var ultimo = last.pop();
@@ -387,9 +390,8 @@ Time = function () {
 			} else if (nJugadores == 5) { 
 				var parray = [Jugador1, Jugador2, Jugador3, Jugador4, Jugador5];  
 			}
-			Rooms.update(idParty, {
-                            $push : {movimientos: {jugador: getTurno(), ficha: 0, seguidor: 0, puntos: parray}}
-           });
+			//Rooms.update(idParty, {$push : {movimientos: {jugador: getTurno(), ficha: 0, seguidor: 0, puntos: parray}}
+           //});
             //Session.set("turno", CurrentTurn+1);
 			
 			turno = CurrentTurn;
@@ -481,8 +483,10 @@ Ficha_abajo = function(cx,cy) {
 		var NuevaPieza;
 		
 	this.step = function(dt) {
-	
-	if (CurrentMove == 0 && getTurno().id.slice(0,10) == "IA" && Meteor.userId() == Jugador1.id) {
+	//	console.log("TENEMOS LOS SIGUIENTES DATOS: CurrentMove: ", CurrentMove, "TURNO: " , getTurno().nombre, "NO SE QUE ES ESTO: ", Meteor.userId());
+
+	if (CurrentMove == 0 && getTurno().nombre == "IA" && Meteor.userId() == Jugador1.id) {
+		console.log("MARIO?!?!?!?!?");
 		Meteor.call('JugadorArtificial', idParty, getTurno().id, function (err, data) {
 			console.log(data);
 			
@@ -555,8 +559,8 @@ Ficha_abajo = function(cx,cy) {
 			if (SetFichaEn(NuevaPieza, Posiciones)) {
           if(Juego.keys['sacar_ficha']) {
          
-          
-         Meteor.call("colocarFicha", idParty, NuevaPieza.sprite, {x: NuevaPieza.x/100 + CurrentScroll.x, y: NuevaPieza.y/100 +CurrentScroll.y}, (NuevaPieza.rotation / -90), getTurno().id, function(err, data)
+          console.log("POSICIONESSSSSSS  :: ",CurrentScroll.x, CurrentScroll.y);
+         Meteor.call("colocarFicha", idParty, NuevaPieza, {x: NuevaPieza.x/100 + CurrentScroll.x, y: NuevaPieza.y/100 +CurrentScroll.y}, (NuevaPieza.rotation / -90), getTurno().id, function(err, data)
          {
            console.log("QUIERO COLOCAR LA FICHA MOTHERFUCKA a estos SEguidores: ", data);
   				if (data != 0) {
@@ -934,32 +938,25 @@ Set = function (PiezaMapa) {
 				if (this.option > 0) {
 					this.menu += 1;
 				} else {
-					console.log("SIN SEGUIDORRRRRRRRRRRRRRRRRRR");
-					
-					Meteor.call("ColocarSeguidor", idParty, getTurno ().id, {x: this.pieza.x/100 + CurrentScroll.x, y: this.pieza.y/100 +CurrentScroll.y}, 0, function(err, data) { 				// Coloco la ficha en el mapa
+					console.log("SIN SEGUIDORRRRRRRRRRRRRRRRRRR");					
+				//	Meteor.call("colocarSeguidor", idParty, getTurno ().id, {x: this.pieza.x/100 + CurrentScroll.x, y: this.pieza.y/100 +CurrentScroll.y}, 0, function(err, data) { 				// Coloco la ficha en el mapa
 						that.pieza.colocada = true;
 						//Tablero.add(that.pieza);
 						Juego.setBoard(8,Blank);
-						Juego.setBoard(7, Blank);
+						//Juego.setBoard(7, Blank);
 						CurrentScroll.active = true;
-						Rooms.update(idParty, {
-                            $push : {movimientos: {jugador: getTurno(), ficha: {x: that.pieza.x/100 + CurrentScroll.x, y: that.pieza.y/100 +CurrentScroll.y, sprite: that.pieza.sprite, rotation: that.pieza.rotation}, seguidor: 0, puntos: data}}
-                          });
-                          	console.log(data);
-                          	
-                          	$(idCanvas).unbind("mousedown");
-                          	$(idCanvas).unbind("mouseup");
-                          	$(idCanvas).unbind("mousemove");
+						//Rooms.update(idParty, {$push : {movimientos: {jugador: getTurno(), ficha: {x: that.pieza.x/100 + CurrentScroll.x, y: that.pieza.y/100 +CurrentScroll.y, sprite: that.pieza.sprite, rotation: that.pieza.rotation}, seguidor: 0, puntos: data}}});
+                        //console.log(data);                        	
+                        $(idCanvas).unbind("mousedown");
+                        $(idCanvas).unbind("mouseup");
+                        $(idCanvas).unbind("mousemove");
                           	
                           //Session.set("turno", CurrentTurn+1);
 						
-						//pasarTurno();
-			
-
+						pasarTurno();
 					
-				});
+			//	});
 					
-
 				}
 			}
 

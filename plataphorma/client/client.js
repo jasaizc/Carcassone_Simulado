@@ -55,7 +55,7 @@ Tracker.autorun(function(){
                 $("#crs").hide()
                 $("#chatCarcasson").show()
                 $("#mycanvas").show();
-                alert("A JUGARRRRR!!!!")
+              //  alert("A JUGARRRRR!!!!")
                 
                
                 
@@ -541,7 +541,7 @@ Template.crearpartida.events = {
               }
             }
             if(rooms.max_players==rooms.in_players){
-              alert("QUE COMIENCE LA PARTIDA!!!!!");
+            //  alert("QUE COMIENCE LA PARTIDA!!!!!");
               Rooms.update({_id:rooms._id},{ $set: {start:true} });
               Session.set("playing",true)
               Session.set("playing",true)
@@ -662,7 +662,7 @@ Template.unirspartida.events={
             var room=Rooms.findOne({_id:sala},{})
             console.log(room)
             if(room.max_players==(room.in_players+room.max_IAs)){
-              alert("QUE COMIENCE LA PARTIDA!!!!!");
+             // alert("QUE COMIENCE LA PARTIDA!!!!!");
               ClarcassonneGameIU.initialize('#game', 1); 
               Rooms.update({_id:room._id},{ $set: {start:true} });
               //comenzarpartida(room._id)

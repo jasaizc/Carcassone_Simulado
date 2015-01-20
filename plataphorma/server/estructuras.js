@@ -173,6 +173,9 @@ var Coor = function(x,y){
 		
 		var array= [];
 		for(i=0; i<=this.posiciones.length-1; i++){
+			console.log("TENEMOS LAS FICHAS: ", this.posiciones);
+			console.log("QUIERO COLOCAR LA FICHA: ", pieza);
+			
 			var aux = this.posiciones[i];
 			var cooraux = new Coor();
 			var cooraux1 = new Coor();
@@ -181,22 +184,26 @@ var Coor = function(x,y){
 			if(this.puedocolocar(pieza,aux.x,aux.y+1)){
 				cooraux.x=aux.x;
 				cooraux.y=aux.y+1;
+				console.log("AQUI PUEDO COLOCAR A");
 				if(array.indexOf(cooraux)==-1)
 					array.push(cooraux);
 			}if(this.puedocolocar(pieza,aux.x,aux.y-1)){
 				cooraux1.x=aux.x;
 				cooraux1.y=aux.y-1;
+				console.log("AQUI PUEDO COLOCAR B");
 				if(array.indexOf(cooraux1)==-1)
 					array.push(cooraux1);
 			}if(this.puedocolocar(pieza,aux.x+1,aux.y)){
 				cooraux2.x=aux.x+1;
 				cooraux2.y=aux.y;
+				console.log("AQUI PUEDO COLOCAR C");
 				if(array.indexOf(cooraux2)==-1)
 					array.push(cooraux2);
 			}if(this.puedocolocar(pieza,aux.x-1,aux.y)){
 				cooraux3.x=aux.x-1;
 				cooraux3.y=aux.y;
-				if(array.indexOf(cooraux3)==-1)
+				console.log("AQUI PUEDO COLOCAR D");
+			if(array.indexOf(cooraux3)==-1)
 					array.push(cooraux3);
 			}
 		}
@@ -216,17 +223,16 @@ var Coor = function(x,y){
 		var dummyR = this.piezaenposiciones(x+1,y)
 		var dummyL = this.piezaenposiciones(x-1,y)
 			
-		if((dummyU==undefined)&&(dummyD==undefined)&&(dummyR==undefined)&&(dummyL==undefined)&&(pieza != 'CiudadD')){comparo = false}//ninguna pieza cercana
+		if((dummyU==undefined)&&(dummyD==undefined)&&(dummyR==undefined)&&(dummyL==undefined)&&(pieza.tipo != 'CiudadD')){comparo = false}//ninguna pieza cercana
 			
 		if((dummyU!=undefined)&&(dummyU.Abajo!=pieza.Arriba)){comparo = false}	//algun conflicto; false
 		if((dummyD!=undefined)&&(dummyD.Arriba!=pieza.Abajo)){comparo = false}
 		if((dummyR!=undefined)&&(dummyR.Izquierda!=pieza.Derecha)){comparo = false}
 		if((dummyL!=undefined)&&(dummyL.Derecha!=pieza.Izquierda)){comparo = false}	//exista y no coincida
 		
-		console.log("COMPARO: ", comparo);
-		console.log("HAY PIEZA: ",haypieza);
+		
 		if((comparo)&&(haypieza==undefined)){ 	//exito en la comparacion
-			
+			console.log("PUEDO PONER");
 			return true	// puedo colocar ficha
 			
 		}else{

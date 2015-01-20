@@ -93,30 +93,31 @@ nuevaPartida: function(parametros_game){
 	    if (ArrPartidas[id_game]) {
 	        var encaja = false;
 			Partida = ArrPartidas[id_game];
-			//giro la pieza
+			var ficha = new Pieza(pieza.sprite,posicion.x,posicion.y)
 			for(i=0;i<giros;i++){
-				pieza= pieza.girar();
+				ficha = ficha.girar();
 			}
-      var poscion = Partida.posiblelugar(pieza);
-      console.log(pieza);
-      console.log(poscion.length);
-			if(pieza == 'CiudadD' && poscion.length == 0)
+			console.log("asdfasd ",posicion);
+			var posciones = Partida.posiblelugar(ficha);
+			console.log(ficha);
+			console.log("POSCIONES  ",posciones);
+			if(ficha.tipo == 'CiudadD' && Partida.totalFichas == 71)
 			{
 				
-				encaja = Partida.coloco(pieza,posicion.x,posicion.y);
+				encaja = Partida.coloco(ficha,ficha.x,ficha.y);
 				console.log("NOS ENCAJA???", encaja);
 				
 			}else{
 			//El if comprueba que la posicion este dentro de las posibles posicones donde podemos colocar
-			if(Partida.posiblelugar(pieza).indexof(posicion)<=0){
-				encaja = Partida.coloco(pieza);
+			if(Partida.posiblelugar(ficha).indexof(posicion)<=0){
+				encaja = Partida.coloco(ficha);
 			}}
 			if (encaja == false) { return 0 }
 			var seguidores = [];
 			var jugador = _.find(Partida.listaJugadores, function (obj) { return (obj.id == id_jugador) })
 			
 			if (jugador.seguidores != 0) {
-			    var seguidores = Partida.posibleseguidor(pieza);
+			    var seguidores = Partida.posibleseguidor(ficha);
 			}
 			ArrPartidas[id_game] = Partida;
       
@@ -184,11 +185,11 @@ nuevaPartida: function(parametros_game){
 
     JugadorArtificial: function(id_partida,id_jugador){
         Tablero = ArrPartidas[id_partida];
-        
+        console.log("VAMOS MARIANO QUE TE TOCA A TI");
         var ColocoFicha = false;
         while (ColocoFicha == false)
         { //Bucle en el cual probamos a colocar las fichas, Robamos con la clase JUGADORIA, y la colocamos, no podemos, tendremos que volver a robar otra ficha y realziar el mismo proceso.
-            var Jugada = jugadorIA(id_jugador);
+            var Jugada = jugadorIA(id_jugador, Tablero);
             var Piezanueva = new Pieza(0, 0, 0, x[0]);
             for (var i = 0; i < Jugada[1].giros; i++) {
                 Piezanueva = Piezanueva.girar()
