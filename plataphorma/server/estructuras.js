@@ -216,14 +216,15 @@ var Coor = function(x,y){
 		var dummyR = this.piezaenposiciones(x+1,y)
 		var dummyL = this.piezaenposiciones(x-1,y)
 			
-		if((dummyU==undefined)&&(dummyD==undefined)&&(dummyR==undefined)&&(dummyL==undefined)){comparo = false}//ninguna pieza cercana
+		if((dummyU==undefined)&&(dummyD==undefined)&&(dummyR==undefined)&&(dummyL==undefined)&&(pieza != 'CiudadD')){comparo = false}//ninguna pieza cercana
 			
 		if((dummyU!=undefined)&&(dummyU.Abajo!=pieza.Arriba)){comparo = false}	//algun conflicto; false
 		if((dummyD!=undefined)&&(dummyD.Arriba!=pieza.Abajo)){comparo = false}
 		if((dummyR!=undefined)&&(dummyR.Izquierda!=pieza.Derecha)){comparo = false}
 		if((dummyL!=undefined)&&(dummyL.Derecha!=pieza.Izquierda)){comparo = false}	//exista y no coincida
 		
-		
+		console.log("COMPARO: ", comparo);
+		console.log("HAY PIEZA: ",haypieza);
 		if((comparo)&&(haypieza==undefined)){ 	//exito en la comparacion
 			
 			return true	// puedo colocar ficha

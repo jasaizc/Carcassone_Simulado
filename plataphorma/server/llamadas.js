@@ -98,20 +98,29 @@ nuevaPartida: function(parametros_game){
 				pieza= pieza.girar();
 			}
       var poscion = Partida.posiblelugar(pieza);
-      
+      console.log(pieza);
+      console.log(poscion.length);
+			if(pieza == 'CiudadD' && poscion.length == 0)
+			{
+				
+				encaja = Partida.coloco(pieza,posicion.x,posicion.y);
+				console.log("NOS ENCAJA???", encaja);
+				
+			}else{
 			//El if comprueba que la posicion este dentro de las posibles posicones donde podemos colocar
 			if(Partida.posiblelugar(pieza).indexof(posicion)<=0){
 				encaja = Partida.coloco(pieza);
-			}
+			}}
 			if (encaja == false) { return 0 }
 			var seguidores = [];
-			var jugador = _.find(Partida.listaJugadores, function (obj) { return (obj.id.user_id == id_jugador) })
+			var jugador = _.find(Partida.listaJugadores, function (obj) { return (obj.id == id_jugador) })
+			
 			if (jugador.seguidores != 0) {
 			    var seguidores = Partida.posibleseguidor(pieza);
 			}
 			ArrPartidas[id_game] = Partida;
       
-      console.log("TENGO ESTOS SEGUIDORES: ", seguidores);
+			console.log("TENGO ESTOS SEGUIDORES: ", seguidores);
 			return seguidores;
 
 		}else{
@@ -137,7 +146,8 @@ nuevaPartida: function(parametros_game){
             }
     	for (i=0; i< Tablero.listaJugadores.length; i++){
 			puntuacion.push({user_id: Partida.listaJugadores[i].id.user_id, puntos: Partida.listaJugadores[i].puntos});
-		    Meteor.call("matchFinish", puntuacion);
+			var finalizar = [id_game, puntuacion];
+		    Meteor.call("matchFinish", finalizar);
 		}
 
 	    } else {

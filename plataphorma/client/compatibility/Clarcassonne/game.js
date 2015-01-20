@@ -560,7 +560,7 @@ Ficha_abajo = function(cx,cy) {
          {
            console.log("QUIERO COLOCAR LA FICHA MOTHERFUCKA a estos SEguidores: ", data);
   				if (data != 0) {
-    				Juego.setBoard(8,new Set(NuevaPieza));
+    				    Juego.setBoard(8,new Set(NuevaPieza));
 						CurrentMove = 2;
 						PosicionesSeg = data;
 						console.log(data);
@@ -934,7 +934,8 @@ Set = function (PiezaMapa) {
 				if (this.option > 0) {
 					this.menu += 1;
 				} else {
-				
+					console.log("SIN SEGUIDORRRRRRRRRRRRRRRRRRR");
+					
 					Meteor.call("ColocarSeguidor", idParty, getTurno ().id, {x: this.pieza.x/100 + CurrentScroll.x, y: this.pieza.y/100 +CurrentScroll.y}, 0, function(err, data) { 				// Coloco la ficha en el mapa
 						that.pieza.colocada = true;
 						//Tablero.add(that.pieza);
@@ -1002,6 +1003,7 @@ Set = function (PiezaMapa) {
 			if(up3 && Juego.keys['sacar_ficha']) {
 				up3 = false;
 				// Coloco la ficha en el mapa en la posicion optionx,optiony
+				console.log("MENU MOSTRAMOS LA REJILLA PARA ELEGIR LUGAR");
 				if (SetSeguidorEn ( {x: this.optionx, y: this.optiony, t: this.option}, PosicionesSeg)) {
 				
 					Meteor.call("ColocarSeguidor", idParty, getTurno().id, {x: this.pieza.x/100 + CurrentScroll.x, y: this.pieza.y/100 + CurrentScroll.y}, {t:traducirTipoSeguidor (this.option) ,n: traducirSeguidor (this.optionx,this.optiony)}, function(err, data) {
