@@ -255,7 +255,7 @@ var Coor = function(x,y){
 	
 	
 	// ENTRA UNA PIEZA YA COLOCADA Y DEVUELVE ARRAY CON POSIBLES SITIOS DONDE COLOCAR SEGUIDOR (ARRAY CON VALORES DE 1 A 9)
-	this.posibleseguidor= function(pieza){		//la pieza ya trae las coordenadas				//a otroladron(pieza,posicion cuadrícula)
+	this.posibleseguidor= function(pieza, Tablero){		//la pieza ya trae las coordenadas				//a otroladron(pieza,posicion cuadrícula)
 		var array= [];
 		var correcto = 0;
 		for(i=1; i<=9; i++){		//posiciones pieza (cuadricula)

@@ -117,7 +117,7 @@ nuevaPartida: function(parametros_game){
 			var jugador = _.find(Partida.listaJugadores, function (obj) { return (obj.id == id_jugador) })
 			
 			if (jugador.seguidores != 0) {
-			    var seguidores = Partida.posibleseguidor(ficha);
+			    var seguidores = Partida.posibleseguidor(ficha, Partida);
 			}
 			ArrPartidas[id_game] = Partida;
       
