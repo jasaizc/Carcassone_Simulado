@@ -132,6 +132,8 @@ nuevaPartida: function(parametros_game){
 	finalizarPartida: function (id_game)
 	{
 	    if (ArrPartidas[id_game]) {
+
+	    	console.log("llamamos a finalizar");
 	        var puntuacion = [];
             Partida= ArrPartidas[id_game];
             for(var i =0; i< Partida.posiciones.length; i++)
