@@ -530,9 +530,7 @@ Template.crearpartida.events = {
                   objaux[1]=element.user_name;
                 }
                 idsPlayers.push(objaux)
-              })
-              console.log(idsPlayers)
-              
+              })              
               
               ClarcassonneGameIU("#Clarcassone", rooms._id,idsPlayers );
               //**************************************************************************\\
@@ -625,9 +623,26 @@ Template.unirspartida.events={
             var room=Rooms.findOne({_id:sala},{})
             console.log(room)
             if(room.max_players==(room.in_players+room.max_IAs)){
-             // alert("QUE COMIENCE LA PARTIDA!!!!!");
-              ClarcassonneGameIU.initialize('#game', 1); 
+              // alert("QUE COMIENCE LA PARTIDA!!!!!");
               Rooms.update({_id:room._id},{ $set: {start:true} });
+              Session.set("playing",true)
+              var players= JoinPlayer.find({id_room:room._id},{})
+              var idsPlayers=[];
+              players.forEach(function(element){
+                var objaux=[];
+                if(element.user_name!="IA"){
+                  objaux[0]=element.originalID;
+                  objaux[1]=element.user_name;
+                }else{
+                  objaux[0]=element._id;
+                  objaux[1]=element.user_name;
+                }
+                idsPlayers.push(objaux)
+              })              
+              
+              ClarcassonneGameIU("#Clarcassone", rooms._id,idsPlayers );
+
+              ClarcassonneGameIU.initialize('#game', 1); 
               //comenzarpartida(room._id)
               //**************************************************************************\\
               //Esto lo pongo como auxiliar, pero hay que quitarlo y usar un tracker autorun
