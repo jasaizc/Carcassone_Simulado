@@ -1,5 +1,5 @@
 ﻿var currentUser = null;
-var currentRoom= null;
+//var currentRoom= null;
 var playing=false;
 // Nos suscribimos al catalogo de juegos
 Meteor.subscribe("all_games");
@@ -21,6 +21,13 @@ Tracker.autorun(function(){
     Meteor.subscribe("current_scores", current_game);
     Meteor.subscribe("messages_current_game", current_game);
 
+
+});
+
+//Reactivo para cambiar la sala en la que estamos
+Tracker.autorun(function(){
+	  var	currentRoom= Session.get("currentRoom");
+    Meteor.subscribe("messages_current_room", currentRoom);
 
 });
 
@@ -265,6 +272,21 @@ Template.messages.messages = function () {
     return messages;
 }
 
+//Template para los mensajes de los chats de sala
+Template.messagesroom.messagesroom = function () {
+
+    var messagesColl =  Messages.find({}, { sort: { time: -1 }});
+    var messages = [];
+
+    messagesColl.forEach(function(m){
+        var userName = Meteor.users.findOne(m.user_id).username;
+        messages.push({name: userName , message: m.message});
+    });
+
+    return messages;
+}
+
+
 //helper que muestra el nombre de cada jugador de la sala a la que te unes
 Template.jugadrspartida.Jugador= function(){
   //falta filtrar jugadores por la sala en cuestion
@@ -395,6 +417,35 @@ Template.input.events = {
         }
     } 
 }
+
+//Template para los mensajes de sala
+
+Template.inputroom.events = {
+    'keydown input#messageroom' : function (event) {
+        if (event.which == 13) {
+            if (Meteor.userId()){
+                var user_id = Meteor.user()._id;
+                var message = $('#messageroom');
+                if (message.value != '') {
+                    Messages.insert({
+                        user_id: user_id,
+                        message: message.val(),
+                        time: Date.now(),
+                        game_id: Session.get("current_game"),
+												id_room:Session.get("currentRoom")
+                    });
+                    message.val('');
+                }
+            }
+						
+            else {
+                $("#login-error").show();
+            }
+        }
+    } 
+}
+
+
 
 //Template para la creacion de una partida con el boton nueva partida
 
