@@ -200,7 +200,7 @@ otrocaballero= function(tablero,pieza,posSeg,vengode){
 	
 	
 	
-	console.log("HOLA LLAMAMOS A OTROCABALLERO");
+	//console.log("HOLA LLAMAMOS A OTROCABALLERO");
 	if(pieza.tipo == 'CiudadH' || pieza.tipo== 'CiudadI'){
 		if(posSeg==2){
 			//Pieza de arriba
@@ -241,7 +241,7 @@ otrocaballero= function(tablero,pieza,posSeg,vengode){
 		ok[3] = piezaIzquierda(tablero,pieza,posSeg,otro,vengode);
 		//console.log("IZQUIERDA")
 		//console.log(ok[3])
-		console.log(ok);
+		//console.log(ok);
 		if(ok[0] || ok[1] || ok[2] || ok[3]){return true;}
 	}
 	

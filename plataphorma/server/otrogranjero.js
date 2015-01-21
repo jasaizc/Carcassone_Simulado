@@ -193,7 +193,8 @@ piezaArriba = function(pieza,posSeg,tablero,otro){
 							if(aux.Arriba != 'Ciudad'){
 								otro=piezaArriba(aux,1,tablero,otro);
 								if(otro==true){return otro}
-							}else if (aux.Izquierda != 'Ciudad'){
+							}
+							if (aux.Izquierda != 'Ciudad'){
 								otro=piezaIzquierda(aux,1,tablero,otro);
 								if(otro==true){return otro}
 							}
@@ -207,7 +208,8 @@ piezaArriba = function(pieza,posSeg,tablero,otro){
 							if(aux.Arriba != 'Ciudad'){
 								otro=piezaArriba(aux,1,tablero,otro);
 								if(otro==true){return otro}
-							}else if (aux.Derecha != 'Ciudad'){
+							}
+							if (aux.Derecha != 'Ciudad'){
 								otro=piezaDerecha(aux,3,tablero,otro);
 								if(otro==true){return otro}
 							}
@@ -252,8 +254,10 @@ piezaArriba = function(pieza,posSeg,tablero,otro){
 						}else if(auxSeg==3){
 							otro=compruebaSeg(aux,3,6,9);
 							if(otro==true){return otro}
-							otro=piezaDerecha(aux,9,tablero,otro);
-							if(otro==true){return otro}
+							if(aux.Derecha!= 'Ciudad'){
+								otro=piezaDerecha(aux,9,tablero,otro);
+								if(otro==true){return otro}
+							}
 							otro=piezaArriba(aux,3,tablero,otro);
 							if(otro==true){return otro}
 						}
@@ -261,8 +265,10 @@ piezaArriba = function(pieza,posSeg,tablero,otro){
 						if(auxSeg==1){
 							otro=compruebaSeg(aux,1,4,7);
 							if(otro==true){return otro}
-							otro=piezaIzquierda(aux,7,tablero,otro);
-							if(otro==true){return otro}
+							if(aux.Izquierda!= 'Ciudad'){
+								otro=piezaIzquierda(aux,7,tablero,otro);
+								if(otro==true){return otro}
+							}
 							otro=piezaArriba(aux,1,tablero,otro);
 							if(otro==true){return otro}
 						}else if(auxSeg==3){
@@ -436,7 +442,8 @@ piezaAbajo = function(pieza,posSeg,tablero,otro){
 							if(aux.Abajo != 'Ciudad'){
 								otro=piezaAbajo(aux,7,tablero,otro);
 								if(otro==true){return otro}
-							}else if (aux.Derecha != 'Ciudad'){
+							}
+							if (aux.Derecha != 'Ciudad'){
 								otro=piezaDerecha(aux,3,tablero,otro);
 								if(otro==true){return otro}
 							}
@@ -481,8 +488,10 @@ piezaAbajo = function(pieza,posSeg,tablero,otro){
 						}else if(auxSeg==9){
 							otro=compruebaSeg(aux,3,6,9);
 							if(otro==true){return otro}
-							otro=piezaDerecha(aux,3,tablero,otro);
-							if(otro==true){return otro}
+							if(aux.Derecha!= 'Ciudad'){
+								otro=piezaDerecha(aux,3,tablero,otro);
+								if(otro==true){return otro}
+							}
 							otro=piezaAbajo(aux,9,tablero,otro);
 							if(otro==true){return otro}
 						}
@@ -492,8 +501,10 @@ piezaAbajo = function(pieza,posSeg,tablero,otro){
 							if(otro==true){return otro}
 							otro=piezaAbajo(aux,7,tablero,otro);
 							if(otro==true){return otro}
-							otro=piezaIzquierda(aux,1,tablero,otro);
-							if(otro==true){return otro}
+							if(aux.Izquierda!= 'Ciudad'){
+								otro=piezaIzquierda(aux,1,tablero,otro);
+								if(otro==true){return otro}
+							}
 						}else if(auxSeg==9){
 							otro=compruebaSeg(aux,3);
 							if(otro==true){return otro}
@@ -614,49 +625,69 @@ piezaDerecha = function(pieza,posSeg,tablero,otro){
 						otro=compruebaSeg(aux,7);
 						if(otro==true){return otro}
 					}
-//////////////////////////////seguir por aqui
+
 				}else if(aux.tipo == 'CiudadD' || aux.tipo =='Recto'){
 					if(auxSeg==3){
 						otro=compruebaSeg(aux,1,2,3);
 						if(otro==true){return otro}
 						otro=piezaDerecha(aux,3,tablero,otro);
 						if(otro==true){return otro}
-						otro=piezaArriba(aux,3,tablero,otro);
+						if(aux.Arriba!= 'Ciudad'){
+							otro=piezaArriba(aux,3,tablero,otro);
+							if(otro==true){return otro}
+						}
 					}else if(auxSeg==9){
 						otro=compruebaSeg(aux,7,8,9);
 						if(otro==true){return otro}
 						otro=piezaDerecha(aux,9,tablero,otro);
 						if(otro==true){return otro}
-						otro=piezaAbajo(aux,9,tablero,otro);
-						if(otro==true){return otro}
-						otro=piezaArriba(aux,9,tablero,otro);
-					}//(ciudad D MAL)
+						if(aux.Abajo != 'Ciudad'){
+							otro=piezaAbajo(aux,9,tablero,otro);
+							if(otro==true){return otro}
+						}
+					}
 					
 				}else if(aux.tipo == 'CiudadJ' || aux.tipo =='Curva'|| aux.tipo =='CiudadK'|| aux.tipo =='CiudadO'||
 					 aux.tipo =='CiudadP'){  
 					if(auxSeg==3){	
 						if(aux.Abajo=='Camino'){
 							otro=compruebaSeg(aux,1,2,3,6,9);
-							if(otro==true){return otro}//aqui algunos no
-							otro=piezaDerecha(aux,3,tablero,otro);
-							otro=piezaAbajo(aux,3,tablero,otro);
-							otro=piezaArriba(aux,3,tablero,otro);
+							if(otro==true){return otro}
+							otro=piezaAbajo(aux,9,tablero,otro);
+							if(otro==true){return otro}
+							if(aux.Derecha != 'Ciudad'){
+								otro=piezaDerecha(aux,3,tablero,otro);
+								if(otro==true){return otro}
+							}
+							if(aux.Arriba != 'Ciudad'){
+								otro=piezaArriba(aux,3,tablero,otro);
+								if(otro==true){return otro}
+							}
 						}else if(aux.Arriba=='Camino'){
 							otro=compruebaSeg(aux,1);
 							if(otro==true){return otro}
 							otro=piezaArriba(aux,1,tablero,otro);
+							if(otro==true){return otro}
 						} 
 					}else if(auxSeg==9){
 						if(aux.Arriba=='Camino'){
 							otro=compruebaSeg(aux,3,6,7,8,9);
-							if(otro==true){return otro}//aqui algunos no
-							otro=piezaDerecha(aux,7,tablero,otro);
-							otro=piezaAbajo(aux,7,tablero,otro);
-							otro=piezaArriba(aux,7,tablero,otro);
+							if(otro==true){return otro}
+							otro=piezaArriba(aux,3,tablero,otro);
+							if(otro==true){return otro}
+							if(aux.Derecha != 'Ciudad'){
+								otro=piezaDerecha(aux,3,tablero,otro);
+								if(otro==true){return otro}
+							}
+							if(aux.Abajo != 'Ciudad'){
+								otro=piezaAbajo(aux,7,tablero,otro);
+								if(otro==true){return otro}
+							}
 						}else if(aux.Abajo=='Camino'){
 							otro=compruebaSeg(aux,7);
 							if(otro==true){return otro}
 							otro=piezaAbajo(aux,7,tablero,otro);
+							if(otro==true){return otro}
 						}
 					}
 				}else if(aux.tipo =='Cruce4'){
@@ -664,10 +695,12 @@ piezaDerecha = function(pieza,posSeg,tablero,otro){
 						otro=compruebaSeg(aux,1);
 						if(otro==true){return otro}
 						otro=piezaArriba(aux,1,tablero,otro);
+						if(otro==true){return otro}
 					}else if(auxSeg==9){
 						otro=compruebaSeg(aux,7);
 						if(otro==true){return otro}
 						otro=piezaAbajo(aux,7,tablero,otro);
+						if(otro==true){return otro}
 					}
 				}else if(aux.tipo == 'CiudadL' || aux.tipo =='Cruce3'){
 					if(aux.Derecha != 'Camino'){
@@ -675,32 +708,46 @@ piezaDerecha = function(pieza,posSeg,tablero,otro){
 							otro=compruebaSeg(aux,1);
 							if(otro==true){return otro}
 							otro=piezaArriba(aux,1,tablero,otro);
+							if(otro==true){return otro}
 						}else if(auxSeg==9){
 							otro=compruebaSeg(aux,7);
 							if(otro==true){return otro}
 							otro=piezaAbajo(aux,7,tablero,otro);
+							if(otro==true){return otro}
+							otro=piezaDerecha(aux,9,tablero,otro);
+							if(otro==true){return otro}
 						}
 					}else if(aux.Arriba != 'Camino'){
 						if(auxSeg==3){
 							otro=compruebaSeg(aux,1,2,3);
 							if(otro==true){return otro}
-							otro=piezaDerecha(aux,1,tablero,otro);
-							otro=piezaArriba(aux,1,tablero,otro);
+							otro=piezaDerecha(aux,3,tablero,otro);
+							if(otro==true){return otro}
+							if(aux.Arriba!= 'Ciudad'){
+								otro=piezaArriba(aux,1,tablero,otro);
+								if(otro==true){return otro}
+							}
 						}else if(auxSeg==9){
 							otro=compruebaSeg(aux,7);
 							if(otro==true){return otro}
 							otro=piezaAbajo(aux,7,tablero,otro);
+							if(otro==true){return otro}
 						}
 					}else if(aux.Abajo != 'Camino'){
 						if(auxSeg==3){
 							otro=compruebaSeg(aux,1);
 							if(otro==true){return otro}
 							otro=piezaArriba(aux,1,tablero,otro);
+							if(otro==true){return otro}
 						}else if(auxSeg==9){
 							otro=compruebaSeg(aux,7,8,9);
 							if(otro==true){return otro}
-							otro=piezaDerecha(aux,7,tablero,otro);
-							otro=piezaAbajo(aux,7,tablero,otro);
+							otro=piezaDerecha(aux,9,tablero,otro);
+							if(otro==true){return otro}
+							if(aux.Abajo!= 'Ciudad'){
+								otro=piezaAbajo(aux,7,tablero,otro);
+								if(otro==true){return otro}
+							}
 						}
 					}
 				}else if(aux.tipo=='MonCamino'){
@@ -753,30 +800,42 @@ piezaIzquierda = function(pieza,posSeg,tablero,otro){
 					otro=compruebaSeg(aux,3,6,9);
 					if(otro==true){return otro}
 					otro=piezaArriba(aux,3,tablero,otro);
+					if(otro==true){return otro}
 					otro=piezaAbajo(aux,3,tablero,otro);
+					if(otro==true){return otro}
 				}else if(aux.tipo == 'CiudadJ'){
 					otro=compruebaSeg(aux,3,6,7,9);
 					if(otro==true){return otro}
-					otro=piezaIzquierda(aux,3,tablero,otro);			
+					otro=piezaIzquierda(aux,7,tablero,otro);
+					if(otro==true){return otro}			
 					otro=piezaArriba(aux,3,tablero,otro);
+					if(otro==true){return otro}
 				}else if(aux.tipo == 'CiudadK'){
 					otro=compruebaSeg(aux,1,3,6,9);
 					if(otro==true){return otro}
 					otro=piezaAbajo(aux,9,tablero,otro);
+					if(otro==true){return otro}
 					otro=piezIzquierda(aux,1,tablero,otro);
+					if(otro==true){return otro}
 				}else if(aux.tipo == 'Curva'){
 					if(aux.Abajo == 'Camino'){
 						otro=compruebaSeg(aux,1,2,3,6,9);
 						if(otro==true){return otro}
 						otro=piezaIzquierda(aux,1,tablero,otro);
+						if(otro==true){return otro}
 						otro=piezaAbajo(aux,9,tablero,otro);
+						if(otro==true){return otro}
 						otro=piezaArriba(aux,3,tablero,otro);
+						if(otro==true){return otro}
 					}else if(aux.Arriba == 'Camino'){
 						otro=compruebaSeg(aux,3,6,7,8,9);
 						if(otro==true){return otro}
 						otro=piezaIzquierda(aux,7,tablero,otro);
-						otro=piezaAbajo(aux,7,tablero,otro);
+						if(otro==true){return otro}
+						otro=piezaAbajo(aux,9,tablero,otro);
+						if(otro==true){return otro}
 						otro=piezaArriba(aux,3,tablero,otro);
+						if(otro==true){return otro}
 					}
 				}	
 			}else if (pieza.Izquierda == 'Camino'){
@@ -813,29 +872,37 @@ piezaIzquierda = function(pieza,posSeg,tablero,otro){
 						if(otro==true){return otro}
 						otro=piezaIzquierda(aux,1,tablero,otro);
 						if(otro==true){return otro}
-						otro=piezaArriba(aux,1,tablero,otro);
-						if(otro==true){return otro}
+						if (aux.Arriba != 'Ciudad'){
+							otro=piezaArriba(aux,3,tablero,otro);
+							if(otro==true){return otro}
+						}
 					}else if(auxSeg==7){
 						otro=compruebaSeg(aux,7,8,9);
 						if(otro==true){return otro}
 						otro=piezaIzquierda(aux,7,tablero,otro);
 						if(otro==true){return otro}
-						otro=piezaAbajo(aux,7,tablero,otro);
-						if(otro==true){return otro}
-					}//(ciudad D MAL)
+						if(aux.Abajo != 'Ciudad'){
+							otro=piezaAbajo(aux,9,tablero,otro);
+							if(otro==true){return otro}
+						}
+					}
 					
 				}else if(aux.tipo == 'CiudadJ' || aux.tipo =='Curva'|| aux.tipo =='CiudadK'|| aux.tipo =='CiudadO'||
 					 aux.tipo =='CiudadP'){ 
 					if(auxSeg==1){	
 						if(aux.Abajo=='Camino'){
 							otro=compruebaSeg(aux,1,2,3,4,7);
-							if(otro==true){return otro}//aqui algunos no
-							otro=piezaIzquierda(aux,1,tablero,otro);
 							if(otro==true){return otro}
 							otro=piezaAbajo(aux,7,tablero,otro);
 							if(otro==true){return otro}
-							otro=piezaArriba(aux,1,tablero,otro);
-							if(otro==true){return otro}
+							if(aux.Izquierda !='Ciudad'){
+								otro=piezaIzquierda(aux,1,tablero,otro);
+								if(otro==true){return otro}
+							}
+							if(aux.Arriba != 'Ciudad'){
+								otro=piezaArriba(aux,3,tablero,otro);
+								if(otro==true){return otro}
+							}
 						}else if(aux.Arriba=='Camino'){
 							otro=compruebaSeg(aux,3);
 							if(otro==true){return otro}
@@ -845,13 +912,18 @@ piezaIzquierda = function(pieza,posSeg,tablero,otro){
 					}else if(auxSeg==7){
 						if(aux.Arriba=='Camino'){
 							otro=compruebaSeg(aux,1,4,7,8,9);
-							if(otro==true){return otro}//aqui algunos no
-							otro=piezaIzquierda(aux,7,tablero,otro);
-							if(otro==true){return otro}
-							otro=piezaAbajo(aux,7,tablero,otro);
 							if(otro==true){return otro}
 							otro=piezaArriba(aux,1,tablero,otro);
 							if(otro==true){return otro}
+							if(aux.Izquierda != 'Ciudad'){
+								otro=piezaIzquierda(aux,7,tablero,otro);
+								if(otro==true){return otro}
+							}
+							if(aux.Abajo != 'Ciudad'){
+								otro=piezaAbajo(aux,9,tablero,otro);
+								if(otro==true){return otro}
+							}
+							
 						}else if(aux.Abajo=='Camino'){
 							otro=compruebaSeg(aux,9);
 							if(otro==true){return otro}
@@ -890,8 +962,10 @@ piezaIzquierda = function(pieza,posSeg,tablero,otro){
 							if(otro==true){return otro}
 							otro=piezaIzquierda(aux,1,tablero,otro);
 							if(otro==true){return otro}
-							otro=piezaArriba(aux,1,tablero,otro);
-							if(otro==true){return otro}
+							if(aux.Arriba!= 'Ciudad'){
+								otro=piezaArriba(aux,3,tablero,otro);
+								if(otro==true){return otro}
+							}
 						}else if(auxSeg==7){
 							otro=compruebaSeg(aux,9);
 							if(otro==true){return otro}
@@ -909,8 +983,10 @@ piezaIzquierda = function(pieza,posSeg,tablero,otro){
 							if(otro==true){return otro}
 							otro=piezaIzquierda(aux,7,tablero,otro);
 							if(otro==true){return otro}
-							otro=piezaAbajo(aux,7,tablero,otro);
-							if(otro==true){return otro}
+							if(aux.Abajo!= 'Ciudad'){
+								otro=piezaAbajo(aux,9,tablero,otro);
+								if(otro==true){return otro}
+							}
 						}
 					}
 				}else if(aux.tipo=='MonCamino'){
@@ -930,4 +1006,4 @@ piezaIzquierda = function(pieza,posSeg,tablero,otro){
 	}
 	return otro;
 }
-//PENSAR LO DE CAMBIAR POSSEG y probarloque nunca se ha probao  en todas las piezas. Moncamino entero
+//probarloque nunca se ha probao  en todas las piezas. Moncamino entero
