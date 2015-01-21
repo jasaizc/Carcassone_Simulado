@@ -647,6 +647,7 @@ Template.unirspartida.events={
               //**************************************************************************\\
               //Esto lo pongo como auxiliar, pero hay que quitarlo y usar un tracker autorun
               $("#crs").slideUp("slow")
+              $("#mycanvas").slideDown("slow");
             }else{
               //aqui se muestra la sala, y se rellena con la plantilla de jugadrspartida
               $("#allPlayers").show();
