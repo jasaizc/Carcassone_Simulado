@@ -2,31 +2,35 @@ jugadorIA=function(id_jugador, Partida){
 	var nuevaficha;
     this.robar = function () {
         var robado = Partida.saca_pieza();
-        var TotalPosiciones = [];
+        //var TotalPosiciones = [];
         nuevaficha = new Pieza(robado, 0, 0);       
         for(var i = 0; i < 3; i++)
         {
-			nuevaficha = nuevaficha.girar();
+			
 			console.log("ESTAMOS ROTANDO: ", nuevaficha);
 		    posicion = Partida.posiblelugar(nuevaficha);
 		    console.log("¿La cantidad de posiciones son ? ",posicion.length);
 		    if(posicion.length != 0)
 		    {
-				TotalPosiciones.push(posicion);
+				nuevaficha.EncajaCon.push(posicion);
+				//TotalPosiciones.push(posicion);
 				console.log("¿La posicion nueva es? ",posicion);	
+				break;
 			}
+			nuevaficha = nuevaficha.girar();
 		}
-		console.log("¿La posiciones TOTALES SON? ", TotalPosiciones);
-        if (TotalPosiciones.length == 0 && Partida.totalFichas != 71) { this.robar() }
+		console.log("¿La posiciones TOTALES SON? ", nuevaficha.EncajaCon);
+		//nuevaficha.EncajaCon = TotalPosiciones;
+        if (nuevaficha.EncajaCon.length == 0 && Partida.totalFichas != 71) { this.robar() }
     };
 
     this.robar();
 
-    var TipoJugada = { puntos: 0, coorx: 0, coory: 0, giros: 0, }
+    var TipoJugada = [];
     
         var ProbarColocarFicha = function (ngiros) {
-
-        var colocando = Partida.coloco(nuevaficha, this.nuevaficha.encajaCon[coordenadas].x, this.nuevaficha.encajaCon[coordenadas].y);
+		console.log("ESTA FICHA ES?!?!?: ",nuevaficha);
+        var colocando = Partida.coloco(nuevaficha, nuevaficha.EncajaCon[0].x, nuevaficha.EncajaCon[0].y);
         console.log("COLOCAMOS?!?!?!");
         if (colocando)
         {
@@ -36,9 +40,14 @@ jugadorIA=function(id_jugador, Partida){
             // CierroCamino(colocando);
             // CierroMonasterio(colocando);
             // CierroCiudad(colocando);
-			console.log("COLOCAMOS?!?!?!");
-            var jugador = _.find(Partida.listaJugadores, function (obj) { return (obj.id.user_id == nJugador) });
-            TipoJugada = { puntos: jugador.puntos, coorx: this.nuevaficha.EncajaCon[coordenadas].x, coory: this.nuevaficha.EncajaCon[coordenadas].y, giros: ngiros, }
+			
+            var jugador = _.find(Partida.listaJugadores, function (obj) { console.log("COLOCAMOS?!?!?! ", obj.id); return (obj.id == id_jugador) });
+            TipoJugada.push(nuevaficha.tipo);
+            TipoJugada.push(jugador.puntuacion);
+            TipoJugada.push(nuevaficha.EncajaCon[0].x);
+            TipoJugada.push(nuevaficha.EncajaCon[0].y);
+            TipoJugada.push(ngiros);
+            console.log("QUIERES MOSTRAR DE UNA PUTA VEZ ", TipoJugada[2]);
             return true
         }
         else{
@@ -46,27 +55,31 @@ jugadorIA=function(id_jugador, Partida){
 			}
     }
 
-    for (coordenadas in nuevaficha.EncajaCon) { //Esto nos sirve para ver con que piezas nos encaja la nuestra
+    //for (coordenadas in nuevaficha.EncajaCon) { //Esto nos sirve para ver con que piezas nos encaja la nuestra
         
         if(!ProbarColocarFicha(0))
 		{
-			this.nuevaficha = this.nuevaficha.girar();
+			console.log("ROTAMOSSSS",nueva.ficha);
+			nuevaficha = nuevaficha.girar();
 			if(!ProbarColocarFicha(1))
 			{
-				this.nuevaficha = this.nuevaficha.girar();
-				this.nuevaficha = this.nuevaficha.girar();
+				console.log("ROTAMOS2",nueva.ficha);
+				nuevaficha = nuevaficha.girar();
+				nuevaficha = nuevaficha.girar();
 				if(!ProbarColocarFicha(2))
 				{
-					this.nuevaficha = this.nuevaficha.girar();
-					this.nuevaficha = this.nuevaficha.girar();
-					this.nuevaficha = this.nuevaficha.girar();
+					console.log("ROTAMOS3",nueva.ficha);
+					nuevaficha = nuevaficha.girar();
+					nuevaficha = nuevaficha.girar();
+					nuevaficha = nuevaficha.girar();
 					ProbarColocarFicha(3);
 				}
 			}
-		}
-		return [this.nuevaFicha.Tipo, TipoJugada];
+		//}
+		
     }
-
+		console.log("Jugada?!?!?! ", TipoJugada);
+		return TipoJugada;
     
 
 

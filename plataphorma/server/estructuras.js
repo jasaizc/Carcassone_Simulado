@@ -225,8 +225,8 @@ var Coor = function(x,y){
 			
 		if((dummyU==undefined)&&(dummyD==undefined)&&(dummyR==undefined)&&(dummyL==undefined)&&(pieza.tipo != 'CiudadD')){comparo = false}//ninguna pieza cercana
 			
-		if((dummyU!=undefined)&&(dummyU.Abajo!=pieza.Arriba)){comparo = false}	//algun conflicto; false
-		if((dummyD!=undefined)&&(dummyD.Arriba!=pieza.Abajo)){comparo = false}
+		if((dummyU!=undefined)&&(dummyU.Arriba!=pieza.Abajo)){comparo = false}	//algun conflicto; false
+		if((dummyD!=undefined)&&(dummyD.Abajo!=pieza.Arriba)){comparo = false}
 		if((dummyR!=undefined)&&(dummyR.Izquierda!=pieza.Derecha)){comparo = false}
 		if((dummyL!=undefined)&&(dummyL.Derecha!=pieza.Izquierda)){comparo = false}	//exista y no coincida
 		
@@ -246,7 +246,7 @@ var Coor = function(x,y){
 		if(this.puedocolocar(pieza,x,y)){
 			pieza.x=x;
 			pieza.y = y;
-			pieza.lleno = true;
+			pieza.lleno = true; 
 			this.posiciones.push(pieza)
 			return true
 		}

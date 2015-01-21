@@ -220,13 +220,7 @@ Meteor.startup(function() {
 		Players.insert({user_name:"Jesulin",total_points:40,victories:30,defeats:20,dropouts:0});
 		Players.insert({user_name:"Carmensita",total_points:0,victories:10,defeats:20,dropouts:0});
         */
-		
-		Rooms.insert({user_name:"Pepiño",max_players:5,max_IAs:1,in_players:2,date:0,start:false});
-		Rooms.insert({user_name:"Antonio",max_players:5,max_IAs:1,in_players:2,date:0,start:false});
-		Rooms.insert({user_name:"Manolo",max_players:5,max_IAs:1,in_players:2,date:0,start:false});
-		Rooms.insert({user_name:"Jesulin",max_players:5,max_IAs:1,in_players:2,date:0,start:false});
-		Rooms.insert({user_name:"Pepiño",max_players:5,max_IAs:1,in_players:2,date:0,start:false});
-		
+
 
 	};
 });
