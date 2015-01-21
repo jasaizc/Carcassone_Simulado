@@ -275,7 +275,7 @@ var Coor = function(x,y){
 			    }
 			    else {
 				
-			        if ((pieza.Arriba == pieza.Izquierda)&&(otrocaballero(tablero, pieza, 1) == false)) { array.push({ tipo: "caballero", posicion: 1 }); }
+			        if ((pieza.Arriba == pieza.Izquierda)&&(pieza.tipo!='Ciudadl')&&(otrocaballero(tablero, pieza, 1) == false)) { array.push({ tipo: "caballero", posicion: 1 }); }
 			    }
 						//si granja o camino, 1 siempre granja. Si arriba==izquierda --> es ciudad, sino granja también
 				
@@ -288,7 +288,7 @@ var Coor = function(x,y){
 			    }
 			    else {
 					//console.log(i);
-			        if ((pieza.Derecha == pieza.Arriba)&&(otrocaballero(tablero, pieza, 3) == false)){ array.push({ tipo: "caballero", posicion: 3 }); }
+			        if ((pieza.Derecha == pieza.Arriba)&&(pieza.tipo!='Ciudadl')&&(otrocaballero(tablero, pieza, 3) == false)){ array.push({ tipo: "caballero", posicion: 3 }); }
 			    }
 						//si granja o camino, 1 siempre granja. Si Derecha==Izquierda --> es ciudad, sino granja también
 				
@@ -302,7 +302,7 @@ var Coor = function(x,y){
 			    }
 			    else {
 					//console.log(i);
-			        if ((pieza.Izquierda == pieza.Abajo)&&(otrocaballero(tablero, pieza, 7) == false)) { array.push({ tipo: "caballero", posicion: 7 }); }
+			        if ((pieza.Izquierda == pieza.Abajo)&&(pieza.tipo!='Ciudadl')&&(otrocaballero(tablero, pieza, 7) == false)) { array.push({ tipo: "caballero", posicion: 7 }); }
 			    }
 						//si granja o camino, 1 siempre granja. Si Izquierda==Abajo --> es ciudad, sino granja también
 				
@@ -317,7 +317,7 @@ var Coor = function(x,y){
 			    else
 			    {
 					//console.log(i);
-			        if ((pieza.Abajo == pieza.Derecha)&&(otrocaballero(tablero, pieza, 9) == false)) {array.push({ tipo: "caballero", posicion: 9 });}
+			        if ((pieza.Abajo == pieza.Derecha)&&(pieza.tipo!='Ciudadl')&&(otrocaballero(tablero, pieza, 9) == false)) {array.push({ tipo: "caballero", posicion: 9 });}
 			    }
 						//si granja o camino, 1 siempre granja. Si Abajo==Derecha --> es ciudad, sino granja también
 				
