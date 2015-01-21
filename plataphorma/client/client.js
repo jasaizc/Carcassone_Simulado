@@ -103,6 +103,7 @@ Meteor.startup(function() {
    $("#contact").hide();
    $("#chatCarcasson").hide();
    $("#mycanvas").hide();
+   $("#chatZone").hide();
 
   $("#acabarCarca").click(function(){
     alert("QUE ACABO MOTHERFUCKER!")
@@ -607,6 +608,8 @@ Template.crearpartida.events = {
 	'click #aceptar':function(){
 		$("#crpart").hide();
 		$("#allSalas").show();
+    $("#chatZone").show();
+    $("#allPlayers").show();
 	} 
 }; 
 
@@ -702,6 +705,7 @@ Template.unirspartida.events={
             }else{
               //aqui se muestra la sala, y se rellena con la plantilla de jugadrspartida
               $("#allPlayers").show();
+              $("#chatZone").show();
               //La sala de partidas tambien debe desaparecer
               //$("#allSalas").slideUp("slow")
             }
@@ -714,14 +718,6 @@ Template.unirspartida.events={
       }
 
     },
-
-    'click #toPlayers': function () {
-      if(Meteor.userId()){
-        $("#allPlayers").show();
-      }else{
-       alert("Debes loguearte para poder ver las salas");
-      }
-    }
 }
 
 //Evento de borrado de un jugador de una sala, en caso de existir
@@ -755,10 +751,8 @@ Template.jugadrspartida.events={
         Rooms.update({_id:ensala.id_room},{ $set: {user_name:user.username} });
       }
       Session.set("currentRoom",null)
+      $("#chatZone").hide();
   },
-	'click #return':function(){
-		$("#allPlayers").hide();
-	}
 }
 
 //Zona de registro 

@@ -22,7 +22,7 @@
 
 #crpart{
 	color: white;
-	background-image:url(images/40-589c4_1024x0768.jpg);
+	background-image:url(images/crear.jpg);
 	width: 300px;
 	height: 230px;
 	position: relative;
@@ -41,16 +41,11 @@
 }
 
 #gcontainer{
-	background-image: url(images/Fondo_inicial.png);
+	background-image: url(images/inicio.png);
 	background-position: center;
 	height: 200px;
 	width: 1200px;
 	text-align: center;
-}
-
-#toPlayers{
-	position: relative;
-	margin-left:10px;
 }
 
 #toPlay{
@@ -63,7 +58,7 @@
 	font-size:15px;
 	height: 450px;
 	width: 500px;
-	background-image: url(images/FondoMedieval-bosqueDANTAL-04_thumb[2].jpg);
+	background-image: url(images/salas.jpg);
 	position: relative;
 	top: 20px;
 	left: 30px;
@@ -72,17 +67,11 @@
 #allPlayers{
 	color: white;
 	font-size: 20px;
-	background-image: url(images/medieval-dama-precioso-imagen.jpg);
+	background-image: url(images/jugadores.jpg);
 	height: 278px;
 	width: 450px;
 	top: 80px;
 	left: 50px;
-}
-
-#return{
-	position: absolute;
-	top: 220px;
-	left: 250px;
 }
 
 #dropOutGame{
@@ -92,13 +81,9 @@
 }
 
 #chatZone{
+	height: 438px;
+	width: 338px;
 	top: 30px;
 	left: 20px;
-	background: blue;
-}
-
-#messageZone{
-	top: 30px;
-	left: 40px;
-	background: red;
+	background-image: url(images/chat.jpg);
 }
