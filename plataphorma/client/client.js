@@ -590,16 +590,6 @@ Template.crearpartida.events = {
 
 //Template para cambiar de juego
 Template.PrincipalGames.events = {
-    'click #AlienInvasion': function () {
-    	$("#principal").slideUp("slow")
-    	$("#minigames").show("slow")
-    	$("#myCarousel").hide("slow")
-      $("#chatCarcasson").slideUp()
-      $("#container").show();
-      var game = Games.findOne({name:"AlienInvasion"});
-      Session.set("current_game", game._id);
-
-    },
     'click #FrootWars': function () {
     	$("#principal").slideUp("slow")
     	$("#minigames").show("slow")
