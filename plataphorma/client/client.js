@@ -1,5 +1,5 @@
 ﻿var currentUser = null;
-var currentRoom= null;
+//var currentRoom= null;
 var playing=false;
 // Nos suscribimos al catalogo de juegos
 Meteor.subscribe("all_games");
@@ -21,6 +21,13 @@ Tracker.autorun(function(){
     Meteor.subscribe("current_scores", current_game);
     Meteor.subscribe("messages_current_game", current_game);
 
+
+});
+
+//Reactivo para cambiar la sala en la que estamos
+Tracker.autorun(function(){
+	  var	currentRoom= Session.get("currentRoom");
+    Meteor.subscribe("messages_current_room", currentRoom);
 
 });
 
@@ -96,6 +103,7 @@ Meteor.startup(function() {
    $("#contact").hide();
    $("#chatCarcasson").hide();
    $("#mycanvas").hide();
+   $("#chatZone").hide();
 
   $("#acabarCarca").click(function(){
     alert("QUE ACABO MOTHERFUCKER!")
@@ -265,6 +273,21 @@ Template.messages.messages = function () {
     return messages;
 }
 
+//Template para los mensajes de los chats de sala
+Template.messagesroom.messagesroom = function () {
+
+    var messagesColl =  Messages.find({}, { sort: { time: -1 }});
+    var messages = [];
+
+    messagesColl.forEach(function(m){
+        var userName = Meteor.users.findOne(m.user_id).username;
+        messages.push({name: userName , message: m.message});
+    });
+
+    return messages;
+}
+
+
 //helper que muestra el nombre de cada jugador de la sala a la que te unes
 Template.jugadrspartida.Jugador= function(){
   //falta filtrar jugadores por la sala en cuestion
@@ -395,6 +418,35 @@ Template.input.events = {
         }
     } 
 }
+
+//Template para los mensajes de sala
+
+Template.inputroom.events = {
+    'keydown input#messageroom' : function (event) {
+        if (event.which == 13) {
+            if (Meteor.userId()){
+                var user_id = Meteor.user()._id;
+                var message = $('#messageroom');
+                if (message.value != '') {
+                    Messages.insert({
+                        user_id: user_id,
+                        message: message.val(),
+                        time: Date.now(),
+                        game_id: Session.get("current_game"),
+												id_room:Session.get("currentRoom")
+                    });
+                    message.val('');
+                }
+            }
+						
+            else {
+                $("#login-error").show();
+            }
+        }
+    } 
+}
+
+
 
 //Template para la creacion de una partida con el boton nueva partida
 
@@ -556,6 +608,8 @@ Template.crearpartida.events = {
 	'click #aceptar':function(){
 		$("#crpart").hide();
 		$("#allSalas").show();
+    $("#chatZone").show();
+    $("#allPlayers").show();
 	} 
 }; 
 
@@ -651,6 +705,7 @@ Template.unirspartida.events={
             }else{
               //aqui se muestra la sala, y se rellena con la plantilla de jugadrspartida
               $("#allPlayers").show();
+              $("#chatZone").show();
               //La sala de partidas tambien debe desaparecer
               //$("#allSalas").slideUp("slow")
             }
@@ -663,14 +718,6 @@ Template.unirspartida.events={
       }
 
     },
-
-    'click #toPlayers': function () {
-      if(Meteor.userId()){
-        $("#allPlayers").show();
-      }else{
-       alert("Debes loguearte para poder ver las salas");
-      }
-    }
 }
 
 //Evento de borrado de un jugador de una sala, en caso de existir
@@ -704,10 +751,8 @@ Template.jugadrspartida.events={
         Rooms.update({_id:ensala.id_room},{ $set: {user_name:user.username} });
       }
       Session.set("currentRoom",null)
+      $("#chatZone").hide();
   },
-	'click #return':function(){
-		$("#allPlayers").hide();
-	}
 }
 
 //Zona de registro 

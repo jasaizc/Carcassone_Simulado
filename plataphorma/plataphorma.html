@@ -147,13 +147,6 @@
                 <div class="col-md-6" id="chatZone">
                     {{> chatroom}}
                 </div>
-                <div class="col-md-6" id="messageZone">
-                    <p>Mensaje 1</p>
-                    <p>Mensaje 2</p>
-                    <p>Mensaje 3</p>
-                    <p>Mensaje 4</p>
-                    <p>Mensaje 5</p>
-                </div>
             </div>
         </div>
 
@@ -358,7 +351,6 @@
     {{#each Salas}}
         <p>Partida de <strong>{{host}}</strong> Jugadores: {{dentro}}/{{jugadores}} (IA:{{ia}})
             <a value="{{id}}" class="btn btn-default" id="toPlay">Unirse</a>
-			<a value="{{id}}" class="btn btn-default" id="toPlayers">Apuntados</a>
         </p>
     {{/each}}
 </template>
@@ -369,7 +361,6 @@
         <p><strong>{{nombre}}</strong></p>
         {{/each}}
         <a class="btn btn-default" id= "dropOutGame">Abandonar</a>
-		<a class="btn btn-default" id= "return">Atras</a>
 </template>
 
 <!--_________Template para canvas Carcassone_________-->
@@ -530,7 +521,7 @@
 
 
 <template name="inputroom">
-  <p>Message: <input type="text" id="message"></p>
+  <p>Message: <input type="text" id="messageroom"></p>
 
   
   <div class="alert fade in" id="login-error" style="display:none;">
@@ -541,9 +532,9 @@
 </template>
 
 <template name="messagesroom">
-  <table id="rooms" class="table table-striped">  
+  <table id="rooms" class="table">  
     <tbody>
-      {{#each messages}}
+      {{#each messagesroom}}
       <tr>
     <td><strong>{{name}}:</strong></td>
     <td>{{message}}</td>
