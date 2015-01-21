@@ -255,7 +255,8 @@ var Coor = function(x,y){
 	
 	
 	// ENTRA UNA PIEZA YA COLOCADA Y DEVUELVE ARRAY CON POSIBLES SITIOS DONDE COLOCAR SEGUIDOR (ARRAY CON VALORES DE 1 A 9)
-	this.posibleseguidor= function(pieza, Tablero){		//la pieza ya trae las coordenadas				//a otroladron(pieza,posicion cuadrícula)
+		this.posibleseguidor= function(pieza,Tablero){		//la pieza ya trae las coordenadas				//a otroladron(pieza,posicion cuadrícula)
+		var tablero = Tablero;
 		var array= [];
 		var correcto = 0;
 		for(i=1; i<=9; i++){		//posiciones pieza (cuadricula)
@@ -264,53 +265,50 @@ var Coor = function(x,y){
 			/////////// ESQUINAS ///////////////
 			if(i==1){	//superior izq 
 				
-			    if (((pieza.Arriba == 'Camino') || (pieza.Arriba == 'Granja') || (pieza.Arriba != pieza.Izquierda)) && (otrogranjero(pieza, i) == false)) 
+			    if (((pieza.Arriba == 'Camino') || (pieza.Arriba == 'Granja') || (pieza.Arriba != pieza.Izquierda)) && (otrogranjero(pieza, i,tablero) == false)) 
 			    {
-			        if (pieza.Arriba == 'Camino') { array.push({ tipo: "ladron", posicion: i }); }
-			        else if (pieza.Arriba == 'Granja') { array.push({ tipo: "granjero", posicion: i }); }
+			       // no tiene sentido camino en esquina---> if (pieza.Arriba == 'Camino') { array.push({ tipo: "ladron", posicion: i }); }
+			       array.push({ tipo: "granjero", posicion: i });
 			    }
 			    else {
-			        if (otrocaballero(pieza, i) == false) { array.push({ tipo: "caballero", posicion: i }); }
+			        if ((pieza.Arriba == pieza.Izquierda)&&(otrocaballero(pieza, i,tablero) == false)) { array.push({ tipo: "caballero", posicion: i }); }
 			    }
 						//si granja o camino, 1 siempre granja. Si arriba==izquierda --> es ciudad, sino granja también
 				
 			}
 			if(i==3){	//superior dcha 
 				
-			    if (((pieza.Derecha == 'Camino') || (pieza.Derecha == 'Granja') || (pieza.Derecha != pieza.Arriba)) && (otrogranjero(pieza, i) == false))
+			    if (((pieza.Derecha == 'Camino') || (pieza.Derecha == 'Granja') || (pieza.Derecha != pieza.Arriba)) && (otrogranjero(pieza, i,tablero) == false))
 			    {
-			        if (pieza.Derecha == 'Camino') { array.push({ tipo: "ladron", posicion: i }); }
-			        else if (pieza.Derecha == 'Granja') { array.push({ tipo: "granjero", posicion: i }); }
+			        array.push({ tipo: "granjero", posicion: i });
 			    }
 			    else {
-			        if (otrocaballero(pieza, i) == false) { array.push({ tipo: "caballero", posicion: i }); }
+			        if ((pieza.Derecha == pieza.Arriba)&&(otrocaballero(pieza, i,tablero) == false)){ array.push({ tipo: "caballero", posicion: i }); }
 			    }
 						//si granja o camino, 1 siempre granja. Si Derecha==Izquierda --> es ciudad, sino granja también
 				
 			}
 			if(i==7){	//inferior izda 
 				
-			    if (((pieza.Izquierda == 'Camino') || (pieza.Izquierda == 'Granja') || (pieza.Izquierda != pieza.Abajo)) && (otrogranjero(pieza, i) == false))
+			    if (((pieza.Izquierda == 'Camino') || (pieza.Izquierda == 'Granja') || (pieza.Izquierda != pieza.Abajo)) && (otrogranjero(pieza, i,tablero) == false))
 			    {
-			        if (pieza.Izquierda == 'Camino') { array.push({ tipo: "ladron", posicion: i }); }
-			        else if (pieza.Izquierda == 'Granja') { array.push({ tipo: "granjero", posicion: i }); }
+			        array.push({ tipo: "granjero", posicion: i });
 			    }
 			    else {
-			        if (otrocaballero(pieza, i) == false) { array.push({ tipo: "caballero", posicion: i }); }
+			        if ((pieza.Izquierda == pieza.Abajo)&&(otrocaballero(pieza, i,tablero) == false)) { array.push({ tipo: "caballero", posicion: i }); }
 			    }
 						//si granja o camino, 1 siempre granja. Si Izquierda==Abajo --> es ciudad, sino granja también
 				
 			}
 			if(i==9){	//inferior izda 
 				
-			    if (((pieza.Abajo == 'Camino') || (pieza.Abajo == 'Granja') || (pieza.Abajo != pieza.Derecha)) && (otrogranjero(pieza, i) == false))
+			    if (((pieza.Abajo == 'Camino') || (pieza.Abajo == 'Granja') || (pieza.Abajo != pieza.Derecha)) && (otrogranjero(pieza, i,tablero) == false))
 			    {
-			        if (pieza.Abajo == 'Camino') {array.push({ tipo: "ladron", posicion: i });}
-			        else if (pieza.Abajo == 'Granja') {array.push({ tipo: "granjero", posicion: i });}
+			        array.push({ tipo: "granjero", posicion: i });
 			    }
 			    else
 			    {
-			        if (otrocaballero(pieza, i) == false) {array.push({ tipo: "caballero", posicion: i });}
+			        if ((pieza.Abajo == pieza.Derecha)&&(otrocaballero(pieza, i,tablero) == false)) {array.push({ tipo: "caballero", posicion: i });}
 			    }
 						//si granja o camino, 1 siempre granja. Si Abajo==Derecha --> es ciudad, sino granja también
 			}
@@ -319,47 +317,27 @@ var Coor = function(x,y){
 			
 			if(i==2){	//superior centro 
 				
-				if (((pieza.Arriba == 'Camino')&&(otroladron(pieza,i)==false))
-					|| ((pieza.Arriba == 'Ciudad')&&(otrocaballero(pieza,i)==false))
-					|| ((pieza.Arriba == 'Granja')&&(otrogranjero(pieza,i)==false)))
-				{
-				    if(pieza.Arriba == 'Camino'){array.push({tipo: "ladron",posicion:i});}
-				    else if(pieza.Arriba == 'Ciudad'){array.push({tipo: "caballero",posicion:i});}
-				    else if(pieza.Arriba == 'Granja'){array.push({tipo: "granjero",posicion:i});}
-				}
+				if((pieza.Arriba == 'Camino')&&(otroladron(pieza,i,tablero)==false)) {array.push({tipo: "ladron",posicion:i});}
+				if((pieza.Arriba == 'Ciudad')&&(otrocaballero(pieza,i,tablero)==false)) {array.push({tipo: "caballero",posicion:i});}
+				if((pieza.Arriba == 'Granja')&&(otrogranjero(pieza,i,tablero)==false)) {array.push({tipo: "granjero",posicion:i});}
 			}
 			if(i==4){	//medio izq
 				
-				if (((pieza.Izquierda == 'Camino')&&(otroladron(pieza,i)==false))
-					|| ((pieza.Izquierda == 'Ciudad')&&(otrocaballero(pieza,i)==false))
-					|| ((pieza.Izquierda == 'Granja')&&(otrogranjero(pieza,i)==false)))
-				{
-				    if(pieza.Izquierda == 'Camino'){array.push({tipo: "ladron",posicion:i});}
-				    else if(pieza.Izquierda == 'Ciudad'){array.push({tipo: "caballero",posicion:i});}
-				    else if(pieza.Izquierda == 'Granja'){array.push({tipo: "granjero",posicion:i});}
-				}
+				if((pieza.Izquierda == 'Camino')&&(otroladron(pieza,i,tablero)==false)) {array.push({tipo: "ladron",posicion:i});}
+				if((pieza.Izquierda == 'Ciudad')&&(otrocaballero(pieza,i,tablero)==false)) {array.push({tipo: "caballero",posicion:i});}
+				if((pieza.Izquierda == 'Granja')&&(otrogranjero(pieza,i,tablero)==false)) {array.push({tipo: "granjero",posicion:i});}
 			}
 			if(i==6){	//medio dcha
 				
-				if (((pieza.Derecha == 'Camino')&&(otroladron(pieza,i)==false))
-					|| ((pieza.Derecha == 'Ciudad')&&(otrocaballero(pieza,i)==false))
-					|| ((pieza.Derecha == 'Granja')&&(otrogranjero(pieza,i)==false)))
-				{
-				    if(pieza.Derecha == 'Camino'){array.push({tipo: "ladron",posicion:i});}
-				    else if(pieza.Derecha == 'Ciudad'){array.push({tipo: "caballero",posicion:i});}
-				    else if(pieza.Derecha == 'Granja'){array.push({tipo: "granjero",posicion:i});}
-				}
+				if((pieza.Derecha == 'Camino')&&(otroladron(pieza,i,tablero)==false)) {array.push({tipo: "ladron",posicion:i});}
+				if((pieza.Derecha == 'Ciudad')&&(otrocaballero(pieza,i,tablero)==false)) {array.push({tipo: "caballero",posicion:i});}
+				if((pieza.Derecha == 'Granja')&&(otrogranjero(pieza,i,tablero)==false)) {array.push({tipo: "granjero",posicion:i});}
 			}
 			if(i==8){	//inferior centro 
 				
-				if (((pieza.Abajo == 'Camino')&&(otroladron(pieza,i)==false))
-					|| ((pieza.Abajo == 'Ciudad')&&(otrocaballero(pieza,i)==false))
-					|| ((pieza.Abajo == 'Granja')&&(otrogranjero(pieza,i)==false)))
-				{
-				    if(pieza.Abajo == 'Camino'){array.push({tipo: "ladron",posicion:i});}
-				    else if(pieza.Abajo == 'Ciudad'){array.push({tipo: "caballero",posicion:i});}
-				    else if(pieza.Abajo == 'Granja'){array.push({tipo: "granjero",posicion:i});}
-				}
+				if((pieza.Abajo == 'Camino')&&(otroladron(pieza,i,tablero)==false)) {array.push({tipo: "ladron",posicion:i});}
+				if((pieza.Abajo == 'Ciudad')&&(otrocaballero(pieza,i,tablero)==false)) {array.push({tipo: "caballero",posicion:i});}
+				if((pieza.Abajo == 'Granja')&&(otrogranjero(pieza,i,tablero)==false)) {array.push({tipo: "granjero",posicion:i});}
 			}
 			
 			/////////// PIEZA CENTRAL ///////////////
@@ -376,12 +354,13 @@ var Coor = function(x,y){
 		}return array;	
 	}
 
-	this.colocarseguidor = function(pieza, posicion){
+	this.colocarseguidor = function(pieza, posicion, Tablero){
+		var tablero = Tablero;
 		if(listaJugadores[turno].seguidores > 0){ //SIEMPRE Y CUANDO EL JUGADOR TENGA SEGUIDORES
 			//POR CADA POSICION DE LA MATRIZ DE LA PIEZA
 			if(posicion == 1){
 				if(pieza.Arriba == "Granja" || pieza.Izquierda == "Granja" || pieza.Izquierda == "Camino" || pieza.Arriba == "Camino"){
-					if(!otrogranjero(pieza, 1)){
+					if(!otrogranjero(pieza, 1,tablero)){
 						var granjero = new Seguidor(1, "granjero", listaJugadores[turno]);
 						pieza.seguidores.push(granjero);
 						listaJugadores[turno].seguidores--; return true;
@@ -389,7 +368,7 @@ var Coor = function(x,y){
 						return false;
 					}
 				}else if(pieza.Izquierda == "Ciudad" && pieza.Arriba == "Ciudad" && pieza.tipo != "CiudadI"){ //ciudad especial (dos cachos separados)
-					if(!otrocaballero(pieza, 1)){
+					if(!otrocaballero(pieza, 1,tablero)){
 						var caballero = new Seguidor(1, "caballero", listaJugadores[turno]);
 						pieza.seguidores.push(caballero);
 						listaJugadores[turno].seguidores--; return true;
@@ -397,7 +376,7 @@ var Coor = function(x,y){
 						return false;
 					}
 				}else if(pieza.Izquierda == "Ciudad" && pieza.Arriba == "Ciudad" && pieza.tipo == "CiudadI"){
-					if(!otrogranjero(pieza, 1)){
+					if(!otrogranjero(pieza, 1,tablero)){
 						var granjero = new Seguidor(1, "granjero", listaJugadores[turno]);
 						pieza.seguidores.push(granjero);
 						listaJugadores[turno].seguidores--; return true;
@@ -408,7 +387,7 @@ var Coor = function(x,y){
 				
 			}else if(posicion == 2){
 				if(pieza.Arriba == "Camino"){
-					if(!otroladron(pieza, 2)){
+					if(!otroladron(pieza, 2,tablero)){
 						var ladron = new Seguidor(1, "ladron", listaJugadores[turno]);
 						pieza.seguidores.push(ladron);
 						listaJugadores[turno].seguidores--; return true;
@@ -416,7 +395,7 @@ var Coor = function(x,y){
 						return false;
 					}
 				}else if(pieza.Arriba == "Ciudad"){
-					if(!otrocaballero(pieza, 2)){
+					if(!otrocaballero(pieza, 2,tablero)){
 						var caballero = new Seguidor(1, "caballero", listaJugadores[turno]);
 						pieza.seguidores.push(caballero);
 						listaJugadores[turno].seguidores--; return true;
@@ -424,7 +403,7 @@ var Coor = function(x,y){
 						return false;
 					}
 				}else if(pieza.Arriba == "Granja"){
-					if(!otrogranjero(pieza, 2)){
+					if(!otrogranjero(pieza, 2,tablero)){
 						var granjero = new Seguidor(1, "granjero", listaJugadores[turno]);
 						pieza.seguidores.push(granjero);
 						listaJugadores[turno].seguidores--; return true;
@@ -435,7 +414,7 @@ var Coor = function(x,y){
 				
 			}else if(posicion == 3){
 				if(pieza.Derecha == "Granja" || pieza.Arriba == "Granja" || pieza.Arriba == "Camino" || pieza.Derecha == "Camino"){
-					if(!otrogranjero(pieza, 3)){
+					if(!otrogranjero(pieza, 3,tablero)){
 						var granjero = new Seguidor(1, "granjero", listaJugadores[turno]);
 						pieza.seguidores.push(granjero);
 						listaJugadores[turno].seguidores--; return true;
@@ -443,7 +422,7 @@ var Coor = function(x,y){
 						return false;
 					}
 				}else if(pieza.Arriba == "Ciudad" && pieza.Derecha == "Ciudad" && pieza.tipo != "CiudadI"){ //ciudad especial (dos cachos separados)
-					if(!otrocaballero(pieza, 3)){
+					if(!otrocaballero(pieza, 3,tablero)){
 						var caballero = new Seguidor(1, "caballero", listaJugadores[turno]);
 						pieza.seguidores.push(caballero);
 						listaJugadores[turno].seguidores--; return true;
@@ -451,7 +430,7 @@ var Coor = function(x,y){
 						return false;
 					}
 				}else if(pieza.Arriba == "Ciudad" && pieza.Derecha == "Ciudad" && pieza.tipo == "CiudadI"){
-					if(!otrogranjero(pieza, 3)){
+					if(!otrogranjero(pieza, 3,tablero)){
 						var granjero = new Seguidor(1, "granjero", listaJugadores[turno]);
 						pieza.seguidores.push(granjero);
 						listaJugadores[turno].seguidores--; return true;
@@ -462,7 +441,7 @@ var Coor = function(x,y){
 			
 			}else if(posicion == 4){
 				if(pieza.Izquierda == "Camino"){
-					if(!otroladron(pieza, 4)){
+					if(!otroladron(pieza, 4,tablero)){
 						var ladron = new Seguidor(1, "ladron", listaJugadores[turno]);
 						pieza.seguidores.push(ladron);
 						listaJugadores[turno].seguidores--; return true;
@@ -470,7 +449,7 @@ var Coor = function(x,y){
 						return false;
 					}
 				}else if(pieza.Izquierda == "Ciudad"){
-					if(!otrocaballero(pieza, 4)){
+					if(!otrocaballero(pieza, 4,tablero)){
 						var caballero = new Seguidor(1, "caballero", listaJugadores[turno]);
 						pieza.seguidores.push(caballero);
 						listaJugadores[turno].seguidores--; return true;
@@ -478,7 +457,7 @@ var Coor = function(x,y){
 						return false;
 					}
 				}else if(pieza.Izquierda == "Granja"){
-					if(!otrogranjero(pieza, 4)){
+					if(!otrogranjero(pieza, 4,tablero)){
 						var granjero = new Seguidor(1, "granjero", listaJugadores[turno]);
 						pieza.seguidores.push(granjero);
 						listaJugadores[turno].seguidores--; return true;
@@ -493,7 +472,7 @@ var Coor = function(x,y){
 					pieza.seguidores.push(monje);
 					listaJugadores[turno].seguidores--; return true;
 				}else if(pieza.tipo == "CiudadE" || pieza.tipo == "CiudadH" || pieza.tipo == "CiudadI" || pieza.tipo == "CiudadM" || pieza.tipo == "CiudadN"){
-					if(!otrogranjero(pieza, 5)){
+					if(!otrogranjero(pieza, 5,tablero)){
 						var granjero = new Seguidor(1, "granjero", listaJugadores[turno]);
 						pieza.seguidores.push(granjero);
 						listaJugadores[turno].seguidores--; return true;
@@ -501,7 +480,7 @@ var Coor = function(x,y){
 						return false;
 					}
 				}else if(pieza.tipo == "CiudadC" || pieza.tipo == "CiudadF" || pieza.tipo == "CiudadG" || pieza.tipo == "CiudadQ" || pieza.tipo == "CiudadR" || pieza.tipo == "CiudadS" || pieza.tipo == "CiudadT"){
-					if(!otrocaballero(pieza, 5)){
+					if(!otrocaballero(pieza, 5,tablero)){
 						var caballero = new Seguidor(1, "caballero", listaJugadores[turno]);
 						pieza.seguidores.push(caballero);
 						listaJugadores[turno].seguidores--; return true;
@@ -509,7 +488,7 @@ var Coor = function(x,y){
 						return false;
 					}
 				}else if(pieza.tipo == "CiudadD" || pieza.tipo == "CiudadJ" || pieza.tipo == "CiudadK" || pieza.tipo == "CiudadO" || pieza.tipo == "CiudadP" || pieza.tipo == "Recto" || pieza.tipo == "Curva"){
-					if(!otroladron(pieza, 5)){
+					if(!otroladron(pieza, 5,tablero)){
 						var ladron = new Seguidor(1, "ladron", listaJugadores[turno]);
 						pieza.seguidores.push(ladron);
 						listaJugadores[turno].seguidores--; return true;
@@ -523,7 +502,7 @@ var Coor = function(x,y){
 								
 			}else if(posicion == 6){
 				if(pieza.Derecha == "Camino"){
-					if(!otroladron(pieza, 6)){
+					if(!otroladron(pieza, 6,tablero)){
 						var ladron = new Seguidor(1, "ladron", listaJugadores[turno]);
 						pieza.seguidores.push(ladron);
 						listaJugadores[turno].seguidores--; return true;
@@ -531,7 +510,7 @@ var Coor = function(x,y){
 						return false;
 					}
 				}else if(pieza.Derecha == "Ciudad"){
-					if(!otrocaballero(pieza, 6)){
+					if(!otrocaballero(pieza, 6,tablero)){
 						var caballero = new Seguidor(1, "caballero", listaJugadores[turno]);
 						pieza.seguidores.push(caballero);
 						listaJugadores[turno].seguidores--; return true;
@@ -539,7 +518,7 @@ var Coor = function(x,y){
 						return false;
 					}
 				}else if(pieza.Derecha == "Granja"){
-					if(!otrogranjero(pieza, 6)){
+					if(!otrogranjero(pieza, 6,tablero)){
 						var granjero = new Seguidor(1, "granjero", listaJugadores[turno]);
 						pieza.seguidores.push(granjero);
 						listaJugadores[turno].seguidores--; return true;
@@ -549,7 +528,7 @@ var Coor = function(x,y){
 				}	
 			}else if(posicion == 7){
 				if(pieza.Izquierda == "Granja" || pieza.Abajo == "Granja" || pieza.Abajo == "Camino" || pieza.Izquierda == "Camino"){
-					if(!otrogranjero(pieza, 7)){
+					if(!otrogranjero(pieza, 7,tablero)){
 						var granjero = new Seguidor(1, "granjero", listaJugadores[turno]);
 						pieza.seguidores.push(granjero);
 						listaJugadores[turno].seguidores--; return true;
@@ -557,7 +536,7 @@ var Coor = function(x,y){
 						return false;
 					}
 				}else if(pieza.Abajo == "Ciudad" && pieza.Izquierda == "Ciudad" && pieza.tipo != "CiudadI"){ //ciudad especial (dos cachos separados)
-					if(!otrocaballero(pieza, 7)){
+					if(!otrocaballero(pieza, 7,tablero)){
 						var caballero = new Seguidor(1, "caballero", listaJugadores[turno]);
 						pieza.seguidores.push(caballero);
 						listaJugadores[turno].seguidores--; return true;
@@ -565,7 +544,7 @@ var Coor = function(x,y){
 						return false;
 					}
 				}else if(pieza.Abajo == "Ciudad" && pieza.Izquierda == "Ciudad" && pieza.tipo == "CiudadI"){
-					if(!otrogranjero(pieza, 7)){
+					if(!otrogranjero(pieza, 7,tablero)){
 						var granjero = new Seguidor(1, "granjero", listaJugadores[turno]);
 						pieza.seguidores.push(granjero);
 						listaJugadores[turno].seguidores--; return true;
@@ -575,7 +554,7 @@ var Coor = function(x,y){
 				}			
 			}else if(posicion == 8){
 				if(pieza.Abajo == "Camino"){
-					if(!otroladron(pieza, 8)){
+					if(!otroladron(pieza, 8,tablero)){
 						var ladron = new Seguidor(1, "ladron", listaJugadores[turno]);
 						pieza.seguidores.push(ladron);
 						listaJugadores[turno].seguidores--; return true;
@@ -583,7 +562,7 @@ var Coor = function(x,y){
 						return false;
 					}
 				}else if(pieza.Abajo == "Ciudad"){
-					if(!otrocaballero(pieza, 8)){
+					if(!otrocaballero(pieza, 8,tablero)){
 						var caballero = new Seguidor(1, "caballero", listaJugadores[turno]);
 						pieza.seguidores.push(caballero);
 						listaJugadores[turno].seguidores--; return true;
@@ -591,7 +570,7 @@ var Coor = function(x,y){
 						return false;
 					}
 				}else if(pieza.Abajo == "Granja"){
-					if(!otrogranjero(pieza, 8)){
+					if(!otrogranjero(pieza, 8,tablero)){
 						var granjero = new Seguidor(1, "granjero", listaJugadores[turno]);
 						pieza.seguidores.push(granjero);
 						listaJugadores[turno].seguidores--; return true;
@@ -601,7 +580,7 @@ var Coor = function(x,y){
 				}
 			}else if(posicion == 9){
 				if(pieza.Abajo == "Granja" || pieza.Derecha == "Granja" || pieza.Derecha == "Camino" || pieza.Abajo == "Camino"){
-					if(!otrogranjero(pieza, 9)){
+					if(!otrogranjero(pieza, 9,tablero)){
 						var granjero = new Seguidor(1, "granjero", listaJugadores[turno]);
 						pieza.seguidores.push(granjero);
 						listaJugadores[turno].seguidores--; return true;
@@ -609,7 +588,7 @@ var Coor = function(x,y){
 						return false;
 					}
 				}else if(pieza.Derecha == "Ciudad" && pieza.Abajo == "Ciudad" && pieza.tipo != "CiudadI"){ //ciudad especial (dos cachos separados)
-					if(!otrocaballero(pieza, 9)){
+					if(!otrocaballero(pieza, 9,tablero)){
 						var caballero = new Seguidor(1, "caballero", listaJugadores[turno]);
 						pieza.seguidores.push(caballero);
 						listaJugadores[turno].seguidores--; return true;
@@ -617,7 +596,7 @@ var Coor = function(x,y){
 						return false;
 					}
 				}else if(pieza.Derecha == "Ciudad" && pieza.Abajo == "Ciudad" && pieza.tipo == "CiudadI"){
-					if(!otrogranjero(pieza, 9)){
+					if(!otrogranjero(pieza, 9,tablero)){
 						var granjero = new Seguidor(1, "granjero", listaJugadores[turno]);
 						pieza.seguidores.push(granjero);
 						listaJugadores[turno].seguidores--; return true;
