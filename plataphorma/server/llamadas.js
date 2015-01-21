@@ -153,7 +153,9 @@ nuevaPartida: function(parametros_game){
             Partida.listaJugadores[1].puntos = 0;
 			for (i=0; i< Partida.listaJugadores.length; i++){
 			
-			puntuacion.push([Partida.listaJugadores[i].id,Partida.listaJugadores[i].puntos]);
+
+			puntuacion.push([Partida.listaJugadores[i].id, Partida.listaJugadores[i].puntos]);
+
 			
 			}
 			var finalizar = [id_game, puntuacion];

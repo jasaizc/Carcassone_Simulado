@@ -168,10 +168,21 @@ Meteor.methods({
         var Puntuacion = finalizar[1];
         var room = finalizar[0];
 
-        JoinPlayer.remove(id_room.room);
-        Rooms.remove(id_room)
+        JoinPlayer.remove({id_room:room});
+        Rooms.remove({_id:room});
 
+        console.log(room);
+        console.log("----------------------------------------------");
+        console.log(Puntuacion)
 
+        for(j=0;j<Puntuacion.length;j++){
+
+            if (aux<Puntuacion.puntos[j]){
+                haGanado=j;
+                aux=aux+Puntuacion.puntos[j];
+            }
+
+        }
         for(j=0;j<Puntuacion.puntos.length;j++){
 
             if (aux<Puntuacion.puntos[j]){
