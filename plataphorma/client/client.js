@@ -98,35 +98,8 @@ Meteor.startup(function() {
    $("#mycanvas").hide();
 
   $("#acabarCarca").click(function(){
-    var room= Session.get("currentRoom")
-    var players= JoinPlayer.find({id_room:room},{})
-    Rooms.remove(room);
-
-    players.forEach(function (x){
-      if(x.originalID!= Meteor.userId()){
-        if(x.user_name!="IA"){
-
-          Scores.insert({
-                  user_id: x.originalID, 
-                  time_end: Date.now(),
-                  points: 50,
-                  game_id: Session.get("current_game"),
-                  state: "perdida"
-          });
-          var player=Players.findOne({originalID:x.originalID})
-          Players.update({_id:player._id}, { $inc: { total_points: +50 , defeats: +1 } });
-
-        }
-
-      }else{
-        Meteor.call("matchFinish", Session.get("current_game"),950,"ganada" );
-        var player=Players.findOne({originalID:x.originalID})
-        Players.update({_id:player._id}, { $inc: { total_points: +950 , victories: +1 } });
-
-      }
-      JoinPlayer.remove(x._id)
-
-    })
+    alert("QUE ACABO MOTHERFUCKER!")
+    Meteor.call('finalizarPartida',Session.get("currentRoom"))
   })
 	
    //Boton para acceder al ranking
@@ -590,16 +563,6 @@ Template.crearpartida.events = {
 
 //Template para cambiar de juego
 Template.PrincipalGames.events = {
-    'click #AlienInvasion': function () {
-    	$("#principal").slideUp("slow")
-    	$("#minigames").show("slow")
-    	$("#myCarousel").hide("slow")
-      $("#chatCarcasson").slideUp()
-      $("#container").show();
-      var game = Games.findOne({name:"AlienInvasion"});
-      Session.set("current_game", game._id);
-
-    },
     'click #FrootWars': function () {
     	$("#principal").slideUp("slow")
     	$("#minigames").show("slow")

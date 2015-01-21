@@ -158,16 +158,15 @@ Meteor.methods({
                  state: varstate
 			    });
     },
-    matchFinishCarcassone: function (Puntuacion){
+    matchFinishCarcassone: function (finalizar){
         
         var haGanado=0;
         var aux=0;
         var j;
         var i;
 
-
-        var unJugador = JoinPlayer.findOne({user_id:Puntuacion.user_id[0]});
-        var room = unjugador.id_room;
+        var Puntuacion = finalizar[1];
+        var room = finalizar[0];
 
         JoinPlayer.remove(id_room.room);
         Rooms.remove(id_room)
@@ -210,7 +209,6 @@ Meteor.startup(function() {
     // Miramos si la coleccion de objetos esta vacia, y en caso de estarlo añadimos los juegos
     if (Games.find().count() == 0) {
 		Games.insert({name: "Carcassone",banner: "http://domneuve.com/img/Carcassone%20banner.jpg",presentation:"¡Conviertete en el mas poderoso señor feudal de todos los reinos existentes! Comanda a tus caballeros, apoya el poder del clero y contrata a mercenarios y bandidos para que hagan el trabajo sucio."});
-		Games.insert({name: "AlienInvasion",banner: "http://ccchuntersville.com/wp-content/uploads/2012/04/Aliens-Banner.jpg",presentation:"Emocionante juego de naves espaciales. Se el piloto de la nave Karsis y embarcate en la defensa del sistema solar contra la amenaza de Andromeda. El futuro de la raza humana esta en tus manos",tutorial:"Use los botones de dirección del teclado para manejar la nave. Con el botón espacio puede disparar. La destrucción de la nave supone el reseteo del juego"});
 		Games.insert({name: "FrootWars",banner: "http://www.viralvideopalace.com/wp-content/uploads/mvbthumbs/img_14457_annoying-orange-monster-burger.jpg",presentation:"¡La batalla ha comenzado! Comida hipercalorífica contra fruta sana... nunca antes en la historia se había visto una batalla tan sangrienta... . Gore en estado puro.",tutorial:"Use el ratón para tensar el tirachinas y lanzar la fruta para golpear la comida basura"});
 
         /**
