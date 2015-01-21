@@ -5,7 +5,7 @@ otroladron= function(pieza,posSeg,tablero,vengode){
 	var otro = false;
 
 	this.piezaArriba = function(pieza,posSeg,tablero,vengode){
-	
+		
 		//Pieza de arriba
 		if(pieza.Arriba == 'Camino'&& tablero.piezaenposiciones(pieza.x,pieza.y+1) && tablero.piezaenposiciones(pieza.x,pieza.y+1).Abajo=='Camino'&& vengode !='Arriba'){
 			//Primero compruebo que en esa pieza no hay ladrones
@@ -31,7 +31,9 @@ otroladron= function(pieza,posSeg,tablero,vengode){
 				//En caso de que sea uno de los cruces o el monasterio no hay recursividad ya
 			}
 		}
-		
+		else if(pieza.Arriba!='Camino'){
+			otro = true;
+		}
 		return otro;
 	}
 
@@ -61,12 +63,15 @@ otroladron= function(pieza,posSeg,tablero,vengode){
 				//En caso de que sea uno de los cruces o el monasterio no hay recursividad ya
 			}
 		}
-		
+		else if(pieza.Abajo!='Camino'){
+			otro = true;
+		}
 		return otro;
 	}
 
 	this.piezaDerecha = function(pieza,posSeg,tablero,vengode){
 		//Pieza de la derechaç
+		
 		if(pieza.Derecha == 'Camino'&& tablero.piezaenposiciones(pieza.x+1,pieza.y) && tablero.piezaenposiciones(pieza.x+1,pieza.y).Izquierda=='Camino' && vengode !='Derecha'){
 			var aux =tablero.piezaenposiciones(pieza.x+1,pieza.y);
 			//Primero compruebo que en esa pieza no hay ladrones
@@ -90,13 +95,17 @@ otroladron= function(pieza,posSeg,tablero,vengode){
 				//En caso de que sea uno de los cruces o el monasterio o las entradas de ciudad no hay recursividad ya
 			}
 		}
-		
+		else if(pieza.Derecha!='Camino'){
+			
+			otro = true;
+		}
 		return otro;
 	}
 
 	this.piezaIzquierda = function(pieza,posSeg,tablero,vengode){
 		//Pieza de la izquierda
 		if(pieza.Izquierda == 'Camino'&& tablero.piezaenposiciones(pieza.x-1,pieza.y) && tablero.piezaenposiciones(pieza.x-1,pieza.y).Derecha=='Camino' && vengode != 'Izquierda'){
+			console.log("Entro en izquierda")
 			var aux =tablero.piezaenposiciones(pieza.x-1,pieza.y);
 			//Primero compruebo que en esa pieza no hay ladrones
 			if(aux.tipo == 'Recto' || aux.tipo =='CiudadD'){
@@ -119,53 +128,43 @@ otroladron= function(pieza,posSeg,tablero,vengode){
 				//En caso de que sea uno de los cruces o el monasterio no hay recursividad ya
 			}
 		}
-
+		else if(pieza.Izquierda!='Camino'){
+			console.log("No es camino")
+			otro = true;
+		}
+		console.log("Estoy casi en el return ",otro)
 		return otro;
 	}
 	
 	//Esto es para el caso de que nuestra pieza inicial tenga el seguidor
-	for(i=0;i<pieza.seguidores.length;i++){
+	if(posSeg!=2 && posSeg!= 4 && posSeg != 6 && posSeg!= 8){
+		return true;
+	}
+	
+	/*for(i=0;i<pieza.seguidores.length;i++){
 		if(pieza.seguidores[i].tipo="ladron"){otro = true; return otro}
-	}
-	if(pieza.tipo == 'Cruce4' || pieza.tipo== 'Cruce3' || pieza.tipo=='CiudadL'){
-		if(posSeg==2){
-			//Pieza de arriba
-
-			otro = piezaArriba(pieza,posSeg,tablero,vengode);
-
-		}
-
-		else if(posSeg==4){
-			//Pieza de la izquierda
-			otro = piezaIzquierda(pieza,posSeg,tablero,vengode);
-		}
-
-		else if(posSeg==6){
-			//Pieza de la derecha
-			otro = piezaDerecha(pieza,posSeg,tablero,vengode);
-		}
-
-		else{
-			//Pieza de abajo
-			otro = piezaAbajo(pieza,posSeg,tablero,vengode);
-		}
-	}
-	else{
+	}*/
+	console.log("Entro en posSeg=",posSeg)
+	if(posSeg==2){
 		//Pieza de arriba
 		otro = piezaArriba(pieza,posSeg,tablero,vengode);
-
-		//Pieza de abajo
-		otro = piezaAbajo(pieza,posSeg,tablero,vengode);
-
-
-
-		//Pieza de la derecha
-		otro = piezaDerecha(pieza,posSeg,tablero,vengode);
-
-
+	}
+	else if(posSeg==4){
 		//Pieza de la izquierda
+		
 		otro = piezaIzquierda(pieza,posSeg,tablero,vengode);
 	}
+
+	else if(posSeg==6){
+		//Pieza de la derecha
+		otro = piezaDerecha(pieza,posSeg,tablero,vengode);
+	}
+
+	else if(posSeg==8){
+		//Pieza de abajo
+		otro = piezaAbajo(pieza,posSeg,tablero,vengode);
+	}
+
 	return otro;
 }
 
