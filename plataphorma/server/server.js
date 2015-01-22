@@ -171,35 +171,44 @@ Meteor.methods({
         JoinPlayer.remove({id_room:room});
         Rooms.remove({_id:room});
 
-        console.log(room);
         console.log("----------------------------------------------");
+        console.log(finalizar[0]);
         console.log(Puntuacion)
 
         for(j=0;j<Puntuacion.length;j++){
 
-            if (aux<Puntuacion.puntos[j]){
+            if (aux<Puntuacion[j][1]){
                 haGanado=j;
-                aux=aux+Puntuacion.puntos[j];
+                aux=aux+Puntuacion[j][1];
             }
 
         }
-        for(j=0;j<Puntuacion.puntos.length;j++){
 
-            if (aux<Puntuacion.puntos[j]){
-                haGanado=j;
-                aux=aux+Puntuacion.puntos[j];
-            }
-
-        }
+        console.log(haGanado);
 
         if (this.userId){
-
-            for(i=0;i<Puntuacion.user_id.length;i++){
-                if(i==haGanado){
-                    Meteor.users.update({_id:Puntuacion.user_id[i]}, { $inc: { total_points: +Puntuacion.puntos[i] , victories: +1 } });
-                }else{
-                    Meteor.users.update({_id:Puntuacion.user_id[i]}, { $inc: { total_points: +Puntuacion.puntos[i] , defeats: +1 } });
-                }  
+            for(i=0;i<Puntuacion.length;i++){
+                if(Players.findOne({originalID:Puntuacion[i][0]})!=null){
+                    if(i==haGanado){
+                        Players.update({originalID:Puntuacion[i][0]}, { $inc: { total_points: +Puntuacion[i][1] , victories: +1 } });
+                        Scores.insert({
+                           user_id: Puntuacion[i][0],
+                           points: Puntuacion[i][1],
+                           time_end: Date.now(),
+                           game_id: "Carcassone",
+                           stade:"Ganada"
+                        });
+                    }else{
+                        Players.update({originalID:Puntuacion[i][0]}, { $inc: { total_points: +Puntuacion[i][1] , defeats: +1 } });
+                        Scores.insert({
+                           user_id: Puntuacion[i][0],
+                           points: Puntuacion[i][1],
+                           time_end: Date.now(),
+                           game_id: "Carcassone",
+                           stade:"Perdida"
+                        });
+                    }  
+                }    
             }
         }
     },
