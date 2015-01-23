@@ -162,7 +162,7 @@ nuevaPartida: function(parametros_game){
 			var finalizar = [id_game, puntuacion];
 		    
 		    console.log("MANDAMOS", finalizar);
-		    Meteor.call("matchFinish", finalizar);
+		    Meteor.call("matchFinishCarcassone", finalizar);
 		
 
 	    } else {
