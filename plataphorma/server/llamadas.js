@@ -9,15 +9,15 @@ nuevaPartida: function(parametros_game){
 	jugadores = parametros_game[1];
 	
     if(ArrPartidas[id_game]== undefined){
-		console.log(id_game);	
+		//console.log(id_game);	
         Partida = new Tablero(id_game);
         Partida.iniciar();
         ArrPartidas[id_game] = Partida;
         //console.log(jugadores);
         for(i=0;i<jugadores.length;i++){
-			console.log(jugadores[i]);
-			console.log(jugadores[i][0]);
-			console.log(jugadores[i][1]);		
+			//console.log(jugadores[i]);
+			//console.log(jugadores[i][0]);
+			//console.log(jugadores[i][1]);		
             if (jugadores[i][1] == "IA"){
                 Partida.listaJugadores.push(new Jugador(jugadores[i][0] ,jugadores[i][1]));
                 console.log("TENEMOS UNA IA");
@@ -97,15 +97,15 @@ nuevaPartida: function(parametros_game){
 			for(i=0;i<giros;i++){
 				ficha = ficha.girar();
 			}
-			console.log("asdfasd ",posicion);
+			//console.log("asdfasd ",posicion);
 			var posciones = Partida.posiblelugar(ficha);
-			console.log(ficha);
-			console.log("POSCIONES  ",posciones);
+			//console.log(ficha);
+			//console.log("POSCIONES  ",posciones);
 			if(ficha.tipo == 'CiudadD' && Partida.totalFichas == 71)
 			{
 				
 				encaja = Partida.coloco(ficha,ficha.x,ficha.y);
-				console.log("NOS ENCAJA???", encaja);
+				//console.log("NOS ENCAJA???", encaja);
 				
 			}else{
 			//El if comprueba que la posicion este dentro de las posibles posicones donde podemos colocar
@@ -121,7 +121,7 @@ nuevaPartida: function(parametros_game){
 			}
 			ArrPartidas[id_game] = Partida;
       
-			console.log("TENGO ESTOS SEGUIDORES: ", seguidores);
+			//console.log("TENGO ESTOS SEGUIDORES: ", seguidores);
 			return seguidores;
 
 		}else{
@@ -148,7 +148,7 @@ nuevaPartida: function(parametros_game){
                         }
             }*/
             
-            console.log("MANDAMOS", Partida.listaJugadores);
+            //console.log("MANDAMOS", Partida.listaJugadores);
             Partida.listaJugadores[0].puntos = 5;
             Partida.listaJugadores[1].puntos = 0;
 			for (i=0; i< Partida.listaJugadores.length; i++){
@@ -158,7 +158,7 @@ nuevaPartida: function(parametros_game){
 			}
 			var finalizar = [id_game, puntuacion];
 		    
-		    console.log("MANDAMOS", finalizar);
+		    //console.log("MANDAMOS", finalizar);
 		    Meteor.call("matchFinishCarcassone", finalizar);
 		
 
@@ -201,10 +201,10 @@ nuevaPartida: function(parametros_game){
   //      while (ColocoFicha == false)
  //       { //Bucle en el cual probamos a colocar las fichas, Robamos con la clase JUGADORIA, y la colocamos, no podemos, tendremos que volver a robar otra ficha y realziar el mismo proceso.
             Jugada = jugadorIA(id_jugador, Tablero);
-            console.log("MENUDO JUGADON MARIANO: ", Jugada[0], "Otra ",Jugada[1],"Viva el vino" ,Jugada[2]);
+            //console.log("MENUDO JUGADON MARIANO: ", Jugada[0], "Otra ",Jugada[1],"Viva el vino" ,Jugada[2]);
             var Piezanueva = new Pieza(Jugada[0], Jugada[2], Jugada[3]);
             
-            console.log("¿Ha sido Colocada?", Piezanueva);
+            //console.log("¿Ha sido Colocada?", Piezanueva);
             for (var i = 0; i < Jugada.giros; i++) {
                 Piezanueva = Piezanueva.girar()
             }

@@ -141,12 +141,15 @@ var Coor = function(x,y){
 	        //var pieza = new Pieza(this.piezas.piezas[indice]);
 	        if (this.totalFichas == 72) { var indice = 7 }
 	        else { var indice = Math.floor(Math.random() * this.piezas.length); }
+	        
 	        var pieza = this.piezas[indice];
-	        this.npiezas[indice] = this.npiezas[indice] - 1;
+	        console.log("1-tipo pieza ", pieza, "  indice  ", indice, "  npiezas  ", this.npiezas[pieza])
+	        this.npiezas[pieza] = this.npiezas[pieza] - 1;
+	        console.log("2-tipo pieza ", pieza, "  indice  ", indice, "  npiezas  ", this.npiezas[pieza])
 	        //restamos del total de piezas y de las piezas restantes de ese tipo
 	        this.totalFichas--;
 	        //	this.piezas.npiezas[this.piezas.piezas[this.piezas.piezas[indice]]]--;
-	        if (this.npiezas[indice] == 0) { this.piezas.pop(this.piezas[indice]); }
+	        if (this.npiezas[pieza] == 0) { this.piezas.pop(this.piezas[pieza]); }
 	        //Si no quedan de ese tipo las eliminamos
 	        /*if(this.piezas.npiezas[this.piezas.piezas[this.piezas.piezas[indice]]]<=0){
 				this.piezas.piezas.pop(this.piezas.piezas[indice]);	
