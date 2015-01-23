@@ -172,10 +172,12 @@ nuevaPartida: function(parametros_game){
 
 	},
 
-	colocarSeguidor: function (id_game, id_jugador, posicion, seguidor) {
+	colocarSeguidor: function (id_game, id_jugador, posicionficha, posicion) {
 	    if (ArrPartidas[id_game]) {
 	        Partida = ArrPartidas[id_game];
 	        var pieza = Partida.piezaenposiciones(posicion.x, posicion.y);
+	        console.log("TENEMOS:", id_game, id_jugador, posicionficha, posicion );
+	        
 	        if (seguidor > 0)
 	        {
 	           var colocado = Partida.colocarseguidor(pieza, seguidor);
