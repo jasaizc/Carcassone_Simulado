@@ -1,29 +1,32 @@
 spritesC = {
     Recto:        { sx: 0, sy: 0, w:100, h: 100, frames: 1 },
-	Curva:        { sx: 0, sy: 200, w: 100, h: 100, frames: 1 },
-	Cruce3:       {sx: 1000, sy: 500, w: 100, h: 100, frames:1},
-	Cruce4:       { sx: 300, sy: 200, w: 100, h: 100, frames: 1 }, 
-	MonCamino:    { sx: 300, sy: 400, w: 100, h: 100, frames: 1 }, 
+	Curva:        { sx: 0, sy: 400, w: 100, h: 100, frames: 1 },
+	Cruce3:       {sx: 1000, sy: 500, w: 100, h: 100, frames:1},   
+	Cruce4:       { sx: 200, sy: 200, w: 100, h: 100, frames: 1 }, 
+	MonCamino:    { sx: 200, sy: 400, w: 100, h: 100, frames: 1 },
 	MonGranja:    { sx: 0, sy: 500, w: 100, h: 100, frames: 1 },
-	CiudadC:      { sx: 400, sy: 0, w: 100, h: 100, frames: 1 },  
-	CiudadD:      { sx: 800, sy: 0, w: 100, h: 100, frames: 1 },
-	CiudadE:      { sx: 1100, sy: 300, w: 100, h: 100, frames: 1 }, 
-	CiudadF:      { sx: 500, sy: 400, w: 100, h: 100, frames:1},
-	CiudadG:      { sx: 700, sy: 400, w: 100, h:100, frames:1},
+	CiudadC:      { sx: 300, sy: 0, w: 100, h: 100, frames: 1 },  
+	CiudadD:      { sx: 700, sy: 0, w: 100, h: 100, frames: 1 },
+	CiudadE:      { sx: 1000, sy: 300, w: 100, h: 100, frames:1}, 
+	CiudadF:      { sx: 500, sy: 400, w: 100, h: 100, frames: 1 },
+	CiudadG:      { sx: 600, sy: 400, w: 100, h: 100, frames: 1 },
 	CiudadH:      { sx: 500, sy: 500, w: 100, h: 100, frames: 1 },
-	CiudadI:      { sx: 1100, sy: 100, w: 100, h: 100, frames: 1 },
-	CiudadJ:      { sx: 1000, sy: 100, w: 100, h: 100, frames: 1 },
-	CiudadK:      { sx: 1000, sy: 200, w: 100, h: 100, frames: 1 }, 
-	CiudadL:      { sx: 1000, sy: 300, w: 100, h: 100, frames: 1 },
-	CiudadM:      { sx: 400, sy: 400, w: 100, h: 100, frames: 1 },
-	CiudadN:      { sx: 500, sy: 300, w: 100, h: 100, frames: 1 },
-	CiudadO:      { sx: 400, sy: 200, w: 100, h: 100, frames: 1 }, 
-	CiudadP:      { sx: 500, sy: 200, w: 100, h: 100, frames: 1 }, 
-	CiudadQ:      { sx: 400, sy: 100, w: 100, h: 100, frames: 1 },
+	CiudadI:      { sx: 1000, sy: 100, w: 100, h:100, frames:1},
+	CiudadJ:      { sx: 700, sy: 100, w: 100, h: 100, frames: 1 },
+	CiudadK:      { sx: 700, sy: 200, w: 100, h: 100, frames: 1 }, 
+	CiudadL:      { sx: 700, sy: 300, w: 100, h: 100, frames: 1 },
+	CiudadM:      { sx: 300, sy: 400, w: 100, h: 100, frames: 1 },
+	CiudadN:      { sx: 400, sy: 300, w: 100, h: 100, frames: 1 },
+	CiudadO:      { sx: 300, sy: 200, w: 100, h: 100, frames: 1 }, 
+	CiudadP:      { sx: 400, sy: 200, w: 100, h: 100, frames: 1 }, 
+	CiudadQ:      { sx: 300, sy: 100, w: 100, h: 100, frames: 1 },
 	CiudadR:      { sx: 500, sy: 100, w: 100, h: 100, frames: 1 }, 
 	CiudadS:      { sx: 500, sy: 0, w: 100, h: 100, frames: 1 },
-	CiudadT:      { sx: 700, sy: 0, w: 100, h: 100, frames: 1 },
-        
+	CiudadT:      { sx: 600, sy: 0, w: 100, h: 100, frames: 1 },
+   
+
+
+ 
         ficha_rojo: { sx: 1152, sy: 0, w: 48, h: 48, frames: 1 },
         cura_rojo: { sx: 1200, sy: 0, w: 48, h: 48, frames: 1 },
         caballero_rojo: { sx: 1248, sy: 0, w: 48, h: 48, frames: 1 },
@@ -564,6 +567,7 @@ Ficha_abajo = function(cx,cy) {
          {
            console.log("QUIERO COLOCAR LA FICHA MOTHERFUCKA a estos SEguidores: ", data);
   				if (data != 0) {
+					
     				    Juego.setBoard(8,new Set(NuevaPieza));
 						CurrentMove = 2;
 						PosicionesSeg = data;

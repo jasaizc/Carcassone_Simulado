@@ -94,8 +94,9 @@ nuevaPartida: function(parametros_game){
 	        var encaja = false;
 			Partida = ArrPartidas[id_game];
 			var ficha = new Pieza(pieza.sprite,posicion.x,posicion.y)
-			for(i=0;i<giros;i++){
+			for(i=0;i< giros;i++){
 				ficha = ficha.girar();
+				
 			}
 			console.log("asdfasd ",posicion);
 			var posciones = Partida.posiblelugar(ficha);
@@ -210,6 +211,7 @@ nuevaPartida: function(parametros_game){
             for (var i = 0; i < Jugada.giros; i++) {
                 Piezanueva = Piezanueva.girar()
             }
+            Piezanueva.giros = Jugada.giros;
             ColocoFicha = Tablero.coloco(Piezanueva, Jugada.coorx, Jugada.coory);
          //   if (ColocoFicha)
          //   {
