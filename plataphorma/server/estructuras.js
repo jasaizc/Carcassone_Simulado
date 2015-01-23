@@ -10,7 +10,7 @@ var TPiezas = {
 	CiudadE:      {Arriba: 'Ciudad' , Abajo : 'Granja' , Derecha: 'Granja' , Izquierda: 'Granja' , Escudo: 0},
 	CiudadF:      {Arriba: 'Granja' , Abajo : 'Granja' , Derecha: 'Ciudad' , Izquierda: 'Ciudad' , Escudo: 1},
 	CiudadG:      {Arriba: 'Granja' , Abajo : 'Granja' , Derecha: 'Ciudad' , Izquierda: 'Ciudad' , Escudo: 0},
-	CiudadH:      {Arriba: 'Ciudad' , Abajo : 'Ciudad' , Derecha: 'Camino' , Izquierda: 'Camino' , Escudo: 0},
+	CiudadH:      {Arriba: 'Ciudad' , Abajo : 'Ciudad' , Derecha: 'Granja' , Izquierda: 'Granja' , Escudo: 0},
 	CiudadI:      {Arriba: 'Ciudad' , Abajo : 'Granja' , Derecha: 'Ciudad' , Izquierda: 'Granja' , Escudo: 0},
 	CiudadJ:      {Arriba: 'Ciudad' , Abajo : 'Camino' , Derecha: 'Camino' , Izquierda: 'Granja' , Escudo: 0},
 	CiudadK:      {Arriba: 'Ciudad' , Abajo : 'Camino' , Derecha: 'Granja' , Izquierda: 'Camino' , Escudo: 0},
@@ -18,7 +18,7 @@ var TPiezas = {
 	CiudadM:      {Arriba: 'Ciudad' , Abajo : 'Granja' , Derecha: 'Granja' , Izquierda: 'Ciudad' , Escudo: 1},
 	CiudadN:      {Arriba: 'Ciudad' , Abajo : 'Granja' , Derecha: 'Granja' , Izquierda: 'Ciudad' , Escudo: 0},
 	CiudadO:      {Arriba: 'Ciudad' , Abajo : 'Camino' , Derecha: 'Camino' , Izquierda: 'Ciudad' , Escudo: 1},
-	CiudadP:      {Arriba: 'Ciudad' , Abajo : 'Camino' , Derecha: 'Granja' , Izquierda: 'Ciudad' , Escudo: 0},
+	CiudadP:      {Arriba: 'Ciudad' , Abajo : 'Camino' , Derecha: 'Camino' , Izquierda: 'Ciudad' , Escudo: 0},
 	CiudadQ:      {Arriba: 'Ciudad' , Abajo : 'Granja' , Derecha: 'Ciudad' , Izquierda: 'Ciudad' , Escudo: 1},
 	CiudadR:      {Arriba: 'Ciudad' , Abajo : 'Granja' , Derecha: 'Ciudad' , Izquierda: 'Ciudad' , Escudo: 0},
 	CiudadS:      {Arriba: 'Ciudad' , Abajo : 'Camino' , Derecha: 'Ciudad' , Izquierda: 'Ciudad' , Escudo: 1},
@@ -74,7 +74,7 @@ Pieza = function(tipo,x,y){
 	this.Derecha = TPiezas[this.tipo].Derecha;
 	this.Izquierda = TPiezas[this.tipo].Izquierda;
 	this.Escudo = TPiezas[this.tipo].Escudo;
-
+	this.giros = 0;
 	this.caminoCerrado = false;
 	this.ciudadCerrada = false;
 
@@ -141,12 +141,15 @@ var Coor = function(x,y){
 	        //var pieza = new Pieza(this.piezas.piezas[indice]);
 	        if (this.totalFichas == 72) { var indice = 7 }
 	        else { var indice = Math.floor(Math.random() * this.piezas.length); }
+	        
 	        var pieza = this.piezas[indice];
-	        this.npiezas[indice] = this.npiezas[indice] - 1;
+	        console.log("1-tipo pieza ", pieza, "  indice  ", indice, "  npiezas  ", this.npiezas[pieza])
+	        this.npiezas[pieza] = this.npiezas[pieza] - 1;
+	        console.log("2-tipo pieza ", pieza, "  indice  ", indice, "  npiezas  ", this.npiezas[pieza])
 	        //restamos del total de piezas y de las piezas restantes de ese tipo
 	        this.totalFichas--;
 	        //	this.piezas.npiezas[this.piezas.piezas[this.piezas.piezas[indice]]]--;
-	        if (this.npiezas[indice] == 0) { this.piezas.pop(this.piezas[indice]); }
+	        if (this.npiezas[pieza] == 0) { this.piezas.pop(this.piezas[pieza]); }
 	        //Si no quedan de ese tipo las eliminamos
 	        /*if(this.piezas.npiezas[this.piezas.piezas[this.piezas.piezas[indice]]]<=0){
 				this.piezas.piezas.pop(this.piezas.piezas[indice]);	

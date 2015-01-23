@@ -62,8 +62,9 @@ Tracker.autorun(function(){
                 $("#crs").hide()
                 $("#chatCarcasson").show()
                 $("#mycanvas").show();
+                $("#chatZone").show();
               //  alert("A JUGARRRRR!!!!")
-                
+                console.log("DONDE APARECE ESTO?!!?!?");
                
                 
             }
@@ -598,8 +599,8 @@ Template.crearpartida.events = {
                 }
                 idsPlayers.push(objaux)
               })              
-              
-              ClarcassonneGameIU("#Clarcassone", rooms._id,idsPlayers );
+              console.log("ESTOY AQUI???");
+              ClarcassonneGameIU("#Clarcassone", rooms._id,idsPlayers ); //SALA INDIVIDUAL CON IA
               //**************************************************************************\\
               //Esto lo pongo como auxiliar, pero hay que quitarlo y usar un tracker autorun
               $("#crs").slideUp("slow")
@@ -613,6 +614,9 @@ Template.crearpartida.events = {
           }
           
         }else{
+          $("#chatZone").hide();
+          $("#allSalas").hide();
+          $("#allPlayers").hide();
           alert("Debes estar logeado para crear una partida");
 
           tmpl.find('#Jugadores').value="";
@@ -623,8 +627,8 @@ Template.crearpartida.events = {
 	'click #aceptar':function(){
 		$("#crpart").hide();
 		$("#allSalas").show();
-    $("#chatZone").show();
     $("#allPlayers").show();
+    $("#chatZone").show();
 	} 
 }; 
 
@@ -708,10 +712,10 @@ Template.unirspartida.events={
                 }
                 idsPlayers.push(objaux)
               })              
-              
+              console.log("AQUI ESTOY!!!???"); //SALA MULTIJUGADOR
               ClarcassonneGameIU("#Clarcassone", rooms._id,idsPlayers );
 
-              ClarcassonneGameIU.initialize('#game', 1); 
+           //   ClarcassonneGameIU.initialize('#game', 1); 
               //comenzarpartida(room._id)
               //**************************************************************************\\
               //Esto lo pongo como auxiliar, pero hay que quitarlo y usar un tracker autorun

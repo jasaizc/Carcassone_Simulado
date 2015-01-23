@@ -1,5 +1,6 @@
 jugadorIA=function(id_jugador, Partida){
 	var nuevaficha;
+	var numerogiros;
     this.robar = function () {
         var robado = Partida.saca_pieza();
         //var TotalPosiciones = [];
@@ -14,7 +15,8 @@ jugadorIA=function(id_jugador, Partida){
 		    {
 				nuevaficha.EncajaCon.push(posicion);
 				//TotalPosiciones.push(posicion);
-				console.log("¿La posicion nueva es? ",posicion);	
+				console.log("¿La posicion nueva es? ",posicion);
+				numerogiros = i;
 				break;
 			}
 			nuevaficha = nuevaficha.girar();
@@ -46,7 +48,7 @@ jugadorIA=function(id_jugador, Partida){
             TipoJugada.push(jugador.puntuacion);
             TipoJugada.push(nuevaficha.EncajaCon[0].x);
             TipoJugada.push(nuevaficha.EncajaCon[0].y);
-            TipoJugada.push(ngiros);
+            TipoJugada.push(numerogiros);
             console.log("QUIERES MOSTRAR DE UNA PUTA VEZ ", TipoJugada[2]);
             return true
         }

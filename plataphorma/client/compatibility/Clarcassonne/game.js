@@ -1,29 +1,32 @@
 spritesC = {
     Recto:        { sx: 0, sy: 0, w:100, h: 100, frames: 1 },
-	Curva:        { sx: 0, sy: 200, w: 100, h: 100, frames: 1 },
-	Cruce3:       {sx: 1000, sy: 500, w: 100, h: 100, frames:1},
-	Cruce4:       { sx: 300, sy: 200, w: 100, h: 100, frames: 1 }, 
-	MonCamino:    { sx: 300, sy: 400, w: 100, h: 100, frames: 1 }, 
+	Curva:        { sx: 0, sy: 400, w: 100, h: 100, frames: 1 },
+	Cruce3:       {sx: 1000, sy: 500, w: 100, h: 100, frames:1},   
+	Cruce4:       { sx: 200, sy: 200, w: 100, h: 100, frames: 1 }, 
+	MonCamino:    { sx: 200, sy: 400, w: 100, h: 100, frames: 1 },
 	MonGranja:    { sx: 0, sy: 500, w: 100, h: 100, frames: 1 },
-	CiudadC:      { sx: 400, sy: 0, w: 100, h: 100, frames: 1 },  
-	CiudadD:      { sx: 800, sy: 0, w: 100, h: 100, frames: 1 },
-	CiudadE:      { sx: 1100, sy: 300, w: 100, h: 100, frames: 1 }, 
-	CiudadF:      { sx: 500, sy: 400, w: 100, h: 100, frames:1},
-	CiudadG:      { sx: 700, sy: 400, w: 100, h:100, frames:1},
+	CiudadC:      { sx: 300, sy: 0, w: 100, h: 100, frames: 1 },  
+	CiudadD:      { sx: 700, sy: 0, w: 100, h: 100, frames: 1 },
+	CiudadE:      { sx: 1000, sy: 300, w: 100, h: 100, frames:1}, 
+	CiudadF:      { sx: 500, sy: 400, w: 100, h: 100, frames: 1 },
+	CiudadG:      { sx: 600, sy: 400, w: 100, h: 100, frames: 1 },
 	CiudadH:      { sx: 500, sy: 500, w: 100, h: 100, frames: 1 },
-	CiudadI:      { sx: 1100, sy: 100, w: 100, h: 100, frames: 1 },
-	CiudadJ:      { sx: 1000, sy: 100, w: 100, h: 100, frames: 1 },
-	CiudadK:      { sx: 1000, sy: 200, w: 100, h: 100, frames: 1 }, 
-	CiudadL:      { sx: 1000, sy: 300, w: 100, h: 100, frames: 1 },
-	CiudadM:      { sx: 400, sy: 400, w: 100, h: 100, frames: 1 },
-	CiudadN:      { sx: 500, sy: 300, w: 100, h: 100, frames: 1 },
-	CiudadO:      { sx: 400, sy: 200, w: 100, h: 100, frames: 1 }, 
-	CiudadP:      { sx: 500, sy: 200, w: 100, h: 100, frames: 1 }, 
-	CiudadQ:      { sx: 400, sy: 100, w: 100, h: 100, frames: 1 },
+	CiudadI:      { sx: 1000, sy: 100, w: 100, h:100, frames:1},
+	CiudadJ:      { sx: 700, sy: 100, w: 100, h: 100, frames: 1 },
+	CiudadK:      { sx: 700, sy: 200, w: 100, h: 100, frames: 1 }, 
+	CiudadL:      { sx: 700, sy: 300, w: 100, h: 100, frames: 1 },
+	CiudadM:      { sx: 300, sy: 400, w: 100, h: 100, frames: 1 },
+	CiudadN:      { sx: 400, sy: 300, w: 100, h: 100, frames: 1 },
+	CiudadO:      { sx: 300, sy: 200, w: 100, h: 100, frames: 1 }, 
+	CiudadP:      { sx: 400, sy: 200, w: 100, h: 100, frames: 1 }, 
+	CiudadQ:      { sx: 300, sy: 100, w: 100, h: 100, frames: 1 },
 	CiudadR:      { sx: 500, sy: 100, w: 100, h: 100, frames: 1 }, 
 	CiudadS:      { sx: 500, sy: 0, w: 100, h: 100, frames: 1 },
-	CiudadT:      { sx: 700, sy: 0, w: 100, h: 100, frames: 1 },
-        
+	CiudadT:      { sx: 600, sy: 0, w: 100, h: 100, frames: 1 },
+   
+
+
+ 
         ficha_rojo: { sx: 1152, sy: 0, w: 48, h: 48, frames: 1 },
         cura_rojo: { sx: 1200, sy: 0, w: 48, h: 48, frames: 1 },
         caballero_rojo: { sx: 1248, sy: 0, w: 48, h: 48, frames: 1 },
@@ -122,6 +125,24 @@ function traducirTipoSeguidor (x) {
 function SetSeguidorEn (Seguidor, Posiciones) {
 	var encaja = false;
 	var posible;
+	var i = 1;
+	var posicionenpieza;
+	var array = [];
+	for (var y = 0 ; y < 3 ; y++){
+		for (var x = 0 ; x < 3; x++)
+		{
+			array.push([x,y,i]);			
+			i++;
+		}
+	}
+	for (pieza in array){
+		if(array[pieza][0]== Seguidor.x && array[pieza][1] == Seguidor.y)
+		{
+				posicionenpieza = array[pieza][2];
+				
+			} 
+		}
+	/*
 	for (pos in Posiciones) {
 
 		posible = Seguidortraducir(Posiciones[pos].n);
@@ -129,8 +150,8 @@ function SetSeguidorEn (Seguidor, Posiciones) {
 		if (posible.x == Seguidor.x && posible.y == Seguidor.y && traducirTipoSeguidor(Seguidor.t) ==  Posiciones[pos].t) {
 			encaja = true;	
 		}
- 	}
- 	return encaja;
+ 	}*/
+ 	return posicionenpieza;
 
 }
 
@@ -169,7 +190,7 @@ function SetPlayers (err, data) {
 		Jugador4 = {nombre: data[3].nombre.slice(0,6)    , color: "ficha_verde", puntos:data[3].puntuacion, id: data[3].id, turno: 0};
 	}
 	if (data.length == 5) {
-		Jugador5 = {nombre: data[4].nombre.slice(0,6)  , color: "ficha_gris", puntos:data[4].puntuacion, id: data[4].id, turno: 0};
+		Jugador5 = {nombre: data[4].nombre.slice(0,6)  , color: "ficha_gris", puntos:data[4].puntuacion, id: data[4].id, turno: 0};	
 	}
 	nJugadores = data.length;
 	
@@ -559,11 +580,12 @@ Ficha_abajo = function(cx,cy) {
 			if (SetFichaEn(NuevaPieza, Posiciones)) {
           if(Juego.keys['sacar_ficha']) {
          
-          console.log("POSICIONESSSSSSS  :: ",CurrentScroll.x, CurrentScroll.y);
+         console.log("POSICIONESSSSSSS  :: ",CurrentScroll.x, CurrentScroll.y);
          Meteor.call("colocarFicha", idParty, NuevaPieza, {x: NuevaPieza.x/100 + CurrentScroll.x, y: NuevaPieza.y/100 +CurrentScroll.y}, (NuevaPieza.rotation / -90), getTurno().id, function(err, data)
          {
            console.log("QUIERO COLOCAR LA FICHA MOTHERFUCKA a estos SEguidores: ", data);
   				if (data != 0) {
+					
     				    Juego.setBoard(8,new Set(NuevaPieza));
 						CurrentMove = 2;
 						PosicionesSeg = data;
@@ -689,7 +711,8 @@ PiezaMapa = function (cx,cy, sprite,rotate) {
 	this.sprite = sprite;
 	this.colocada = false;
 	this.type = 'PiezaMapa';
-	
+	this.posicionx;
+	this.posiciony;
 	this.draw = function (ctx) {
 		if (this.colocada == true) {
 			if (this.y < 500 && this.y >= 0 && this.x >= 0 && this.x < 800) {
@@ -845,12 +868,11 @@ Set = function (PiezaMapa) {
 		if (this.menu == 0) {
 			ctx.fillText("Colocar la pieza",350,160);
 			ctx.font="bold 20px Arial";
-			ctx.fillText("- Colocar sin seguidor",270,215);
-			
-			ctx.fillText("- Colocar granjero",270,245);
-			ctx.fillText("- Colocar ladrón",270,275);
-			ctx.fillText("- Colocar caballero",270,305);
-			ctx.fillText("- Colocar monje",270,335);
+			ctx.fillText("- Colocar sin seguidor",270,215);			
+			ctx.fillText("- Colocar seguidor",270,245);
+		//	ctx.fillText("- Colocar ladrón",270,275);
+		//	ctx.fillText("- Colocar caballero",270,305);
+		//	ctx.fillText("- Colocar monje",270,335);
 			
 			ctx.strokeRect(265,195+this.option*30,250,30);
 			
@@ -927,7 +949,7 @@ Set = function (PiezaMapa) {
 			if(!Juego.keys['down']) up2 = true;
 			if(up2 && Juego.keys['down']) {
 				up2 = false;
-				if (this.option < 4) {
+				if (this.option < 1) {
 					this.option += 1;
 				}
 			}
@@ -999,32 +1021,29 @@ Set = function (PiezaMapa) {
 			if(!Juego.keys['sacar_ficha']) up3 = true;
 			if(up3 && Juego.keys['sacar_ficha']) {
 				up3 = false;
-				// Coloco la ficha en el mapa en la posicion optionx,optiony
 				console.log("MENU MOSTRAMOS LA REJILLA PARA ELEGIR LUGAR");
-				if (SetSeguidorEn ( {x: this.optionx, y: this.optiony, t: this.option}, PosicionesSeg)) {
 				
-					Meteor.call("ColocarSeguidor", idParty, getTurno().id, {x: this.pieza.x/100 + CurrentScroll.x, y: this.pieza.y/100 + CurrentScroll.y}, {t:traducirTipoSeguidor (this.option) ,n: traducirSeguidor (this.optionx,this.optiony)}, function(err, data) {
-					
-					 	// Coloco la ficha en el mapa
-						that.pieza.colocada = true;
-						//Tablero.add(that.pieza);
-						//Tablero.add(new Seguidor (that.pieza.x/100,that.pieza.y/100,that.setSeguidorType(),that.optionx,that.optiony));
-						Rooms.update(idParty, {
-                            $push : {movimientos: {jugador: getTurno(), ficha: {x: that.pieza.x/100 + CurrentScroll.x, y: that.pieza.y/100 +CurrentScroll.y, sprite: that.pieza.sprite, rotation: that.pieza.rotation}, seguidor: {fx: that.pieza.x/100 , fy: that.pieza.y/100,t: that.setSeguidorType(),sx:that.optionx,sy:that.optiony}, puntos: data}}
-                          });
+				var NuevaPieza = [ this.pieza.sprite, {x: this.pieza.x/100 + CurrentScroll.x, y: this.pieza.y/100 +CurrentScroll.y}];
+				Meteor.call("colocarSeguidor", idParty, getTurno().id, SetSeguidorEn ({x: this.optionx, y: this.optiony, t: this.option}) , {x: this.pieza.x/100 + CurrentScroll.x, y: this.pieza.y/100 +CurrentScroll.y} , function(err, data) {				
+				// Coloco la ficha en el mapa
+				that.pieza.colocada = true;
+				//Tablero.add(that.pieza);
+				//Tablero.add(new Seguidor (that.pieza.x/100,that.pieza.y/100,that.setSeguidorType(),that.optionx,that.optiony));
+				//Rooms.update(idParty, {
+                //            $push : {movimientos: {jugador: getTurno(), ficha: {x: that.pieza.x/100 + CurrentScroll.x, y: that.pieza.y/100 +CurrentScroll.y, sprite: that.pieza.sprite, rotation: that.pieza.rotation}, seguidor: {fx: that.pieza.x/100 , fy: that.pieza.y/100,t: that.setSeguidorType(),sx:that.optionx,sy:that.optiony}, puntos: data}}
+                 //         });
                          //Session.set("turno", CurrentTurn+1);
-						Juego.setBoard(8,Blank);
-						Juego.setBoard(7, Blank);
-						CurrentScroll.active = true;
-						
-						$(idCanvas).unbind("mousedown");
-                          			$(idCanvas).unbind("mouseup");
-                          			$(idCanvas).unbind("mousemove");
-						//pasarTurno();
+				Juego.setBoard(8,Blank);
+				//Juego.setBoard(7, Blank);
+				CurrentScroll.active = true;
+				$(idCanvas).unbind("mousedown");
+                $(idCanvas).unbind("mouseup");
+                $(idCanvas).unbind("mousemove");
+				pasarTurno();
 					
 					});
 					
-				}
+				
 				
 			}
 		}
