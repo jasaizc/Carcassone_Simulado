@@ -124,21 +124,12 @@ var Coor = function(x,y){
          console.log("LLEGAMOS AQUI");
      }
 
-	this.aleatorio = function(numero){
- 		for(i=0; i< this.piezas.piezas.length;i++){ 
- 			if(this.piezas.npiezas[this.piezas.piezas[i]] > numero){ 
- 				return i; 
- 			}else{ 
-				numero=numero - this.piezas.npiezas[this.piezas.piezas[i]]; 
- 			} 
- 		} 
-	} 
+	
 			       
 	this.saca_pieza = function () {
 
 	    if (this.totalFichas > 0) {
-	        //var indice = this.aleatorio(Math.floor(Math.random()*this.piezas.length()));
-	        //var pieza = new Pieza(this.piezas.piezas[indice]);
+	        
 	        if (this.totalFichas == 72) { var indice = 7 }
 	        else { var indice = Math.floor(Math.random() * this.piezas.length); }
 	        
@@ -149,11 +140,9 @@ var Coor = function(x,y){
 	        //restamos del total de piezas y de las piezas restantes de ese tipo
 	        this.totalFichas--;
 	        //	this.piezas.npiezas[this.piezas.piezas[this.piezas.piezas[indice]]]--;
-	        if (this.npiezas[pieza] == 0) { this.piezas.pop(this.piezas[pieza]); }
+	        if (this.npiezas[pieza] == 0) { this.piezas.pop(this.piezas[indice]); }
 	        //Si no quedan de ese tipo las eliminamos
-	        /*if(this.piezas.npiezas[this.piezas.piezas[this.piezas.piezas[indice]]]<=0){
-				this.piezas.piezas.pop(this.piezas.piezas[indice]);	
-			}*/
+	        
 	        //Pasar el turno al siguiente
 
 	        return pieza
