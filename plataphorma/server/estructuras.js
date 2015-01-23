@@ -389,9 +389,9 @@ var Coor = function(x,y){
 		return array;	
 	}
 
-	this.colocarseguidor = function(pieza, posicion, Tablero, id_jugador){
-		var tablero = Tablero;
-		var jugador = _.find(listaJugadores, function (obj) { return (obj.id == id_jugador) })
+	this.colocarseguidor = function(pieza, posicion, tablero, id_jugador){
+		var arraysalida = [];
+		var jugador = _.find(tablero.listaJugadores, function (obj) { return (obj.id == id_jugador) })
 		if(jugador.seguidores > 0){ //SIEMPRE Y CUANDO EL JUGADOR TENGA SEGUIDORES
 			//POR CADA POSICION DE LA MATRIZ DE LA PIEZA
 			if(posicion == 1){
@@ -399,7 +399,7 @@ var Coor = function(x,y){
 					//if(!otrogranjero(pieza, 1,tablero)){
 						var granjero = new Seguidor(1, "granjero", jugador);
 						pieza.seguidores.push(granjero);
-						jugador.seguidores--; return true;
+						jugador.seguidores--; arraysalida.push(true,"granjero"); return arraysalida;
 					//}else{
 					//	return false;
 					//}
@@ -407,7 +407,7 @@ var Coor = function(x,y){
 					//if(!otrocaballero(tablero,pieza,1)){
 						var caballero = new Seguidor(1, "caballero", jugador);
 						pieza.seguidores.push(caballero);
-						jugador.seguidores--; return true;
+						jugador.seguidores--; arraysalida.push(true,"caballero"); return arraysalida;
 					//}else{
 					//	return false;
 					//}
@@ -415,7 +415,7 @@ var Coor = function(x,y){
 					//if(!otrogranjero(pieza, 1,tablero)){
 						var granjero = new Seguidor(1, "granjero", jugador);
 						pieza.seguidores.push(granjero);
-						jugador.seguidores--; return true;
+						jugador.seguidores--; arraysalida.push(true,"granjero"); return arraysalida;
 					//}else{
 					//	return false;
 					//}
@@ -426,7 +426,7 @@ var Coor = function(x,y){
 					//if(!otroladron(pieza, 2,tablero)){
 						var ladron = new Seguidor(2, "ladron", jugador);
 						pieza.seguidores.push(ladron);
-						jugador.seguidores--; return true;
+						jugador.seguidores--; arraysalida.push(true,"ladron"); return arraysalida;
 					//}else{
 					//	return false;
 					//}
@@ -434,7 +434,7 @@ var Coor = function(x,y){
 					//if(!otrocaballero(tablero,pieza,2)){
 						var caballero = new Seguidor(2, "caballero", jugador);
 						pieza.seguidores.push(caballero);
-						jugador.seguidores--; return true;
+						jugador.seguidores--; arraysalida.push(true,"caballero"); return arraysalida;
 					//}else{
 					//	return false;
 					//}
@@ -442,7 +442,7 @@ var Coor = function(x,y){
 					//if(!otrogranjero(pieza, 2,tablero)){
 						var granjero = new Seguidor(2, "granjero", jugador);
 						pieza.seguidores.push(granjero);
-						jugador.seguidores--; return true;
+						jugador.seguidores--; arraysalida.push(true,"granjero"); return arraysalida;
 					//}else{
 					//	return false;
 					//}
@@ -453,7 +453,7 @@ var Coor = function(x,y){
 					//if(!otrogranjero(pieza, 3,tablero)){
 						var granjero = new Seguidor(3, "granjero", jugador);
 						pieza.seguidores.push(granjero);
-						jugador.seguidores--; return true;
+						jugador.seguidores--; arraysalida.push(true,"granjero"); return arraysalida;
 					//}else{
 					//	return false;
 					//}
@@ -461,7 +461,7 @@ var Coor = function(x,y){
 					//if(!otrocaballero(tablero,pieza,3)){
 						var caballero = new Seguidor(3, "caballero", jugador);
 						pieza.seguidores.push(caballero);
-						jugador.seguidores--; return true;
+						jugador.seguidores--; arraysalida.push(true,"caballero"); return arraysalida;
 					//}else{
 					//	return false;
 					//}
@@ -469,7 +469,7 @@ var Coor = function(x,y){
 					//if(!otrogranjero(pieza, 3,tablero)){
 						var granjero = new Seguidor(3, "granjero", jugador);
 						pieza.seguidores.push(granjero);
-						jugador.seguidores--; return true;
+						jugador.seguidores--; arraysalida.push(true,"granjero"); return arraysalida;
 					//}else{
 					//	return false;
 					//}
@@ -480,7 +480,7 @@ var Coor = function(x,y){
 					//if(!otroladron(pieza, 4,tablero)){
 						var ladron = new Seguidor(4, "ladron", jugador);
 						pieza.seguidores.push(ladron);
-						jugador.seguidores--; return true;
+						jugador.seguidores--; arraysalida.push(true,"ladron"); return arraysalida;
 					//}else{
 					//	return false;
 					//}
@@ -488,7 +488,7 @@ var Coor = function(x,y){
 					//if(!otrocaballero(tablero,pieza,4)){
 						var caballero = new Seguidor(4, "caballero", jugador);
 						pieza.seguidores.push(caballero);
-						jugador.seguidores--; return true;
+						jugador.seguidores--; arraysalida.push(true,"caballero"); return arraysalida;
 					//}else{
 					//	return false;
 					//}
@@ -496,7 +496,7 @@ var Coor = function(x,y){
 					//if(!otrogranjero(pieza, 4,tablero)){
 						var granjero = new Seguidor(4, "granjero", jugador);
 						pieza.seguidores.push(granjero);
-						jugador.seguidores--; return true;
+						jugador.seguidores--; arraysalida.push(true,"granjero"); return arraysalida;
 					//}else{
 					//	return false;
 					//}
@@ -506,12 +506,12 @@ var Coor = function(x,y){
 				if(pieza.tipo == "MonCamino" || pieza.tipo == "MonGranja"){
 					var monje = new Seguidor(5, "monje", jugador);
 					pieza.seguidores.push(monje);
-					jugador.seguidores--; return true;
+					jugador.seguidores--; arraysalida.push(true,"monje"); return arraysalida;
 				}else if(pieza.tipo == "CiudadE" || pieza.tipo == "CiudadH" || pieza.tipo == "CiudadI" || pieza.tipo == "CiudadM" || pieza.tipo == "CiudadN"){
 					//if(!otrogranjero(pieza, 5,tablero)){
 						var granjero = new Seguidor(5, "granjero", jugador);
 						pieza.seguidores.push(granjero);
-						jugador.seguidores--; return true;
+						jugador.seguidores--; arraysalida.push(true,"granjero"); return arraysalida;
 					//}else{
 					//	return false;
 					//}
@@ -519,7 +519,7 @@ var Coor = function(x,y){
 					//if(!otrocaballero(tablero,pieza,5)){
 						var caballero = new Seguidor(5, "caballero", jugador);
 						pieza.seguidores.push(caballero);
-						jugador.seguidores--; return true;
+						jugador.seguidores--; arraysalida.push(true,"caballero"); return arraysalida;
 					//}else{
 					//	return false;
 					//}
@@ -527,13 +527,13 @@ var Coor = function(x,y){
 					//if(!otroladron(pieza, 5,tablero)){
 						var ladron = new Seguidor(5, "ladron", jugador);
 						pieza.seguidores.push(ladron);
-						jugador.seguidores--; return true;
+						jugador.seguidores--; arraysalida.push(true,"ladron"); return arraysalida;
 					//}else{
 					//	return false;
 					//}
 				}else if(pieza.tipo == "CiudadL" || pieza.tipo == "Cruce3" || pieza.tipo == "Cruce4"){
 					console.log("AHI NO PUEDES COLOCAR EL SEGUIDOR QUE ES UN CRUCE¡¡¡¡¡¡¡¡¡¡¡¡¡¡¡¡¡¡");
-					return false;
+					arraysalida.push(false, ""); return arraysalida;
 				} 				
 								
 			}else if(posicion == 6){
@@ -541,7 +541,7 @@ var Coor = function(x,y){
 					//if(!otroladron(pieza, 6,tablero)){
 						var ladron = new Seguidor(6, "ladron", jugador);
 						pieza.seguidores.push(ladron);
-						jugador.seguidores--; return true;
+						jugador.seguidores--; arraysalida.push(true,"ladron"); return arraysalida;
 					//}else{
 					//	return false;
 					//}
@@ -549,7 +549,7 @@ var Coor = function(x,y){
 					//if(!otrocaballero(tablero,pieza,6)){
 						var caballero = new Seguidor(6, "caballero", jugador);
 						pieza.seguidores.push(caballero);
-						jugador.seguidores--; return true;
+						jugador.seguidores--; arraysalida.push(true,"caballero"); return arraysalida;
 					//}else{
 					//	return false;
 					//}
@@ -557,7 +557,7 @@ var Coor = function(x,y){
 					//if(!otrogranjero(pieza, 6,tablero)){
 						var granjero = new Seguidor(6, "granjero", jugador);
 						pieza.seguidores.push(granjero);
-						jugador.seguidores--; return true;
+						jugador.seguidores--; arraysalida.push(true,"granjero"); return arraysalida;
 					//}else{
 					//	return false;
 					//}
@@ -567,7 +567,7 @@ var Coor = function(x,y){
 					//if(!otrogranjero(pieza, 7,tablero)){
 						var granjero = new Seguidor(7, "granjero", jugador);
 						pieza.seguidores.push(granjero);
-						jugador.seguidores--; return true;
+						jugador.seguidores--; arraysalida.push(true,"granjero"); return arraysalida;
 					//}else{
 					//	return false;
 					//}
@@ -575,7 +575,7 @@ var Coor = function(x,y){
 					//if(!otrocaballero(tablero,pieza,7)){
 						var caballero = new Seguidor(7, "caballero", jugador);
 						pieza.seguidores.push(caballero);
-						jugador.seguidores--; return true;
+						jugador.seguidores--; arraysalida.push(true,"caballero"); return arraysalida;
 					//}else{
 					//	return false;
 					//}
@@ -583,7 +583,7 @@ var Coor = function(x,y){
 					//if(!otrogranjero(pieza, 7,tablero)){
 						var granjero = new Seguidor(7, "granjero", jugador);
 						pieza.seguidores.push(granjero);
-						jugador.seguidores--; return true;
+						jugador.seguidores--; arraysalida.push(true,"granjero"); return arraysalida;
 					//}else{
 					//	return false;
 					//}
@@ -593,7 +593,7 @@ var Coor = function(x,y){
 					//if(!otroladron(pieza, 8,tablero)){
 						var ladron = new Seguidor(8, "ladron", jugador);
 						pieza.seguidores.push(ladron);
-						jugador.seguidores--; return true;
+						jugador.seguidores--; arraysalida.push(true,"ladron"); return arraysalida;
 					//}else{
 					//	return false;
 					//}
@@ -601,7 +601,7 @@ var Coor = function(x,y){
 					//if(!otrocaballero(tablero,pieza,8)){
 						var caballero = new Seguidor(8, "caballero", jugador);
 						pieza.seguidores.push(caballero);
-						jugador.seguidores--; return true;
+						jugador.seguidores--; arraysalida.push(true,"caballero"); return arraysalida;
 					//}else{
 					//	return false;
 					//}
@@ -609,7 +609,7 @@ var Coor = function(x,y){
 					//if(!otrogranjero(pieza, 8,tablero)){
 						var granjero = new Seguidor(8, "granjero", jugador);
 						pieza.seguidores.push(granjero);
-						jugador.seguidores--; return true;
+						jugador.seguidores--; arraysalida.push(true,"granjero"); return arraysalida;
 					//}else{
 					//	return false;
 					//}
@@ -619,7 +619,7 @@ var Coor = function(x,y){
 					//if(!otrogranjero(pieza, 9,tablero)){
 						var granjero = new Seguidor(9, "granjero", jugador);
 						pieza.seguidores.push(granjero);
-						jugador.seguidores--; return true;
+						jugador.seguidores--; arraysalida.push(true,"granjero"); return arraysalida;
 					//}else{
 					//	return false;
 					//}
@@ -627,7 +627,7 @@ var Coor = function(x,y){
 					//if(!otrocaballero(tablero,pieza,9)){
 						var caballero = new Seguidor(9, "caballero", jugador);
 						pieza.seguidores.push(caballero);
-						jugador.seguidores--; return true;
+						jugador.seguidores--; arraysalida.push(true,"caballero"); return arraysalida;
 					//}else{
 					//	return false;
 					//}
@@ -635,7 +635,7 @@ var Coor = function(x,y){
 					//if(!otrogranjero(pieza, 9,tablero)){
 						var granjero = new Seguidor(9, "granjero", jugador);
 						pieza.seguidores.push(granjero);
-						jugador.seguidores--; return true;
+						jugador.seguidores--; arraysalida.push(true,"granjero"); return arraysalida;
 					//}else{
 					//	return false;
 					//}
@@ -644,7 +644,7 @@ var Coor = function(x,y){
 			}
 		}else{
 			console.log("Jugador sin seguidores!!!!");
-			return false;
+			arraysalida.push(false, ""); return arraysalida;
 		}
 		
 	}	
