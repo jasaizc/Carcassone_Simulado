@@ -62,6 +62,7 @@ Tracker.autorun(function(){
                 $("#crs").hide()
                 $("#chatCarcasson").show()
                 $("#mycanvas").show();
+                $("#chatZone").show();
               //  alert("A JUGARRRRR!!!!")
                 
                
@@ -626,8 +627,8 @@ Template.crearpartida.events = {
 	'click #aceptar':function(){
 		$("#crpart").hide();
 		$("#allSalas").show();
-    $("#chatZone").show();
     $("#allPlayers").show();
+    $("#chatZone").show();
 	} 
 }; 
 
