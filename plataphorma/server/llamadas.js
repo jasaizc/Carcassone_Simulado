@@ -169,13 +169,13 @@ nuevaPartida: function(parametros_game){
 
 	},
 
-	colocarSeguidor: function (id_game, pieza, posicion) {
+	colocarSeguidor: function (id_game, id_jugador, posicion, coordenadas) {
 	    if (ArrPartidas[id_game]) {
 	        Partida = ArrPartidas[id_game];
-	        if (seguidor > 0)
-	        {
-	           var colocado = Partida.colocarseguidor(pieza, posicion, Partida);
-	        }
+	        var pieza = Partida.piezaenposiciones(coordenadas.x, coordenadas.y);
+	        
+	        var colocado = Partida.colocarseguidor(pieza, posicion, Partida, id_jugador);
+	    
 	        //cerrarMonasterio(pieza,false,Partida); //Metodo que llama para mirar si es cierre Monasterio
 	        ArrPartidas[id_game] = Partida;
 	        
