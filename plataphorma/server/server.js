@@ -167,6 +167,7 @@ Meteor.methods({
 
         var Puntuacion = finalizar[1];
         var room = finalizar[0];
+        var idCarcassone= Games.findOne({name:"Carcassone"})
 
         JoinPlayer.remove({id_room:room});
         Rooms.remove({_id:room});
@@ -195,8 +196,8 @@ Meteor.methods({
                            user_id: Puntuacion[i][0],
                            points: Puntuacion[i][1],
                            time_end: Date.now(),
-                           game_id: "Carcassone",
-                           stade:"Ganada"
+                           game_id: idCarcassone._id,
+                           stade:"ganada"
                         });
                     }else{
                         Players.update({originalID:Puntuacion[i][0]}, { $inc: { total_points: +Puntuacion[i][1] , defeats: +1 } });
@@ -204,8 +205,8 @@ Meteor.methods({
                            user_id: Puntuacion[i][0],
                            points: Puntuacion[i][1],
                            time_end: Date.now(),
-                           game_id: "Carcassone",
-                           stade:"Perdida"
+                           game_id: idCarcassone._id,
+                           stade:"perdida"
                         });
                     }  
                 }    

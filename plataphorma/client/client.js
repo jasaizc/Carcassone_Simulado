@@ -62,6 +62,7 @@ Tracker.autorun(function(){
                 $("#crs").hide()
                 $("#chatCarcasson").show()
                 $("#mycanvas").show();
+                $("#chatZone").show();
               //  alert("A JUGARRRRR!!!!")
                 console.log("DONDE APARECE ESTO?!!?!?");
                
@@ -72,7 +73,13 @@ Tracker.autorun(function(){
           Session.set("currentRoom",null)
           if(Session.get("playing")==true){
             $("#crs").slideDown("slow")
+            $("#allSalas").hide();
+            $("#allPlayers").hide(); 
             $("#mycanvas").slideUp("slow")
+            $("#jugadrspartida").hide();
+            $("#unirspartida").hide();
+            $("#chatZone").hide();
+            $("#chatCarcasson").hide()
           }
           Session.set("playing",false)
           console.log("no esta en partida")
@@ -106,7 +113,6 @@ Meteor.startup(function() {
    $("#chatZone").hide();
 
   $("#acabarCarca").click(function(){
-    alert("QUE ACABO MOTHERFUCKER!")
     Meteor.call('finalizarPartida',Session.get("currentRoom"))
   })
 	
@@ -135,6 +141,16 @@ Meteor.startup(function() {
       $("#gamecontainer").hide();
       $("#contact").show("slow");
       $("#mycanvas").hide();
+      $("#ranking").slideUp("slow")
+      $("#crs").hide();
+      $("#crpart").hide();
+      $("#allSalas").hide();
+      $("#allPlayers").hide();
+      $("#chatCarcasson").hide()
+      $("#jugadrspartida").hide();
+
+
+
    })
    //el boton del ranking solo debe ser visible si estas logueado
    
@@ -598,6 +614,9 @@ Template.crearpartida.events = {
           }
           
         }else{
+          $("#chatZone").hide();
+          $("#allSalas").hide();
+          $("#allPlayers").hide();
           alert("Debes estar logeado para crear una partida");
 
           tmpl.find('#Jugadores').value="";
@@ -608,8 +627,8 @@ Template.crearpartida.events = {
 	'click #aceptar':function(){
 		$("#crpart").hide();
 		$("#allSalas").show();
-    $("#chatZone").show();
     $("#allPlayers").show();
+    $("#chatZone").show();
 	} 
 }; 
 
