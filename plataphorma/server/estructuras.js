@@ -400,7 +400,7 @@ var Coor = function(x,y){
 						return false;
 					}
 				}else if(pieza.Izquierda == "Ciudad" && pieza.Arriba == "Ciudad" && pieza.tipo != "CiudadI"){ //ciudad especial (dos cachos separados)
-					if(!otrocaballero(pieza, 1,tablero)){
+					if(!otrocaballero(tablero,pieza,1)){
 						var caballero = new Seguidor(1, "caballero", listaJugadores[turno]);
 						pieza.seguidores.push(caballero);
 						listaJugadores[turno].seguidores--; return true;
@@ -427,7 +427,7 @@ var Coor = function(x,y){
 						return false;
 					}
 				}else if(pieza.Arriba == "Ciudad"){
-					if(!otrocaballero(pieza, 2,tablero)){
+					if(!otrocaballero(tablero,pieza,2)){
 						var caballero = new Seguidor(1, "caballero", listaJugadores[turno]);
 						pieza.seguidores.push(caballero);
 						listaJugadores[turno].seguidores--; return true;
@@ -454,7 +454,7 @@ var Coor = function(x,y){
 						return false;
 					}
 				}else if(pieza.Arriba == "Ciudad" && pieza.Derecha == "Ciudad" && pieza.tipo != "CiudadI"){ //ciudad especial (dos cachos separados)
-					if(!otrocaballero(pieza, 3,tablero)){
+					if(!otrocaballero(tablero,pieza,3)){
 						var caballero = new Seguidor(1, "caballero", listaJugadores[turno]);
 						pieza.seguidores.push(caballero);
 						listaJugadores[turno].seguidores--; return true;
@@ -481,7 +481,7 @@ var Coor = function(x,y){
 						return false;
 					}
 				}else if(pieza.Izquierda == "Ciudad"){
-					if(!otrocaballero(pieza, 4,tablero)){
+					if(!otrocaballero(tablero,pieza,4)){
 						var caballero = new Seguidor(1, "caballero", listaJugadores[turno]);
 						pieza.seguidores.push(caballero);
 						listaJugadores[turno].seguidores--; return true;
@@ -512,7 +512,7 @@ var Coor = function(x,y){
 						return false;
 					}
 				}else if(pieza.tipo == "CiudadC" || pieza.tipo == "CiudadF" || pieza.tipo == "CiudadG" || pieza.tipo == "CiudadQ" || pieza.tipo == "CiudadR" || pieza.tipo == "CiudadS" || pieza.tipo == "CiudadT"){
-					if(!otrocaballero(pieza, 5,tablero)){
+					if(!otrocaballero(tablero,pieza,5)){
 						var caballero = new Seguidor(1, "caballero", listaJugadores[turno]);
 						pieza.seguidores.push(caballero);
 						listaJugadores[turno].seguidores--; return true;
@@ -542,7 +542,7 @@ var Coor = function(x,y){
 						return false;
 					}
 				}else if(pieza.Derecha == "Ciudad"){
-					if(!otrocaballero(pieza, 6,tablero)){
+					if(!otrocaballero(tablero,pieza,6)){
 						var caballero = new Seguidor(1, "caballero", listaJugadores[turno]);
 						pieza.seguidores.push(caballero);
 						listaJugadores[turno].seguidores--; return true;
@@ -568,7 +568,7 @@ var Coor = function(x,y){
 						return false;
 					}
 				}else if(pieza.Abajo == "Ciudad" && pieza.Izquierda == "Ciudad" && pieza.tipo != "CiudadI"){ //ciudad especial (dos cachos separados)
-					if(!otrocaballero(pieza, 7,tablero)){
+					if(!otrocaballero(tablero,pieza,7)){
 						var caballero = new Seguidor(1, "caballero", listaJugadores[turno]);
 						pieza.seguidores.push(caballero);
 						listaJugadores[turno].seguidores--; return true;
@@ -594,7 +594,7 @@ var Coor = function(x,y){
 						return false;
 					}
 				}else if(pieza.Abajo == "Ciudad"){
-					if(!otrocaballero(pieza, 8,tablero)){
+					if(!otrocaballero(tablero,pieza,8)){
 						var caballero = new Seguidor(1, "caballero", listaJugadores[turno]);
 						pieza.seguidores.push(caballero);
 						listaJugadores[turno].seguidores--; return true;
@@ -620,7 +620,7 @@ var Coor = function(x,y){
 						return false;
 					}
 				}else if(pieza.Derecha == "Ciudad" && pieza.Abajo == "Ciudad" && pieza.tipo != "CiudadI"){ //ciudad especial (dos cachos separados)
-					if(!otrocaballero(pieza, 9,tablero)){
+					if(!otrocaballero(tablero,pieza,9)){
 						var caballero = new Seguidor(1, "caballero", listaJugadores[turno]);
 						pieza.seguidores.push(caballero);
 						listaJugadores[turno].seguidores--; return true;

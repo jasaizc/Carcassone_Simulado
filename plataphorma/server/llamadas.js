@@ -169,20 +169,20 @@ nuevaPartida: function(parametros_game){
 
 	},
 
-	colocarSeguidor: function (id_game, id_jugador, posicion, seguidor) {
+	colocarSeguidor: function (id_game, pieza, posicion) {
 	    if (ArrPartidas[id_game]) {
 	        Partida = ArrPartidas[id_game];
-	        var pieza = Partida.piezaenposiciones(posicion.x, posicion.y);
 	        if (seguidor > 0)
 	        {
-	           var colocado = Partida.colocarseguidor(pieza, seguidor);
+	           var colocado = Partida.colocarseguidor(pieza, posicion, Partida);
 	        }
-	        cerrarMonasterio(pieza,false,Partida); //Metodo que llama para mirar si es cierre Monasterio
+	        //cerrarMonasterio(pieza,false,Partida); //Metodo que llama para mirar si es cierre Monasterio
 	        ArrPartidas[id_game] = Partida;
-	        return Partida.listaJugadores;
+	        
+	        return colocado;
 
 	    } else {
-	        return undefined;
+	        return false;
 	    }
 	},
 
