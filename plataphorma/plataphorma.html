@@ -135,17 +135,19 @@
 <!--______________________________________ CARCASSONE _____________________________________-->
 		<!-- Content Row -->
         <div id="serverCarcassone">
-            <div class="row">
-                <div id="mycanvas" class="col-md-8">
-                   {{>canvascc}}
-                </div>
-                 <div class="col-md-4" id="chatZone">
-                    {{> chatroom}}
-                </div>
+            <div id="mycanvas">
+               {{>canvascc}}
+           
             </div>
     		<div class="row" id="crs">
     			{{>Carcassone}}
     		</div>
+            <!-- HE DIFERENCIADO ENTRE EL SERVIDOR DE CARCASSONE Y EL CHAT PARA QUE SALGA CUANDO SE JUEGA-->
+            <div id="chatCarcasson" class="row">
+                <div class="col-md-6" id="chatZone">
+                    {{> chatroom}}
+                </div>
+            </div>
         </div>
 
 <!-- Page Heading/Breadcrumbs -->
