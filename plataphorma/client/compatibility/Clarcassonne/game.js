@@ -581,7 +581,7 @@ Ficha_abajo = function(cx,cy) {
 			if (SetFichaEn(NuevaPieza, Posiciones)) {
           if(Juego.keys['sacar_ficha']) {
          
-         console.log("POSICIONESSSSSSS  :: ",CurrentScroll.x, CurrentScroll.y);
+         console.log("POSICIONESSSSSSS  :: ",CurrentScroll.x+ NuevaPieza.x/100, NuevaPieza.y/100 +CurrentScroll.y);
          Meteor.call("colocarFicha", idParty, NuevaPieza, {x: NuevaPieza.x/100 + CurrentScroll.x, y: NuevaPieza.y/100 +CurrentScroll.y}, (NuevaPieza.rotation / -90), getTurno().id, function(err, data)
          {
            console.log("QUIERO COLOCAR LA FICHA MOTHERFUCKA a estos SEguidores: ", data);
@@ -1114,7 +1114,7 @@ Scroll = function() {
 		for(var y=0; y<=400; y=y+100){
 			for(var x=0; x<=800; x=x+100){
 				ctx.fillText("(" + (this.scrollx+x/100) + ",",5+x,10+y);
-				ctx.fillText((this.scrolly+y/100) + ")",30+x,10+y);
+				ctx.fillText((this.scrolly-y/100) + ")",30+x,10+y);
 			};
 		};
 		
@@ -1147,7 +1147,7 @@ Scroll = function() {
 		if(up3 && Juego.keys['up']) {
 			up3 = false;
 			if (this.scrolly != 0) {
-				this.scrolly -= 1;
+				this.scrolly += 1;
 				CurrentScroll.y -= 1;
 				Tablero.translate(0,1);
 				
@@ -1157,7 +1157,7 @@ Scroll = function() {
 		if(up4 && Juego.keys['down']) {
 			up4 = false;
 			if (this.scrolly != this.height) {
-				this.scrolly += 1;
+				this.scrolly -= 1;
 				CurrentScroll.y += 1;
 				Tablero.translate(0,-1);
 			}
