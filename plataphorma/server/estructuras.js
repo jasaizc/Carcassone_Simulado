@@ -165,8 +165,8 @@ var Coor = function(x,y){
 		
 		var array= [];
 		for(i=0; i<=this.posiciones.length-1; i++){
-			console.log("TENEMOS LAS FICHAS: ", this.posiciones);
-			console.log("QUIERO COLOCAR LA FICHA: ", pieza);
+			//console.log("TENEMOS LAS FICHAS: ", this.posiciones);
+			//console.log("QUIERO COLOCAR LA FICHA: ", pieza);
 			
 			var aux = this.posiciones[i];
 			var cooraux = new Coor();
@@ -199,8 +199,9 @@ var Coor = function(x,y){
 					array.push(cooraux3);
 			}
 		}
-		pieza.EncajaCon = array;	
-    return array;  
+		console.log("AAAARRRAY " , array);
+		
+		return array;  
 	}
 	
 	 this.puedocolocar = function(pieza,x,y){
@@ -217,8 +218,8 @@ var Coor = function(x,y){
 			
 		if((dummyU==undefined)&&(dummyD==undefined)&&(dummyR==undefined)&&(dummyL==undefined)&&(pieza.tipo != 'CiudadD')){comparo = false}//ninguna pieza cercana
 			
-		if((dummyU!=undefined)&&(dummyU.Abajo!=pieza.Arriba)){comparo = false}	//algun conflicto; false
-		if((dummyD!=undefined)&&(dummyD.Arriba!=pieza.Abajo)){comparo = false}
+		if((dummyU!=undefined)&&(dummyU.Arriba!=pieza.Abajo)){comparo = false}	//algun conflicto; false
+		if((dummyD!=undefined)&&(dummyD.Abajo!=pieza.Arriba)){comparo = false}
 		if((dummyR!=undefined)&&(dummyR.Izquierda!=pieza.Derecha)){comparo = false}
 		if((dummyL!=undefined)&&(dummyL.Derecha!=pieza.Izquierda)){comparo = false}	//exista y no coincida
 		

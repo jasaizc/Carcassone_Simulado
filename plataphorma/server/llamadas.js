@@ -47,13 +47,27 @@ nuevaPartida: function(parametros_game){
 	//Roba una ficha, si id = id_game es un juego existente, devuelve la ficha
 	// y las posicones donde se pueden colocar, si no devuelve false, si no quedan piezas que extraer devuelve undefined
 	robarFicha: function(id_game){
+		var lugares = [];
 		if(ArrPartidas[id_game]){
 			Partida = ArrPartidas[id_game];
 			var ficharobada = Partida.saca_pieza();
 			var ficha = new Pieza(ficharobada,0,0)
 			console.log("ROBAMOS!!");
-			lugares = Partida.posiblelugar(ficha);
+			for(var i=0; i < 3; i++)
+			{
+				lugar = Partida.posiblelugar(ficha);
+				if(lugar.length != 0)
+				{
+					var j = 0;
+					while(j != lugar.length)
+					{
+						lugares.push(lugar[j]);	
+						j++;					
+					}
+				}
+			}
 			var resultado = [ficha,lugares];
+			console.log("RESULTADOS: " , resultado);
 			ArrPartidas[id_game] =  Partida;
 			return resultado;
 		}else{
@@ -99,9 +113,11 @@ nuevaPartida: function(parametros_game){
 				
 			}
 			//console.log("asdfasd ",posicion);
+			
+			
 			var posciones = Partida.posiblelugar(ficha);
 			//console.log(ficha);
-			//console.log("POSCIONES  ",posciones);
+			
 			if(ficha.tipo == 'CiudadD' && Partida.totalFichas == 71)
 			{
 				
@@ -109,10 +125,15 @@ nuevaPartida: function(parametros_game){
 				//console.log("NOS ENCAJA???", encaja);
 				
 			}else{
-			//El if comprueba que la posicion este dentro de las posibles posicones donde podemos colocar
-			if(Partida.posiblelugar(ficha).indexof(posicion)<=0){
-				encaja = Partida.coloco(ficha);
-			}}
+			for (sitio in posciones)
+			{
+					console.log("SITIOS: ", posciones[sitio].x, " ",posciones[sitio].y, "POSI: ", posicion.x, " ",posicion.y);
+					if (posciones[sitio].x == posicion.x &&  posciones[sitio].y == posicion.y)
+					{
+							encaja = Partida.coloco(ficha, posicion.x, posicion.y);
+					}
+			}			
+			}
 			if (encaja == false) { return 0 }
 			var seguidores = [];
 			var jugador = _.find(Partida.listaJugadores, function (obj) { return (obj.id == id_jugador) })
@@ -121,9 +142,9 @@ nuevaPartida: function(parametros_game){
 			    var seguidores = Partida.posibleseguidor(ficha, Partida);
 			}
 			ArrPartidas[id_game] = Partida;
-      
+			colocada = [encaja, seguidores];
 			//console.log("TENGO ESTOS SEGUIDORES: ", seguidores);
-			return seguidores;
+			return colocada;
 
 		}else{
 			return undefined;
@@ -206,50 +227,33 @@ nuevaPartida: function(parametros_game){
         Tablero = ArrPartidas[id_partida];
         console.log("VAMOS MARIANO QUE TE TOCA A TI", id_jugador);
         var ColocoFicha = false;
-  //      while (ColocoFicha == false)
- //       { //Bucle en el cual probamos a colocar las fichas, Robamos con la clase JUGADORIA, y la colocamos, no podemos, tendremos que volver a robar otra ficha y realziar el mismo proceso.
-            Jugada = jugadorIA(id_jugador, Tablero);
-            //console.log("MENUDO JUGADON MARIANO: ", Jugada[0], "Otra ",Jugada[1],"Viva el vino" ,Jugada[2]);
-            var Piezanueva = new Pieza(Jugada[0], Jugada[2], Jugada[3]);
-            
-            //console.log("¿Ha sido Colocada?", Piezanueva);
-            for (var i = 0; i < Jugada[1]; i++) {
+        Jugada = jugadorIA(id_jugador, Tablero);
+        var Piezanueva = new Pieza(Jugada[0], Jugada[2], Jugada[3]);
+        for (var i = 0; i < Jugada[1]; i++) {
                 Piezanueva = Piezanueva.girar()
             }
-            Piezanueva.giros = Jugada[1];
-            ColocoFicha = Tablero.coloco(Piezanueva, Jugada.coorx, Jugada.coory);
-         //   if (ColocoFicha)
-         //   {
-		//		console.log("¿Ha sido Colocada? Juanita?", ColocoFicha);
-				
-		//	}
-            
-        // }
+        Piezanueva.giros = Jugada[4];
+        ColocoFicha = Tablero.coloco(Piezanueva, Jugada.coorx, Jugada.coory);
         var nuevoSeguidor = {tipoSeguidor:undefined, PosEnFicha:undefined, IdJugador:undefined, TipoFicha:undefined}
-       // var jugador = _.find(Tablero.listaJugadores, function (obj) { return (obj.id.user_id == id_jugador) })
-      /*  if (jugador.seguidores > 0)
-        {
-            if (ColocoFicha.tipo == "MonCamino" || ColocoFicha.tipo == "MonGranja")
-            {
-                nuevoSeguidor = { tipoSeguidor: "monje", PosEnFicha: 5, IdJugador: jugador.id, TipoFicha: ColocoFicha }
-                Tablero.colocarseguidor(ColocoFicha, nuevoSeguidor.PosEnFicha);
-            }
-            else
-            {
-                var posiciones = posibleseguidor(ColocoFicha);
-                if (posiciones.length > 0)
-                {
-                    var Pos_Aleatorio = Math.floor(Math.random() * posiciones.length);
-                    seguidor = posiciones[Pos_Aleatorio];
-                    nuevoSeguidor = { tipoSeguidor: seguidor.tipo, PosEnFicha: seguidor.posicion, IdJugador: jugador.numero, TipoFicha: fichaColocada }
-                    Tablero.colocarseguidor(ColocoFicha, nuevoSeguidor.PosEnFicha);
-                }
-            }
-        }*/
+        var seguidores = [];
+		var jugador = _.find(Partida.listaJugadores, function (obj) { return (obj.id == id_jugador) })			
+		if (jugador.seguidores != 0) 
+		{
+			var seguidores = Partida.posibleseguidor(Piezanueva, Tablero);
+		}
+		/*
+		if(seguidores.length != 0)
+		{
+			
+				elquesigue = seguidores[seguidores.length];
+				console.log(seguidores[seguidores.length]);
+			
+		}
+		console.log("seguidores:::::" , elquesigue);*/
         // CierroCamino(ColocoFicha);
         // CierroMonasterio(colocando);
         // CierroCiudad(ColocoFicha);
-        console.log("GIROS:::::" , Piezanueva.giros)
+        
         ArrPartidas[id_partida] = Tablero;
         return [Piezanueva.tipo, Piezanueva.giros, Piezanueva.x, Piezanueva.y, Tablero.listaJugadores, nuevoSeguidor.tipoSeguidor, nuevoSeguidor.PosEnFicha]
     }

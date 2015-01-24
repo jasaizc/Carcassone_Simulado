@@ -251,9 +251,9 @@ function SetPlayers (err, data) {
 			if (ultimo.seguidor != 0) {
 				Tablero.add(new Seguidor (ultimo.seguidor.fx,ultimo.seguidor.fy,ultimo.seguidor.t,ultimo.seguidor.sx,ultimo.seguidor.sy));
 			}
-			setPoint (ultimo.puntos);
+			//setPoint (ultimo.puntos);
 			console.log(ultimo);
-			pasarTurno();
+			//pasarTurno();
 		}
 		
 	});
@@ -333,7 +333,7 @@ function pasarTurno () {
 		if (Jugador1.turno == 1) { Jugador2.turno = 1; Jugador1.turno = 0;}
 		else if (Jugador2.turno == 1) { Jugador1.turno = 1; Jugador2.turno = 0;}
 	}
-	
+	console.log("A QUIEN LE TOCA?!?!?!", Jugador1.turno, "Player2: " , Jugador2.turno);
 	
 	
 	if (nJugadores == 3) {
@@ -488,7 +488,19 @@ Background = function() {
     }
     this.step = function(dt) { }
 };
+var Coor = function(x,y){
 
+	if(x!=undefined){
+		this.x=x
+	}else{
+		this.x=undefined
+	}
+	if(y!=undefined){
+		this.y=y
+	}else{
+		this.y=undefined
+	}
+}
 
 
 // Se encarga de pintar la primera ficha boca abajo del juego
@@ -571,7 +583,20 @@ Ficha_abajo = function(cx,cy) {
 						}
 						Juego.setBoard(7, NuevaPieza);
 						CurrentMove = 1; 
+						console.log("CAnditdad de datos?!?!? ",data[1].length);
+						if(data[0].tipo == 'CiudadD' && data[1].length == 0)
+						{
+							console.log("HE ENTRADOOOOOOOO");
+							var cooraux = new Coor();
+							cooraux.x = 0;
+							cooraux.y = 0;
+							data[1].push(cooraux);
+							Posiciones = [];
+							console.log("POSIONES:", Posiciones);
+						}else{
+						console.log("Pues no he entrado");
 						Posiciones = data[1];
+					}
 						console.log(data);
 						Juego.setBoard(6, new Highlight(data[1]));
 						 
@@ -581,16 +606,16 @@ Ficha_abajo = function(cx,cy) {
 			if (SetFichaEn(NuevaPieza, Posiciones)) {
           if(Juego.keys['sacar_ficha']) {
          
-         console.log("POSICIONESSSSSSS  :: ",CurrentScroll.x+ NuevaPieza.x/100, NuevaPieza.y/100 +CurrentScroll.y);
+         console.log("POSICIONESSSSSSS  :: ",CurrentScroll.x + NuevaPieza.x/100, NuevaPieza.y/100 + CurrentScroll.y);
          Meteor.call("colocarFicha", idParty, NuevaPieza, {x: NuevaPieza.x/100 + CurrentScroll.x, y: NuevaPieza.y/100 +CurrentScroll.y}, (NuevaPieza.rotation / -90), getTurno().id, function(err, data)
          {
            console.log("QUIERO COLOCAR LA FICHA MOTHERFUCKA a estos SEguidores: ", data);
-  				if (data != 0) {
+  				if (data[0] == true) {
 					
     				    Juego.setBoard(8,new Set(NuevaPieza));
 						CurrentMove = 2;
-						PosicionesSeg = data;
-						console.log(data);
+						PosicionesSeg = data[1];
+						
 					
 					}else{
 					        alert("Rota la ficha para colocarla");
@@ -972,10 +997,9 @@ Set = function (PiezaMapa) {
                         //console.log(data);                        	
                         $(idCanvas).unbind("mousedown");
                         $(idCanvas).unbind("mouseup");
-                        $(idCanvas).unbind("mousemove");
-                          	
-                          //Session.set("turno", CurrentTurn+1);
-						
+                        $(idCanvas).unbind("mousemove");                        	
+                          //Session.set("turno", CurrentTurn+1);	
+                          				
 						pasarTurno();
 					
 			//	});

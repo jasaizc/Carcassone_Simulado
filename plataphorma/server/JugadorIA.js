@@ -10,18 +10,27 @@ jugadorIA=function(id_jugador, Partida){
 			
 			console.log("ESTAMOS ROTANDO: ", nuevaficha);
 		    posicion = Partida.posiblelugar(nuevaficha);
-		    console.log("¿La cantidad de posiciones son ? ",posicion.length);
+		    console.log("¿La cantidad de posiciones son ? ",posicion.length, "Y las posiciones son: ", posicion );
 		    if(posicion.length != 0)
 		    {
-				nuevaficha.EncajaCon.push(posicion);
+				var j = 0;
+				console.log(j);
+				console.log("¿La posicion total es? ",posicion.length);
+				while(j != posicion.length)
+				{
+					
+				nuevaficha.EncajaCon.push(posicion[j]);
 				//TotalPosiciones.push(posicion);
-				console.log("¿La posicion nueva es? ",posicion);
-				numerogiros = i;
+				console.log("¿La posicion nueva es? ",posicion[j]);
+				
+				j++;
+				}
 				break;
 			}
 			nuevaficha = nuevaficha.girar();
 			numerogiros = numerogiros + 1;
 		}
+		console.log("¿Los GIROS SON? ", numerogiros);
 		console.log("¿La posiciones TOTALES SON? ", nuevaficha.EncajaCon);
 		//nuevaficha.EncajaCon = TotalPosiciones;
         if (nuevaficha.EncajaCon.length == 0 && Partida.totalFichas != 71) { this.robar() }
@@ -50,7 +59,7 @@ jugadorIA=function(id_jugador, Partida){
             TipoJugada.push(nuevaficha.EncajaCon[0].x);
             TipoJugada.push(nuevaficha.EncajaCon[0].y);
             TipoJugada.push(numerogiros);
-            console.log("QUIERES MOSTRAR DE UNA PUTA VEZ ", TipoJugada[2]);
+            console.log("QUIERES MOSTRAR DE UNA PUTA VEZ ", TipoJugada);
             return true
         }
         else{
