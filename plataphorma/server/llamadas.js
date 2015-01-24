@@ -213,10 +213,10 @@ nuevaPartida: function(parametros_game){
             var Piezanueva = new Pieza(Jugada[0], Jugada[2], Jugada[3]);
             
             //console.log("¿Ha sido Colocada?", Piezanueva);
-            for (var i = 0; i < Jugada.giros; i++) {
+            for (var i = 0; i < Jugada[1]; i++) {
                 Piezanueva = Piezanueva.girar()
             }
-            Piezanueva.giros = Jugada.giros;
+            Piezanueva.giros = Jugada[1];
             ColocoFicha = Tablero.coloco(Piezanueva, Jugada.coorx, Jugada.coory);
          //   if (ColocoFicha)
          //   {
@@ -249,6 +249,7 @@ nuevaPartida: function(parametros_game){
         // CierroCamino(ColocoFicha);
         // CierroMonasterio(colocando);
         // CierroCiudad(ColocoFicha);
+        console.log("GIROS:::::" , Piezanueva.giros)
         ArrPartidas[id_partida] = Tablero;
         return [Piezanueva.tipo, Piezanueva.giros, Piezanueva.x, Piezanueva.y, Tablero.listaJugadores, nuevoSeguidor.tipoSeguidor, nuevoSeguidor.PosEnFicha]
     }

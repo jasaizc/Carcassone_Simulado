@@ -401,7 +401,7 @@ Time = function () {
 
 		if (this.tiempo == 0) {
 			this.tiempo = 60;
-			//pasarTurno();
+			pasarTurno();
 			if (nJugadores == 2){
 				var parray = [Jugador1, Jugador2];
 			}else if (nJugadores == 3) {
@@ -534,16 +534,17 @@ Ficha_abajo = function(cx,cy) {
 		}
 
 			Rooms.update(idParty, {
-                            $push : {movimientos: {jugador: getTurno(), ficha: {x: data[2], y: data[3], sprite: data[0], rotation: data[1]*-90}, seguidor: {fx: data[2]-CurrentScroll.x , fy: data[3] - CurrentScroll.y,t: setSeguidorType() ,sx: pos.x,sy:pos.y}, puntos: data[4]}}
+                            $push : {movimientos: {jugador: getTurno(), ficha: {x: data[2], y: data[3], sprite: data[0], rotation: data[1]*-90}, seguidor: {fx: data[2]-CurrentScroll.x , fy: data[3] - CurrentScroll.y,t: setSeguidorType() ,sx: pos.x,sy:pos.y}}}
                           });
 			} else {
 				Rooms.update(idParty, {
-                            $push : {movimientos: {jugador: getTurno(), ficha: {x: data[2], y: data[3], sprite: data[0], rotation: data[1]*-90}, seguidor: 0, puntos: data[4]}}
+                            $push : {movimientos: {jugador: getTurno(), ficha: {x: data[2], y: data[3], sprite: data[0], rotation: data[1]*-90}, seguidor: 0}}
                           });
             }
 			
 		}); 
 		CurrentMove = 2;
+		pasarTurno();
 	}
     if(Juego.keys['silenciar']){
     	sonido = !sonido;
@@ -967,7 +968,7 @@ Set = function (PiezaMapa) {
 						Juego.setBoard(8,Blank);
 						//Juego.setBoard(7, Blank);
 						CurrentScroll.active = true;
-						//Rooms.update(idParty, {$push : {movimientos: {jugador: getTurno(), ficha: {x: that.pieza.x/100 + CurrentScroll.x, y: that.pieza.y/100 +CurrentScroll.y, sprite: that.pieza.sprite, rotation: that.pieza.rotation}, seguidor: 0, puntos: data}}});
+						Rooms.update(idParty, {$push : {movimientos: {jugador: getTurno(), ficha: {x: that.pieza.x/100 + CurrentScroll.x, y: that.pieza.y/100 +CurrentScroll.y, sprite: that.pieza.sprite, rotation: that.pieza.rotation}, seguidor: 0}}});
                         //console.log(data);                        	
                         $(idCanvas).unbind("mousedown");
                         $(idCanvas).unbind("mouseup");
@@ -1028,13 +1029,16 @@ Set = function (PiezaMapa) {
 				// Coloco la ficha en el mapa
 				that.pieza.colocada = true;
 				//Tablero.add(that.pieza);
-				//Tablero.add(new Seguidor (that.pieza.x/100,that.pieza.y/100,that.setSeguidorType(),that.optionx,that.optiony));
-				//Rooms.update(idParty, {
-                //            $push : {movimientos: {jugador: getTurno(), ficha: {x: that.pieza.x/100 + CurrentScroll.x, y: that.pieza.y/100 +CurrentScroll.y, sprite: that.pieza.sprite, rotation: that.pieza.rotation}, seguidor: {fx: that.pieza.x/100 , fy: that.pieza.y/100,t: that.setSeguidorType(),sx:that.optionx,sy:that.optiony}, puntos: data}}
-                 //         });
-                         //Session.set("turno", CurrentTurn+1);
+				
 				Juego.setBoard(8,Blank);
-				//Juego.setBoard(7, Blank);
+				Juego.setBoard(7, Blank);
+				
+				//Tablero.add(new Seguidor (that.pieza.x/100,that.pieza.y/100,that.setSeguidorType(),that.optionx,that.optiony));
+				Rooms.update(idParty, {
+                            $push : {movimientos: {jugador: getTurno(), ficha: {x: that.pieza.x/100 + CurrentScroll.x, y: that.pieza.y/100 +CurrentScroll.y, sprite: that.pieza.sprite, rotation: that.pieza.rotation}, seguidor: {fx: that.pieza.x/100 , fy: that.pieza.y/100,t: that.setSeguidorType(),sx:that.optionx,sy:that.optiony}}}
+                          });
+                         //Session.set("turno", CurrentTurn+1);
+				
 				CurrentScroll.active = true;
 				$(idCanvas).unbind("mousedown");
                 $(idCanvas).unbind("mouseup");

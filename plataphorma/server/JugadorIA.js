@@ -1,6 +1,6 @@
 jugadorIA=function(id_jugador, Partida){
 	var nuevaficha;
-	var numerogiros;
+	var numerogiros = 0;
     this.robar = function () {
         var robado = Partida.saca_pieza();
         //var TotalPosiciones = [];
@@ -20,6 +20,7 @@ jugadorIA=function(id_jugador, Partida){
 				break;
 			}
 			nuevaficha = nuevaficha.girar();
+			numerogiros = numerogiros + 1;
 		}
 		console.log("¿La posiciones TOTALES SON? ", nuevaficha.EncajaCon);
 		//nuevaficha.EncajaCon = TotalPosiciones;
