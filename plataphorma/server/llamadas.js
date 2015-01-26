@@ -165,34 +165,28 @@ nuevaPartida: function(parametros_game){
 	{
 	    if (ArrPartidas[id_game]) {
 			Partida = ArrPartidas[id_game]
-	    	console.log("llamamos a finalizar");
 	        var puntuacion = [];
-           /* Partida= ArrPartidas[id_game];
-            for(var i =0; i< Partida.posiciones.length; i++)
-            {
+			for(var i =0; i< Partida.posiciones.length; i++){
                 pieza = Partida.posiciones[i];
-                	if (pieza.seguidores.length != 0){
-					 		
-						if (_.find(pieza.seguidores,function(obj){return (obj.tipo=="Granjero")})){cerrarGranja(pieza,true,Partida);}
-                        if (_.find(pieza.seguidores,function(obj){return (obj.tipo=="Ladron")})){cerrarCamino(pieza,true,Partida);}
-						if (_.find(pieza.seguidores,function(obj){return (obj.tipo=="Monje")})){cerrarMonasterio(pieza,true,Partida);}
-                        if (_.find(pieza.seguidores,function(obj){return (obj.tipo=="Caballero")})){cerrarCiudad(pieza,true,Partida);}
-                        }
-            }*/
+                	if (pieza.seguidores.length != 0){					 		
+                        if (_.find(pieza.seguidores,function(obj){return (obj.tipo=="ladron")})){
+							var datapunt = cerrarCamino(pieza,true,Partida);
+						}
+						if (_.find(pieza.seguidores,function(obj){return (obj.tipo=="monje")})){
+							var datapunt = cerrarMonasterio(pieza,true,Partida);
+						}
+                        if (_.find(pieza.seguidores,function(obj){return (obj.tipo=="caballero")})){
+							var datapunt = cerrarCiudad(pieza,true,Partida);
+						}
+                    }
+            }
             
-            //console.log("MANDAMOS", Partida.listaJugadores);
-            Partida.listaJugadores[0].puntos = 5;
-            Partida.listaJugadores[1].puntos = 0;
 			for (i=0; i< Partida.listaJugadores.length; i++){
-			
-
-			puntuacion.push([Partida.listaJugadores[i].id, Partida.listaJugadores[i].puntos]);
-
-			
+				puntuacion.push([Partida.listaJugadores[i].id, Partida.listaJugadores[i].puntos]);		
 			}
 			var finalizar = [id_game, puntuacion];
 		    
-		    //console.log("MANDAMOS", finalizar);
+		    console.log("MANDAMOS", finalizar);
 		    Meteor.call("matchFinishCarcassone", finalizar);
 		
 
