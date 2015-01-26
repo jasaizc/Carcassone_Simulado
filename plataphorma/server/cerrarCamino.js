@@ -11,7 +11,7 @@ cerrarCamino = function(pieza,final,tablero){
 			jugador = tablero.listaJugadores.find(function(jug){jug == seguidor.jugador;});
 			if(jugador == undefined){
 				//En las pruebas no estoy usando jugadores reales en el listado de jugadores por tanto necesito este if
-				console.log("Esto es para las pruebas");
+				//console.log("Esto es para las pruebas");
 			}else{
 				if(jugador.indexOf(sumados)>=0){
 					jugador.puntuacion += puntos;
@@ -191,7 +191,7 @@ cerrarCamino = function(pieza,final,tablero){
 			seguidoresEncontrados = [];
 		}
 	}
-	console.log(tablero.posiciones);
+	//console.log(tablero.posiciones);
 	return [puntos,seguidoresEncontrados];
 }
 

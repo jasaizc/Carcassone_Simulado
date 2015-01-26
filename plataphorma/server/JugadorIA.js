@@ -8,20 +8,20 @@ jugadorIA=function(id_jugador, Partida){
         for(var i = 0; i < 3; i++)
         {
 			
-			console.log("ESTAMOS ROTANDO: ", nuevaficha);
+			//console.log("ESTAMOS ROTANDO: ", nuevaficha);
 		    posicion = Partida.posiblelugar(nuevaficha);
-		    console.log("¿La cantidad de posiciones son ? ",posicion.length, "Y las posiciones son: ", posicion );
+		    //console.log("¿La cantidad de posiciones son ? ",posicion.length, "Y las posiciones son: ", posicion );
 		    if(posicion.length != 0)
 		    {
 				var j = 0;
-				console.log(j);
-				console.log("¿La posicion total es? ",posicion.length);
+				//console.log(j);
+				//console.log("¿La posicion total es? ",posicion.length);
 				while(j != posicion.length)
 				{
 					
 				nuevaficha.EncajaCon.push(posicion[j]);
 				//TotalPosiciones.push(posicion);
-				console.log("¿La posicion nueva es? ",posicion[j]);
+				//console.log("¿La posicion nueva es? ",posicion[j]);
 				
 				j++;
 				}
@@ -30,8 +30,8 @@ jugadorIA=function(id_jugador, Partida){
 			nuevaficha = nuevaficha.girar();
 			numerogiros = numerogiros + 1;
 		}
-		console.log("¿Los GIROS SON? ", numerogiros);
-		console.log("¿La posiciones TOTALES SON? ", nuevaficha.EncajaCon);
+		//console.log("¿Los GIROS SON? ", numerogiros);
+		//console.log("¿La posiciones TOTALES SON? ", nuevaficha.EncajaCon);
 		//nuevaficha.EncajaCon = TotalPosiciones;
         if (nuevaficha.EncajaCon.length == 0 && Partida.totalFichas != 71) { this.robar() }
     };
@@ -41,9 +41,9 @@ jugadorIA=function(id_jugador, Partida){
     var TipoJugada = [];
     
         var ProbarColocarFicha = function (ngiros) {
-		console.log("ESTA FICHA ES?!?!?: ",nuevaficha);
+		//console.log("ESTA FICHA ES?!?!?: ",nuevaficha);
         var colocando = Partida.coloco(nuevaficha, nuevaficha.EncajaCon[0].x, nuevaficha.EncajaCon[0].y);
-        console.log("COLOCAMOS?!?!?!");
+        //console.log("COLOCAMOS?!?!?!");
         if (colocando)
         {
             //Aqui Comparo Que es la Mejor Jugada, Por ahora vamos a decidir que si que es la mejor jugada, sin añadir seguidores.
@@ -53,7 +53,7 @@ jugadorIA=function(id_jugador, Partida){
             // CierroMonasterio(colocando);
             // CierroCiudad(colocando);
 			
-            var jugador = _.find(Partida.listaJugadores, function (obj) { console.log("COLOCAMOS?!?!?! ", obj.id); return (obj.id == id_jugador) });
+            var jugador = _.find(Partida.listaJugadores, function (obj) { //console.log("COLOCAMOS?!?!?! ", obj.id); return (obj.id == id_jugador) });
             TipoJugada.push(nuevaficha.tipo);
             TipoJugada.push(jugador.puntuacion);
             TipoJugada.push(nuevaficha.EncajaCon[0].x);
@@ -62,7 +62,7 @@ jugadorIA=function(id_jugador, Partida){
 
             TipoJugada.push(nuevaficha.EncajaCon[0].y);
             TipoJugada.push(numerogiros);
-            console.log("QUIERES MOSTRAR DE UNA PUTA VEZ ", TipoJugada);
+            //console.log("QUIERES MOSTRAR DE UNA PUTA VEZ ", TipoJugada);
             return true
         }
         else{
@@ -74,16 +74,16 @@ jugadorIA=function(id_jugador, Partida){
         
         if(!ProbarColocarFicha(0))
 		{
-			console.log("ROTAMOSSSS",nueva.ficha);
+			//console.log("ROTAMOSSSS",nueva.ficha);
 			nuevaficha = nuevaficha.girar();
 			if(!ProbarColocarFicha(1))
 			{
-				console.log("ROTAMOS2",nueva.ficha);
+				//console.log("ROTAMOS2",nueva.ficha);
 				nuevaficha = nuevaficha.girar();
 				nuevaficha = nuevaficha.girar();
 				if(!ProbarColocarFicha(2))
 				{
-					console.log("ROTAMOS3",nueva.ficha);
+					//console.log("ROTAMOS3",nueva.ficha);
 					nuevaficha = nuevaficha.girar();
 					nuevaficha = nuevaficha.girar();
 					nuevaficha = nuevaficha.girar();
@@ -93,7 +93,7 @@ jugadorIA=function(id_jugador, Partida){
 		//}
 		
     }
-		console.log("Jugada?!?!?! ", TipoJugada);
+		//console.log("Jugada?!?!?! ", TipoJugada);
 		return TipoJugada;
     
 

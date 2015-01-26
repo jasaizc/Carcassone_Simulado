@@ -105,7 +105,7 @@ otroladron= function(pieza,posSeg,tablero,vengode){
 	this.piezaIzquierda = function(pieza,posSeg,tablero,vengode){
 		//Pieza de la izquierda
 		if(pieza.Izquierda == 'Camino'&& tablero.piezaenposiciones(pieza.x-1,pieza.y) && tablero.piezaenposiciones(pieza.x-1,pieza.y).Derecha=='Camino' && vengode != 'Izquierda'){
-			console.log("Entro en izquierda")
+			//console.log("Entro en izquierda")
 			var aux =tablero.piezaenposiciones(pieza.x-1,pieza.y);
 			//Primero compruebo que en esa pieza no hay ladrones
 			if(aux.tipo == 'Recto' || aux.tipo =='CiudadD'){
@@ -129,10 +129,10 @@ otroladron= function(pieza,posSeg,tablero,vengode){
 			}
 		}
 		else if(pieza.Izquierda!='Camino'){
-			console.log("No es camino")
+			//console.log("No es camino")
 			otro = true;
 		}
-		console.log("Estoy casi en el return ",otro)
+		//console.log("Estoy casi en el return ",otro)
 		return otro;
 	}
 	
@@ -144,7 +144,7 @@ otroladron= function(pieza,posSeg,tablero,vengode){
 	/*for(i=0;i<pieza.seguidores.length;i++){
 		if(pieza.seguidores[i].tipo="ladron"){otro = true; return otro}
 	}*/
-	console.log("Entro en posSeg=",posSeg)
+	//console.log("Entro en posSeg=",posSeg)
 	if(posSeg==2){
 		//Pieza de arriba
 		otro = piezaArriba(pieza,posSeg,tablero,vengode);

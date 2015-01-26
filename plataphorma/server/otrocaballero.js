@@ -73,7 +73,7 @@ otrocaballero= function(tablero,pieza,posSeg,vengode){
 				ok[0] = otrocaballero(tablero,aux,4,'Derecha'); //Izquierda
 				ok[1]= otrocaballero(tablero,aux,6,'Izquierda'); //Derecha
 				ok[2]= otrocaballero(tablero,aux,2,'Abajo'); //Arriba (puede estar girada) o la de todos los trozos
-				console.log(ok);
+				//console.log(ok);
 				if(ok[0] || ok[1] || ok[2]){return true;}
 			 
 			}else if(aux.tipo == 'CiudadM' || aux.tipo=='CiudadN' || aux.tipo=='CiudadO' || aux.tipo=='CiudadP'){
@@ -85,10 +85,10 @@ otrocaballero= function(tablero,pieza,posSeg,vengode){
 				if(aux.Derecha == 'Ciudad'){
 					return otrocaballero(tablero,aux,6,'Izquierda'); //Derecha
 				}else{
-					//console.log("por narices tengo que entrar aqui");
+					////console.log("por narices tengo que entrar aqui");
 					return otrocaballero(tablero,aux,4,'Derecha'); //Izquierda
-					console.log(otro);
-					//console.log("--------");
+					//console.log(otro);
+					////console.log("--------");
 				}
 			}else{
 				//El resto de ciudades que ya cierran conexiones con otras ciudades
@@ -187,7 +187,7 @@ otrocaballero= function(tablero,pieza,posSeg,vengode){
 					return otrocaballero(tablero,aux,8,'Arriba'); //Abajo
 				}
 			}else{
-				//console.log("-----pieza final----");
+				////console.log("-----pieza final----");
 				//El resto de ciudades que ya cierran conexiones con otras ciudades
 				for(i=0;i<aux.seguidores.length;i++){
 					if(aux.seguidores[i].tipo== 'caballero' && aux.seguidores[i].posicion == 6){return true}
@@ -200,48 +200,48 @@ otrocaballero= function(tablero,pieza,posSeg,vengode){
 	
 	
 	
-	//console.log("HOLA LLAMAMOS A OTROCABALLERO");
+	////console.log("HOLA LLAMAMOS A OTROCABALLERO");
 	if(pieza.tipo == 'CiudadH' || pieza.tipo== 'CiudadI'){
 		if(posSeg==2){
 			//Pieza de arriba
-			console.log("ENTRAMOS PIEZA ARRIBA");
+			//console.log("ENTRAMOS PIEZA ARRIBA");
 			return piezaArriba(tablero,tablero,pieza,posSeg,otro,vengode);
 		}else if(posSeg==4){
 			//Pieza de la izquierda
-			console.log("ENTRAMOS PIEZA IZQUIERDA");
+			//console.log("ENTRAMOS PIEZA IZQUIERDA");
 			return piezaIzquierda(tablero,pieza,posSeg,otro,vengode);
 		}else if(posSeg==6){
 			//Pieza de la derecha
-			console.log("ENTRAMOS PIEZA DERECHA");
+			//console.log("ENTRAMOS PIEZA DERECHA");
 			return piezaDerecha(tablero,pieza,posSeg,otro,vengode);
 		}else if(posSeg==8){
 			//Pieza de abajo
-			console.log("ENTRAMOS PIEZA ABAJO");
+			//console.log("ENTRAMOS PIEZA ABAJO");
 			return piezaAbajo(tablero,pieza,posSeg,otro,vengode);
 		}
 	}else{
 		var ok = new Array(4);
 		//Pieza de arriba
 		ok[0] = piezaArriba(tablero,pieza,posSeg,otro,vengode);
-		//console.log("ARRIBA")
-		//console.log(ok[0])
+		////console.log("ARRIBA")
+		////console.log(ok[0])
 
 
 		//Pieza de abajo
 		ok[1] = piezaAbajo(tablero,pieza,posSeg,otro,vengode);
-		//console.log("ABAJO")
-		//console.log(ok[1])
+		////console.log("ABAJO")
+		////console.log(ok[1])
 
 		//Pieza de la derecha
 		ok[2] = piezaDerecha(tablero,pieza,posSeg,otro,vengode);
-		//console.log("DERECHA")
-		//console.log(ok[2])
+		////console.log("DERECHA")
+		////console.log(ok[2])
 
 		//Pieza de la izquierda
 		ok[3] = piezaIzquierda(tablero,pieza,posSeg,otro,vengode);
-		//console.log("IZQUIERDA")
-		//console.log(ok[3])
-		//console.log(ok);
+		////console.log("IZQUIERDA")
+		////console.log(ok[3])
+		////console.log(ok);
 		if(ok[0] || ok[1] || ok[2] || ok[3]){return true;}
 	}
 	

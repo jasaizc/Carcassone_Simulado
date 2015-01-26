@@ -172,9 +172,9 @@ Meteor.methods({
         JoinPlayer.remove({id_room:room});
         Rooms.remove({_id:room});
 
-        console.log("----------------------------------------------");
-        console.log(finalizar[0]);
-        console.log(Puntuacion)
+        //console.log("----------------------------------------------");
+        //console.log(finalizar[0]);
+        //console.log(Puntuacion)
 
         for(j=0;j<Puntuacion.length;j++){
 
@@ -185,7 +185,7 @@ Meteor.methods({
 
         }
 
-        console.log(haGanado);
+        //console.log(haGanado);
 
         if (this.userId){
             for(i=0;i<Puntuacion.length;i++){
@@ -214,10 +214,10 @@ Meteor.methods({
         }
     },
     matchInit: function(room,players){
-        console.log(room)
+        //console.log(room)
         nuevaPartida(room, players)
         
-        //console.log(comenzar(room,players))
+        ////console.log(comenzar(room,players))
     }
 });
 

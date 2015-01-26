@@ -80,7 +80,7 @@ compruebaSeg = function(aux,a,b,c,d,e,f,g,h,i){
 			if(visitado[j].z.indexOf(a)==0 || visitado[j].z.indexOf(b)==0 || visitado[j].z.indexOf(c)==0 ||
 			   visitado[j].z.indexOf(d)==0 || visitado[j].z.indexOf(e)==0 || visitado[j].z.indexOf(f)==0 || 
 			   visitado[j].z.indexOf(g)==0 || visitado[j].z.indexOf(h)==0 || visitado[i].z.indexOf(i)==0){
-				console.log('0000');
+				//console.log('0000');
 					return null;
 			}
 		}
@@ -103,7 +103,7 @@ piezaArriba = function(pieza,posSeg,tablero,otro){
 	var aux =tablero.piezaenposiciones(pieza.x,pieza.y+1);
 	var otro=false;
 	if(aux == undefined){
-		//console.log('no mas piezas arriba');
+		////console.log('no mas piezas arriba');
 		return false;
 	}
 	if(pieza.Arriba != 'Ciudad' && aux.Abajo != 'Ciudad' && otro==false){
@@ -350,7 +350,7 @@ piezaAbajo = function(pieza,posSeg,tablero,otro){
 	var aux =tablero.piezaenposiciones(pieza.x,(pieza.y-1));
 	var otro=false;
 	if(aux == undefined){
-		//console.log('no mas piezas abajo');
+		////console.log('no mas piezas abajo');
 		return false;
 	}
 	if(pieza.Abajo != 'Ciudad' && aux.Arriba != 'Ciudad' && otro==false){
@@ -594,7 +594,7 @@ piezaDerecha = function(pieza,posSeg,tablero,otro){
 	var aux =tablero.piezaenposiciones(pieza.x+1,pieza.y);
 	var otro=false;
 	if(aux == undefined){
-		//console.log('no mas piezas derecha');
+		////console.log('no mas piezas derecha');
 		return false;
 	}
 	if(pieza.Derecha != 'Ciudad' && aux.Izquierda != 'Ciudad' && otro==false){
@@ -842,7 +842,7 @@ piezaIzquierda = function(pieza,posSeg,tablero,otro){
 	var aux =tablero.piezaenposiciones((pieza.x-1),pieza.y);
 	var otro=false;
 	if(aux == undefined){
-		//console.log('no mas piezas izquierda');
+		////console.log('no mas piezas izquierda');
 		return false;
 	}
 	//Mismo procedimiento que en los lados anteriores

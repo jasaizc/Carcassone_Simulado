@@ -12,7 +12,7 @@ cerrarMonasterio = function (pieza, final, tablero) {
 		        jugador = tablero.listaJugadores.find(function (jug) { jug == seguidor.jugador; });
 		       if(jugador == undefined){
 				//En las pruebas no estoy usando jugadores reales en el listado de jugadores por tanto necesito este if
-				console.log("Esto es para las pruebas");
+				//console.log("Esto es para las pruebas");
 			}else{
                
                
@@ -58,13 +58,13 @@ cerrarMonasterio = function (pieza, final, tablero) {
 		        {
 		            puntos = piezasCercanas;
 		            sumar();
-		            console.log("Sumamos Por Cerrar Entero el Monasterio");
+		            //console.log("Sumamos Por Cerrar Entero el Monasterio");
 		        }
 		        else if (final == true)
 		        {
 		            puntos = piezasCercanas;
 		            sumar();
-		            console.log("Sumamos Al ser Final de Partida");
+		            //console.log("Sumamos Al ser Final de Partida");
 		        }
 		    }
 		};

@@ -121,7 +121,7 @@ var Coor = function(x,y){
              CiudadM: 2, CiudadN: 3, CiudadO: 2, CiudadP: 3, CiudadQ: 1, CiudadR: 3, CiudadS: 2, CiudadT: 1
          };
 		
-         console.log("LLEGAMOS AQUI");
+         //console.log("LLEGAMOS AQUI");
      }
 
 	
@@ -134,9 +134,9 @@ var Coor = function(x,y){
 	        else { var indice = Math.floor(Math.random() * this.piezas.length); }
 	        
 	        var pieza = this.piezas[indice];
-	        console.log("1-tipo pieza ", pieza, "  indice  ", indice, "  npiezas  ", this.npiezas[pieza])
+	        //console.log("1-tipo pieza ", pieza, "  indice  ", indice, "  npiezas  ", this.npiezas[pieza])
 	        this.npiezas[pieza] = this.npiezas[pieza] - 1;
-	        console.log("2-tipo pieza ", pieza, "  indice  ", indice, "  npiezas  ", this.npiezas[pieza])
+	        //console.log("2-tipo pieza ", pieza, "  indice  ", indice, "  npiezas  ", this.npiezas[pieza])
 	        //restamos del total de piezas y de las piezas restantes de ese tipo
 	        this.totalFichas--;
 	        //	this.piezas.npiezas[this.piezas.piezas[this.piezas.piezas[indice]]]--;
@@ -147,7 +147,7 @@ var Coor = function(x,y){
 
 	        return pieza
 	    } else {
-	        console.log("No quedan piezas");
+	        //console.log("No quedan piezas");
 	        return undefined;
 	    }
 	}
@@ -165,8 +165,8 @@ var Coor = function(x,y){
 		
 		var array= [];
 		for(i=0; i<=this.posiciones.length-1; i++){
-			//console.log("TENEMOS LAS FICHAS: ", this.posiciones);
-			//console.log("QUIERO COLOCAR LA FICHA: ", pieza);
+			////console.log("TENEMOS LAS FICHAS: ", this.posiciones);
+			////console.log("QUIERO COLOCAR LA FICHA: ", pieza);
 			
 			var aux = this.posiciones[i];
 			var cooraux = new Coor();
@@ -246,11 +246,11 @@ var Coor = function(x,y){
 	// ENTRA UNA PIEZA YA COLOCADA Y DEVUELVE ARRAY CON POSIBLES SITIOS DONDE COLOCAR SEGUIDOR (ARRAY CON VALORES DE 1 A 9)
 		this.posibleseguidor= function(pieza,Tablero){		//la pieza ya trae las coordenadas				//a otroladron(pieza,posicion cuadrícula)
 		var tablero = Tablero;
-		console.log("entro en posible seguidor");
+		//console.log("entro en posible seguidor");
 		var array= [];
 		var correcto = 0;
 			//posiciones pieza (cuadricula)
-			console.log(i);
+			//console.log(i);
 		
 			/////////// ESQUINAS ///////////////
 			i=1;
@@ -258,7 +258,7 @@ var Coor = function(x,y){
 				
 			    if (((pieza.Arriba == 'Camino') || (pieza.Arriba == 'Granja') || (pieza.Arriba != pieza.Izquierda)) && (otrogranjero(pieza, 1,tablero) == false)) 
 			    {
-					//console.log(i);
+					////console.log(i);
 			       // no tiene sentido camino en esquina---> if (pieza.Arriba == 'Camino') { array.push({ tipo: "ladron", posicion: i }); }
 			       array.push({ tipo: "granjero", posicion: 1 });
 			    }
@@ -277,7 +277,7 @@ var Coor = function(x,y){
 			        array.push({ tipo: "granjero", posicion: 3 });
 			    }
 			    else {
-					//console.log(i);
+					////console.log(i);
 			        if ((pieza.Derecha == pieza.Arriba)&&(pieza.tipo!='Ciudadl')&&(otrocaballero(tablero, pieza, 3) == false)){ array.push({ tipo: "caballero", posicion: 3 }); }
 			    }
 						//si granja o camino, 1 siempre granja. Si Derecha==Izquierda --> es ciudad, sino granja también
@@ -285,7 +285,7 @@ var Coor = function(x,y){
 			}
 			i=7;
 			if(i==7){	//inferior izda 
-				//console.log(i);
+				////console.log(i);
 				
 			    if (((pieza.Izquierda == 'Camino') || (pieza.Izquierda == 'Granja') || (pieza.Izquierda != pieza.Abajo)) && (otrogranjero(pieza, 7,tablero) == false))
 			    {
@@ -293,7 +293,7 @@ var Coor = function(x,y){
 			        array.push({ tipo: "granjero", posicion: 7 });
 			    }
 			    else {
-					//console.log(i);
+					////console.log(i);
 			        if ((pieza.Izquierda == pieza.Abajo)&&(pieza.tipo!='Ciudadl')&&(otrocaballero(tablero, pieza, 7) == false)) { array.push({ tipo: "caballero", posicion: 7 }); }
 			    }
 						//si granja o camino, 1 siempre granja. Si Izquierda==Abajo --> es ciudad, sino granja también
@@ -301,7 +301,7 @@ var Coor = function(x,y){
 			}
 			i=9;
 			if(i==9){	//inferior izda 
-				//console.log(i);
+				////console.log(i);
 				
 			    if (((pieza.Abajo == 'Camino') || (pieza.Abajo == 'Granja') || (pieza.Abajo != pieza.Derecha)) && (otrogranjero(pieza, 9,tablero) == false))
 			    {
@@ -310,7 +310,7 @@ var Coor = function(x,y){
 			    }
 			    else
 			    {
-					//console.log(i);
+					////console.log(i);
 			        if ((pieza.Abajo == pieza.Derecha)&&(pieza.tipo!='Ciudadl')&&(otrocaballero(tablero, pieza, 9) == false)) {array.push({ tipo: "caballero", posicion: 9 });}
 			    }
 						//si granja o camino, 1 siempre granja. Si Abajo==Derecha --> es ciudad, sino granja también
@@ -321,7 +321,7 @@ var Coor = function(x,y){
 			i=2;
 			if(i==2){	//superior centro 
 				
-				//console.log(i);
+				////console.log(i);
 				if((pieza.Arriba == 'Camino')&&(otroladron(pieza,2,tablero)==false)) {array.push({tipo: "ladron",posicion:2});}
 				if((pieza.Arriba == 'Ciudad')&&(otrocaballero(tablero, pieza, 2)==false)) {array.push({tipo: "caballero",posicion:2});}
 				if((pieza.Arriba == 'Granja')&&(otrogranjero(pieza,2,tablero)==false)) {array.push({tipo: "granjero",posicion:2});}
@@ -332,7 +332,7 @@ var Coor = function(x,y){
 			i=8;
 			if(i==8){	//inferior centro 
 				
-				//console.log(i);
+				////console.log(i);
 				
 				if((pieza.Abajo == 'Camino')&&(otroladron(pieza,8,tablero)==false)) {array.push({tipo: "ladron",posicion:8});}
 				if((pieza.Abajo == 'Ciudad')&&(otrocaballero(tablero, pieza, 8)==false)) {array.push({tipo: "caballero",posicion:8});}
@@ -344,7 +344,7 @@ var Coor = function(x,y){
 
 			if(i==5){	//inferior centro 
 				
-				//console.log(i);
+				////console.log(i);
 			    if ((pieza.tipo=='MonCamino')||(pieza.tipo=='MonGranja'))			    
 			    {
 			        array.push({tipo: "monje",posicion:5});
@@ -354,7 +354,7 @@ var Coor = function(x,y){
 			i=4;
 			if(i==4){	//medio izq
 				
-				//console.log(i);
+				////console.log(i);
 				if((pieza.Izquierda == 'Ciudad')&&(otrocaballero(tablero, pieza, 4)==false)) {array.push({tipo: "caballero",posicion:4});}
 				if((pieza.Izquierda == 'Granja')&&(otrogranjero(pieza,4,tablero)==false)) {array.push({tipo: "granjero",posicion:4});}
 				if((pieza.Izquierda == 'Camino')&&(otroladron(pieza,4,tablero)==false)) {array.push({tipo: "ladron",posicion:4});}
@@ -364,7 +364,7 @@ var Coor = function(x,y){
 			i=6;
 			if(i==6){	//medio dcha
 				
-				//console.log(i);
+				////console.log(i);
 
 				if((pieza.Derecha == 'Ciudad')&&(otrocaballero(tablero, pieza, 6)==false)) {array.push({tipo: "caballero",posicion:6});}
 				if((pieza.Derecha == 'Granja')&&(otrogranjero(pieza,6,tablero)==false)) {array.push({tipo: "granjero",posicion:6});}
@@ -518,7 +518,7 @@ var Coor = function(x,y){
 					//	return false;
 					//}
 				}else if(pieza.tipo == "CiudadL" || pieza.tipo == "Cruce3" || pieza.tipo == "Cruce4"){
-					console.log("AHI NO PUEDES COLOCAR EL SEGUIDOR QUE ES UN CRUCE¡¡¡¡¡¡¡¡¡¡¡¡¡¡¡¡¡¡");
+					//console.log("AHI NO PUEDES COLOCAR EL SEGUIDOR QUE ES UN CRUCE¡¡¡¡¡¡¡¡¡¡¡¡¡¡¡¡¡¡");
 					arraysalida.push(false, ""); return arraysalida;
 				} 				
 								
@@ -629,7 +629,7 @@ var Coor = function(x,y){
 				}
 			}
 		}else{
-			console.log("Jugador sin seguidores!!!!");
+			//console.log("Jugador sin seguidores!!!!");
 			arraysalida.push(false, ""); return arraysalida;
 		}
 		
