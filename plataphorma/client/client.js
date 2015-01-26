@@ -55,7 +55,7 @@ Tracker.autorun(function(){
 			
             var sala= Rooms.findOne({_id:currentRoom})
             if(sala.start){
-				alert("¿LOS ERRRRRRRORRRRRRESSSSSS SON:: ?", sala)
+				
               Session.set("playing",true)
                 $("#minigames").slideUp("slow")
                 $("#principal").slideUp("slow")
@@ -77,7 +77,7 @@ Tracker.autorun(function(){
                 idsPlayers.push(objaux)
               })  
                
-                ClarcassonneGameIU("#Clarcassone", juego.id_room, idsPlayers );
+             //   ClarcassonneGameIU("#Clarcassone", juego.id_room, idsPlayers );
                
                 
             }

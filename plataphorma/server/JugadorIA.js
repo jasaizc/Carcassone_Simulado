@@ -57,6 +57,9 @@ jugadorIA=function(id_jugador, Partida){
             TipoJugada.push(nuevaficha.tipo);
             TipoJugada.push(jugador.puntuacion);
             TipoJugada.push(nuevaficha.EncajaCon[0].x);
+           
+            nuevaficha.EncajaCon[0].y = 70-(nuevaficha.EncajaCon[0].y-70);
+
             TipoJugada.push(nuevaficha.EncajaCon[0].y);
             TipoJugada.push(numerogiros);
             console.log("QUIERES MOSTRAR DE UNA PUTA VEZ ", TipoJugada);

@@ -586,15 +586,13 @@ Ficha_abajo = function(cx,cy) {
 						console.log("Canditdad de datos?!?!? ",data[1].length);
 						if(data[0].tipo == 'CiudadD' && data[1].length == 0)
 						{
-							console.log("HE ENTRADOOOOOOOO");
 							var cooraux = new Coor();
 							cooraux.x = 0;
 							cooraux.y = 0;
 							data[1].push(cooraux);
 							Posiciones = [];
-							console.log("POSIONES:", Posiciones);
 						}else{
-						console.log("Pues no he entrado");
+						
 						Posiciones = data[1];
 					}
 						console.log(data);
@@ -606,10 +604,9 @@ Ficha_abajo = function(cx,cy) {
 			if (SetFichaEn(NuevaPieza, Posiciones)) {
           if(Juego.keys['sacar_ficha']) {
          
-         console.log("POSICIONESSSSSSS  :: ",CurrentScroll.x + NuevaPieza.x/100, NuevaPieza.y/100 + CurrentScroll.y);
-         Meteor.call("colocarFicha", idParty, NuevaPieza, {x: NuevaPieza.x/100 + CurrentScroll.x, y: NuevaPieza.y/100 +CurrentScroll.y}, (NuevaPieza.rotation / -90), getTurno().id, function(err, data)
-         {
-           console.log("QUIERO COLOCAR LA FICHA MOTHERFUCKA a estos SEguidores: ", data);
+          Meteor.call("colocarFicha", idParty, NuevaPieza, {x: NuevaPieza.x/100 + CurrentScroll.x, y: -NuevaPieza.y/100 +CurrentScroll.y}, (NuevaPieza.rotation / -90), getTurno().id, function(err, data)
+          {
+           
   				if (data[0] == true) {
 					
     				    Juego.setBoard(8,new Set(NuevaPieza));
@@ -647,11 +644,11 @@ Highlight = function (positions) {
 			ctx.save();
             ctx.fillStyle = 'rgba(255,255,255,0.5)';
 			for (i in this.position) {
-		if (this.position[i].y-CurrentScroll.y < 5) {
+				if (this.position[i].y-CurrentScroll.y < 5) {
             	        ctx.fillRect((this.position[i].x - CurrentScroll.x) * 100,(this.position[i].y-CurrentScroll.y) * 100 ,100,100);
             	 }
             	
-               }
+            }
             
             ctx.restore();
         }

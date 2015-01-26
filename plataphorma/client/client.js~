@@ -52,9 +52,10 @@ Tracker.autorun(function(){
 		      currentRoom=juego.id_room;
           Session.set("currentRoom",currentRoom);
           Meteor.subscribe("messages_current_room", currentRoom);
-
+			
             var sala= Rooms.findOne({_id:currentRoom})
             if(sala.start){
+				alert("¿LOS ERRRRRRRORRRRRRESSSSSS SON:: ?", sala)
               Session.set("playing",true)
                 $("#minigames").slideUp("slow")
                 $("#principal").slideUp("slow")
@@ -62,8 +63,21 @@ Tracker.autorun(function(){
                 $("#crs").hide()
                 $("#chatCarcasson").show()
                 $("#mycanvas").show();
-              //  alert("A JUGARRRRR!!!!")
-                
+                var players= JoinPlayer.find({id_room:juego.id_room},{})
+              var idsPlayers=[];
+              players.forEach(function(element){
+                var objaux=[];
+                if(element.user_name!="IA"){
+                  objaux[0]=element.originalID;
+                  objaux[1]=element.user_name;
+                }else{
+                  objaux[0]=element._id;
+                  objaux[1]=element.user_name;
+                }
+                idsPlayers.push(objaux)
+              })  
+               
+             //   ClarcassonneGameIU("#Clarcassone", juego.id_room, idsPlayers );
                
                 
             }
@@ -543,8 +557,7 @@ Template.crearpartida.events = {
 
             var rooms = Rooms.findOne({user_name:jugador});
 	      
-            console.log(rooms);
-            console.log(rooms._id);
+            
 
             if(yaCreada==null){
 
@@ -581,6 +594,7 @@ Template.crearpartida.events = {
               }
             }
             if(rooms.max_players==rooms.in_players){
+				
             //  alert("QUE COMIENCE LA PARTIDA!!!!!");
               Rooms.update({_id:rooms._id},{ $set: {start:true} });
               Session.set("playing",true)
@@ -598,7 +612,7 @@ Template.crearpartida.events = {
                 }
                 idsPlayers.push(objaux)
               })              
-              
+              console.log("PREPARATE QUE EMPEZAMOS");
               ClarcassonneGameIU("#Clarcassone", rooms._id,idsPlayers );
               //**************************************************************************\\
               //Esto lo pongo como auxiliar, pero hay que quitarlo y usar un tracker autorun
@@ -692,6 +706,7 @@ Template.unirspartida.events={
             var room=Rooms.findOne({_id:sala},{})
             console.log(room)
             if(room.max_players==(room.in_players+room.max_IAs)){
+				
               // alert("QUE COMIENCE LA PARTIDA!!!!!");
               Rooms.update({_id:room._id},{ $set: {start:true} });
               Session.set("playing",true)
@@ -708,10 +723,10 @@ Template.unirspartida.events={
                 }
                 idsPlayers.push(objaux)
               })              
-              
-              ClarcassonneGameIU("#Clarcassone", rooms._id,idsPlayers );
+              console.log("PREPARATE QUE EMPEZAMOS");
+              ClarcassonneGameIU("#Clarcassone", room._id,idsPlayers );
 
-              ClarcassonneGameIU.initialize('#game', 1); 
+              //ClarcassonneGameIU.initialize('#game', 1); 
               //comenzarpartida(room._id)
               //**************************************************************************\\
               //Esto lo pongo como auxiliar, pero hay que quitarlo y usar un tracker autorun

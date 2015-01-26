@@ -107,6 +107,8 @@ nuevaPartida: function(parametros_game){
 	    if (ArrPartidas[id_game]) {
 	        var encaja = false;
 			Partida = ArrPartidas[id_game];
+			console.log(Partida.posiciones);
+			console.log("aaaaaaaaaaaaaaaaaaaaaaaaaaa");
 			var ficha = new Pieza(pieza.sprite,posicion.x,posicion.y)
 			for(i=0;i< giros;i++){
 				ficha = ficha.girar();
@@ -127,6 +129,7 @@ nuevaPartida: function(parametros_game){
 			}else{
 			for (sitio in posciones)
 			{
+
 					console.log("SITIOS: ", posciones[sitio].x, " ",posciones[sitio].y, "POSI: ", posicion.x, " ",posicion.y);
 					if (posciones[sitio].x == posicion.x &&  posciones[sitio].y == posicion.y)
 					{
