@@ -180,7 +180,7 @@ function SetFichaEn (NuevaPieza, Posiciones) {
 LastData = undefined;
 
 function SetPlayers (err, data) {
-	console.log("ARRANCAMOS EL JUEGO Nº: ", data);
+	//console.log("ARRANCAMOS EL JUEGO Nº: ", data);
 	Jugador1 = {nombre: data[0].nombre.slice(0,6), color: "ficha_rojo", puntos: data[0].puntuacion, id:data[0].id, turno:1};
 	Jugador2 = {nombre: data[1].nombre.slice(0,6) , color: "ficha_azul", puntos:data[1].puntuacion, id: data[1].id, turno:  0};
 	if (data.length >= 3) {
@@ -234,7 +234,7 @@ function SetPlayers (err, data) {
 			return;
 		}
 	*/
-		console.log ("TENEMOS QUE ROOOOOOOOOM???",Rooms.findOne({_id:idParty}));
+		//console.log ("TENEMOS QUE ROOOOOOOOOM???",Rooms.findOne({_id:idParty}));
 		var last = Rooms.findOne({_id:idParty}).movimientos;
 		if (last != undefined) {
 			var ultimo = last.pop();
@@ -252,7 +252,7 @@ function SetPlayers (err, data) {
 				Tablero.add(new Seguidor (ultimo.seguidor.fx,ultimo.seguidor.fy,ultimo.seguidor.t,ultimo.seguidor.sx,ultimo.seguidor.sy));
 			}
 			//setPoint (ultimo.puntos);
-			console.log("¿QUE ES ESTO????", ultimo);
+			//console.log("¿QUE ES ESTO????", ultimo);
 			//pasarTurno();
 		}
 		
@@ -333,7 +333,7 @@ function pasarTurno () {
 		if (Jugador1.turno == 1) { Jugador2.turno = 1; Jugador1.turno = 0;}
 		else if (Jugador2.turno == 1) { Jugador1.turno = 1; Jugador2.turno = 0;}
 	}
-	console.log("A QUIEN LE TOCA?!?!?!", Jugador1.turno, "Player2: " , Jugador2.turno);
+	//console.log("A QUIEN LE TOCA?!?!?!", Jugador1.turno, "Player2: " , Jugador2.turno);
 	
 	
 	if (nJugadores == 3) {
@@ -519,9 +519,9 @@ Ficha_abajo = function(cx,cy) {
 	//	console.log("TENEMOS LOS SIGUIENTES DATOS: CurrentMove: ", CurrentMove, "TURNO: " , getTurno().nombre, "NO SE QUE ES ESTO: ", Meteor.userId());
 
 	if (CurrentMove == 0 && getTurno().nombre == "IA" && Meteor.userId() == Jugador1.id) {
-		console.log("MARIO?!?!?!?!?");
+		
 		Meteor.call('JugadorArtificial', idParty, getTurno().id, function (err, data) {
-			console.log(data);
+			//console.log(data);
 			
 		
 		if (data[5] && data[6]) {
@@ -583,7 +583,7 @@ Ficha_abajo = function(cx,cy) {
 						}
 						Juego.setBoard(7, NuevaPieza);
 						CurrentMove = 1; 
-						console.log("Canditdad de datos?!?!? ",data[1].length);
+						//console.log("Canditdad de datos?!?!? ",data[1].length);
 						if(data[0].tipo == 'CiudadD' && data[1].length == 0)
 						{
 							var cooraux = new Coor();
@@ -595,7 +595,7 @@ Ficha_abajo = function(cx,cy) {
 						
 						Posiciones = data[1];
 					}
-						console.log(data);
+						//console.log(data);
 						Juego.setBoard(6, new Highlight(data[1]));
 						 
 			});
@@ -765,7 +765,7 @@ PiezaMapa = function (cx,cy, sprite,rotate) {
 	
 			if (init == false) {
 				$(idCanvas).mousedown(function(e){
-					console.log(e);
+					//console.log(e);
 	          	  	if (that.colocada == false && CurrentMove == 1) {
 	         				
 						if ((e.pageX - e.currentTarget.offsetLeft) > that.x &&
@@ -983,7 +983,7 @@ Set = function (PiezaMapa) {
 				if (this.option > 0) {
 					this.menu += 1;
 				} else {
-					console.log("SIN SEGUIDORRRRRRRRRRRRRRRRRRR");					
+					//console.log("SIN SEGUIDORRRRRRRRRRRRRRRRRRR");					
 				//	Meteor.call("colocarSeguidor", idParty, getTurno ().id, {x: this.pieza.x/100 + CurrentScroll.x, y: this.pieza.y/100 +CurrentScroll.y}, 0, function(err, data) { 				// Coloco la ficha en el mapa
 						that.pieza.colocada = true;
 						//Tablero.add(that.pieza);
@@ -1043,7 +1043,7 @@ Set = function (PiezaMapa) {
 			if(!Juego.keys['sacar_ficha']) up3 = true;
 			if(up3 && Juego.keys['sacar_ficha']) {
 				up3 = false;
-				console.log("MENU MOSTRAMOS LA REJILLA PARA ELEGIR LUGAR");
+				//console.log("MENU MOSTRAMOS LA REJILLA PARA ELEGIR LUGAR");
 				
 				var NuevaPieza = [ this.pieza.sprite, {x: this.pieza.x/100 + CurrentScroll.x, y: this.pieza.y/100 +CurrentScroll.y}];
 				Meteor.call("colocarSeguidor", idParty, getTurno().id, SetSeguidorEn ({x: this.optionx, y: this.optiony, t: this.option}) , {x: this.pieza.x/100 + CurrentScroll.x, y: this.pieza.y/100 +CurrentScroll.y} , function(err, data) {				
@@ -1199,18 +1199,18 @@ Blank = new function () {
 function ClarcassonneGameIU(idCanvasElement , id_partida, idsPlayers)  {
 	
 
-		console.log("LLEGAMOS AQUI!!!!");
+		//console.log("LLEGAMOS AQUI!!!!");
 		var cnvs = document.getElementById(idCanvasElement.slice(1));
 		var cnvsctx = cnvs.getContext && cnvs.getContext('2d');
 		if(!cnvsctx) { return alert("Please upgrade your browser to play"); }
 		cnvsctx.save();
-		console.log("JUGADORESSESSS:  ", idsPlayers);
+		//console.log("JUGADORESSESSS:  ", idsPlayers);
 		cnvsctx.fillRect(0,0,800,600);
 		cnvsctx.fillStyle="rgb(255,255,255)";
 		cnvsctx.font="bold 50px Arial";
 		cnvsctx.fillText("Loading...", 270,355);  
 		cnvsctx.restore();
-		console.log("Estoy siendo llamado IU");
+		//console.log("Estoy siendo llamado IU");
 		partida = [id_partida, idsPlayers ];
 		Meteor.call("nuevaPartida",partida, SetPlayers);
 		idCanvas = idCanvasElement;
