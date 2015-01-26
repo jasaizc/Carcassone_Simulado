@@ -53,7 +53,7 @@ jugadorIA=function(id_jugador, Partida){
             // CierroMonasterio(colocando);
             // CierroCiudad(colocando);
 			
-            var jugador = _.find(Partida.listaJugadores, function (obj) { //console.log("COLOCAMOS?!?!?! ", obj.id); return (obj.id == id_jugador) });
+            var jugador = _.find(Partida.listaJugadores, function (obj) { /*console.log("COLOCAMOS?!?!?! ", obj.id);*/ return (obj.id == id_jugador) });
             TipoJugada.push(nuevaficha.tipo);
             TipoJugada.push(jugador.puntuacion);
             TipoJugada.push(nuevaficha.EncajaCon[0].x);
