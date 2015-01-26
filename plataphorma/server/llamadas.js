@@ -71,11 +71,14 @@ nuevaPartida: function(parametros_game){
 					var j = 0;
 					while(j != lugar.length)
 					{
+						lugar[j].y = 70-(lugar[j].y-70);
 						lugares.push(lugar[j]);	
 						j++;					
 					}
 				}
+				ficha = ficha.girar();
 			}
+			console.log(lugares);
 			var resultado = [ficha,lugares];
 			//console.log("RESULTADOS: " , resultado);
 			ArrPartidas[id_game] =  Partida;
@@ -135,7 +138,7 @@ nuevaPartida: function(parametros_game){
 				
 				encaja = Partida.coloco(ficha,ficha.x,ficha.y);
 				////console.log("NOS ENCAJA???", encaja);
-				
+			posicion.y = 70-(posicion.y-70);	
 			}else{
 			for (sitio in posciones)
 			{
