@@ -26,7 +26,7 @@ nuevaPartida: function(parametros_game){
                 console.log("TENEMOS UNA JUGADOR");     
             }
         }	
-        console.log("Tenemos los jugadores");
+        console.log("Tenemos los jugadores: ", Partida.listaJugadores);
         ArrPartidas[id_game] =  Partida;
         return Partida.listaJugadores;
         

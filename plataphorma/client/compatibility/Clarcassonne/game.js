@@ -226,14 +226,14 @@ function SetPlayers (err, data) {
 	
 	Deps.autorun(function(){
 		
-		if (Rooms.findOne({_id:idParty}).terminada){
+	/*	if (Rooms.findOne({_id:idParty}).terminada){
 			CurrentMove = 3;
 			Juego.setBoard(10, Blank);
 			sonidojuego.pause();
 			alert("Fin de partida.Gracias por Jugar!");
 			return;
 		}
-		
+	*/
 		console.log ("TENEMOS QUE ROOOOOOOOOM???",Rooms.findOne({_id:idParty}));
 		var last = Rooms.findOne({_id:idParty}).movimientos;
 		if (last != undefined) {
@@ -252,7 +252,7 @@ function SetPlayers (err, data) {
 				Tablero.add(new Seguidor (ultimo.seguidor.fx,ultimo.seguidor.fy,ultimo.seguidor.t,ultimo.seguidor.sx,ultimo.seguidor.sy));
 			}
 			//setPoint (ultimo.puntos);
-			console.log(ultimo);
+			console.log("¿QUE ES ESTO????", ultimo);
 			//pasarTurno();
 		}
 		
@@ -583,7 +583,7 @@ Ficha_abajo = function(cx,cy) {
 						}
 						Juego.setBoard(7, NuevaPieza);
 						CurrentMove = 1; 
-						console.log("CAnditdad de datos?!?!? ",data[1].length);
+						console.log("Canditdad de datos?!?!? ",data[1].length);
 						if(data[0].tipo == 'CiudadD' && data[1].length == 0)
 						{
 							console.log("HE ENTRADOOOOOOOO");
@@ -1202,11 +1202,12 @@ Blank = new function () {
 function ClarcassonneGameIU(idCanvasElement , id_partida, idsPlayers)  {
 	
 
-		
+		console.log("LLEGAMOS AQUI!!!!");
 		var cnvs = document.getElementById(idCanvasElement.slice(1));
 		var cnvsctx = cnvs.getContext && cnvs.getContext('2d');
 		if(!cnvsctx) { return alert("Please upgrade your browser to play"); }
 		cnvsctx.save();
+		console.log("JUGADORESSESSS:  ", idsPlayers);
 		cnvsctx.fillRect(0,0,800,600);
 		cnvsctx.fillStyle="rgb(255,255,255)";
 		cnvsctx.font="bold 50px Arial";
