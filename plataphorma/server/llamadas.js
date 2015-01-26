@@ -2,6 +2,16 @@
 // Lós metodos van dentro de Meteor.methods ya que utilizamos Meteor para desarrollar el juego
 
 var ArrPartidas = {} // En esta coleccion guardamos las id de todas las partidas
+
+function mirarCierres(){
+		
+		cerrarCamino(pieza,false,Partida); //graficamente se debe quitar los seguidores que se hayan puesto y tal y tal
+	    cerrarCiudad(pieza,false,Partida); 
+	    cerrarMonasterio(pieza,false,Partida);
+	
+	};
+	
+	
  Meteor.methods({
 	//Crea una nueva partida, devuelve true si se consiguio false si no
 nuevaPartida: function(parametros_game){
@@ -208,6 +218,7 @@ nuevaPartida: function(parametros_game){
 	        ArrPartidas[id_game] = Partida;
 	        console.log("COOOOOOOOOOOOOOOOOLOCADO SEGUIDOR---", colocado[0], colocado[1])
 
+			mirarCierres(pieza);
 	        return colocado;
 
 	    } else {
