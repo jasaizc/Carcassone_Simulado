@@ -1,9 +1,54 @@
-otrogranjero= function(pieza,posSeg,tablero){//aux tiene que ser false
+ficha = function(x,y,a,b,c,d,e,f,g,h,i){
+
+	if(x!=undefined){
+		this.x=x
+	}else{
+		this.x=undefined
+	}
+	if(y!=undefined){
+		this.y=y
+	}else{
+		this.y=undefined
+	}
+	this.z=[];
+
+	if(a!= undefined){
+		this.z.push(a);
+	}
+	if(b!= undefined){
+		this.z.push(b);
+	}
+	if(c!= undefined){
+		this.z.push(c);
+	}
+	if(d!= undefined){
+		this.z.push(d);
+	}
+	if(e!= undefined){
+		this.z.push(e);
+	}
+	if(f!= undefined){
+		this.z.push(f);
+	}
+	if(g!= undefined){
+		this.z.push(g);
+	}
+	if(h!= undefined){
+		this.z.push(h);
+	}
+	if(i!= undefined){
+		this.z.push(i);
+	}
+	
+}
+
+otrogranjero= function(pieza,posSeg,tablero){
 	var valido=false;
 	var valido2=false;
 	var valido3=false;
 	var valido4=false;
-
+	visitado=[];
+	//hacer pieza inicial visitada
 	if(pieza.Arriba!= 'Ciudad'){
 		valido = piezaArriba(pieza,posSeg,tablero,valido);
 	}
@@ -28,13 +73,24 @@ otrogranjero= function(pieza,posSeg,tablero){//aux tiene que ser false
 	
 }
 
-//comprueba si las posicione donde decidmos hay seguidor en la pieza de arriba 
+//comprueba si las posicione donde decidmos hay seguidor 
 compruebaSeg = function(aux,a,b,c,d,e,f,g,h,i){
-	for(i=0;i<aux.seguidores.length;i++){
-		if(aux.seguidores[i].tipo== 'granjero' ){
-			if(aux.seguidores[i].posicion== a ||aux.seguidores[i].posicion== b  ||aux.seguidores[i].posicion== c ||
-			   aux.seguidores[i].posicion== d ||aux.seguidores[i].posicion== e  ||aux.seguidores[i].posicion== f ||
-			   aux.seguidores[i].posicion== g ||aux.seguidores[i].posicion== h  ||aux.seguidores[i].posicion== i){ 
+	for(j=0;i<visitado.length;j++){
+		if(visitado[j].x==aux.x && visitado[j].y==aux.y){
+			if(visitado[j].z.indexOf(a)==0 || visitado[j].z.indexOf(b)==0 || visitado[j].z.indexOf(c)==0 ||
+			   visitado[j].z.indexOf(d)==0 || visitado[j].z.indexOf(e)==0 || visitado[j].z.indexOf(f)==0 || 
+			   visitado[j].z.indexOf(g)==0 || visitado[j].z.indexOf(h)==0 || visitado[i].z.indexOf(i)==0){
+				console.log('0000');
+					return null;
+			}
+		}
+	}
+	visitado.push(new ficha(aux.x,aux.y,a,b,c,d,e,f,g,h,i));
+	for(k=0;k<aux.seguidores.length;k++){
+		if(aux.seguidores[k].tipo== 'granjero' ){
+			if(aux.seguidores[k].posicion== a ||aux.seguidores[k].posicion== b  ||aux.seguidores[k].posicion== c ||
+			   aux.seguidores[k].posicion== d ||aux.seguidores[k].posicion== e  ||aux.seguidores[k].posicion== f ||
+			   aux.seguidores[k].posicion== g ||aux.seguidores[k].posicion== h  ||aux.seguidores[k].posicion== i){ 
 				return true;
 			}else{
 				return false;
@@ -51,27 +107,16 @@ piezaArriba = function(pieza,posSeg,tablero,otro){
 		return false;
 	}
 	if(pieza.Arriba != 'Ciudad' && aux.Abajo != 'Ciudad' && otro==false){
-		//Se cierra con estos dos primeros casos
-		if(aux.tipo == 'CiudadF' || aux.tipo =='CiudadG'|| aux.tipo =='CiudadQ' || aux.tipo =='CiudadR'){//cierra con estos 
-			for(i=0;i<aux.seguidores.length;i++){
-				if(aux.seguiguidores[i].tipo== 'granjero'){otro = true; return otro}
-			}
-		}else if(aux.tipo == 'CiudadS' || aux.tipo=='CiudadT'){
-			for(i=0;i<aux.seguidores.length;i++){
-				if(aux.seguidores[i].tipo== 'granjero' ){
-					if((aux.seguidores[i].posicion== 7 && posSeg==1) || (aux.seguidores[i].posicion== 9 && posSeg==3)){
-						otro = true; 
-						return otro;
-					}
-				}
-			}
+		//Se cierra con estos primeros casos
+		if(aux.tipo == 'CiudadF' || aux.tipo =='CiudadG' || aux.tipo =='CiudadQ' || aux.tipo =='CiudadR'){
+			otro=compruebaSeg(aux,7,8,9);
+			if(otro==true){return otro}
 		}else{//aux abajo granja y pieza arriba granja con seguidor que comunica granja arriba 
 			if(pieza.Arriba == 'Granja' ){
 				if(aux.tipo == 'MonCamino' || aux.tipo =='MonGranja'|| aux.tipo =='CiudadE' ||
 		  		   aux.tipo == 'CiudadH' || aux.tipo =='CiudadI'|| aux.tipo =='CiudadM' || aux.tipo == 'CiudadN'){
-					for(i=0;i<aux.seguidores.length;i++){
-						if(aux.seguidores[i].tipo== 'granjero'){otro = true; return otro}
-					}
+					otro=compruebaSeg(aux,1,2,3,4,5,6,7,8,9);
+					if(otro==true){return otro}
 					if(aux.Arriba != 'Ciudad'){
 						otro=piezaArriba(aux,1,tablero,otro);
 						if(otro==true){return otro}	
@@ -281,7 +326,19 @@ piezaArriba = function(pieza,posSeg,tablero,otro){
 				}else if(aux.tipo=='MonCamino'){
 					otro=compruebaSeg(aux,1,2,3,4,5,6,7,9);
 					if(otro==true){return otro}
-					otro=piezaArriba(aux,posSeg,tablero,otro);//no viene de ningun lado para que vaya para abajo
+					otro=piezaIzquierda(aux,7,tablero,otro);
+					if(otro==true){return otro}
+					otro=piezaDerecha(aux,9,tablero,otro);
+					if(otro==true){return otro}
+					if (auxSeg == 1){
+						otro=piezaAbajo(aux,9,tablero,otro);
+						if(otro==true){return otro}
+					}else if(auxSeg == 3){
+						otro=piezaAbajo(aux,7,tablero,otro);
+						if(otro==true){return otro}
+					}
+					otro=piezaArriba(aux,3,tablero,otro);
+					if(otro==true){return otro}
 				}
 			}
 		}
@@ -299,16 +356,14 @@ piezaAbajo = function(pieza,posSeg,tablero,otro){
 	if(pieza.Abajo != 'Ciudad' && aux.Arriba != 'Ciudad' && otro==false){
 		//Se sigue el mismo procedimiento que en piezaArriba
 		if(aux.tipo == 'CiudadF' || aux.tipo =='CiudadG'|| aux.tipo =='CiudadQ' || aux.tipo =='CiudadR'){
-			for(i=0;i<aux.seguidores.length;i++){
-				if(aux.seguiguidores[i].tipo== 'granjero'){otro = true; return otro}
-			}
+			otro=compruebaSeg(aux,1,2,3);
+			if(otro==true){return otro}
 		}else{
 			if(pieza.Abajo == 'Granja' ){
 				if(aux.tipo == 'MonCamino' || aux.tipo =='MonGranja'|| aux.tipo =='CiudadE' ||
 		  		   aux.tipo == 'CiudadH' || aux.tipo =='CiudadI'|| aux.tipo =='CiudadM' || aux.tipo == 'CiudadN'){
-					for(i=0;i<aux.seguidores.length;i++){
-						if(aux.seguidores[i].tipo== 'granjero'){otro = true; return otro}
-					}
+					otro=compruebaSeg(aux,1,2,3,4,5,6,7,8,9);
+					if(otro==true){return otro}
 					if(aux.Abajo != 'Ciudad'){
 						otro=piezaAbajo(aux,7,tablero,otro);
 						if(otro==true){return otro}	
@@ -383,7 +438,7 @@ piezaAbajo = function(pieza,posSeg,tablero,otro){
 				}else if (auxSeg==3 || auxSeg==6){
 					auxSeg=9;
 				}
-				if(aux.tipo == 'CiudadS' || aux.tipo=='CiudadT'){//cierra con estos
+				if(aux.tipo == 'CiudadS' || aux.tipo=='CiudadT'){
 					if(auxSeg==7){
 						otro=compruebaSeg(aux,1);
 						if(otro==true){return otro}
@@ -515,7 +570,19 @@ piezaAbajo = function(pieza,posSeg,tablero,otro){
 				}else if(aux.tipo=='MonCamino'){
 					otro=compruebaSeg(aux,1,3,4,5,6,7,8,9);
 					if(otro==true){return otro}
-					otro=piezaAbajo(aux,posSeg,tablero,otro);//no viene de ningun lado para que vaya para abajo
+					otro=piezaIzquierda(aux,7,tablero,otro);
+					if(otro==true){return otro}
+					otro=piezaDerecha(aux,9,tablero,otro);
+					if(otro==true){return otro}
+					otro=piezaAbajo(aux,7,tablero,otro);
+					if(otro==true){return otro}
+					if (auxSeg == 7){
+						otro=piezaArriba(aux,3,tablero,otro);
+						if(otro==true){return otro}
+					}else if(auxSeg == 9){
+						otro=piezaArriba(aux,1,tablero,otro);
+						if(otro==true){return otro}
+					}
 				}
 			}
 		}
@@ -532,17 +599,15 @@ piezaDerecha = function(pieza,posSeg,tablero,otro){
 	}
 	if(pieza.Derecha != 'Ciudad' && aux.Izquierda != 'Ciudad' && otro==false){
 		//Mismo procedimiento que en los lados anteriores
-		if(aux.tipo == 'CiudadF' || aux.tipo =='CiudadG'|| aux.tipo =='CiudadQ' || aux.tipo =='CiudadR'){//cierra con estos 
-			for(i=0;i<aux.seguidores.length;i++){
-				if(aux.seguiguidores[i].tipo== 'granjero'){otro = true; return otro}
-			}
+		if(aux.tipo == 'CiudadF' || aux.tipo =='CiudadG'|| aux.tipo =='CiudadQ' || aux.tipo =='CiudadR'){
+			otro=compruebaSeg(aux,1,4,7);
+			if(otro==true){return otro}
 		}else{
 			if(aux.Izquierda== 'Granja'){
 				if(aux.tipo == 'MonCamino' || aux.tipo =='MonGranja'|| aux.tipo =='CiudadE' ||
 		  		   aux.tipo == 'CiudadH' || aux.tipo =='CiudadI'|| aux.tipo =='CiudadM' || aux.tipo == 'CiudadN'){
-					for(i=0;i<aux.seguidores.length;i++){
-						if(aux.seguidores[i].tipo== 'granjero'){otro = true; return otro}
-					}
+					otro=compruebaSeg(aux,1,2,3,4,5,6,7,8,9);
+					if(otro==true){return otro}
 					if(aux.Abajo != 'Ciudad'){
 						otro=piezaAbajo(aux,7,tablero,otro);
 						if(otro==true){return otro}	
@@ -617,7 +682,7 @@ piezaDerecha = function(pieza,posSeg,tablero,otro){
 					auxSeg=9;
 				}
 
-				if(aux.tipo == 'CiudadS' || aux.tipo=='CiudadT'){//cierra con estos
+				if(aux.tipo == 'CiudadS' || aux.tipo=='CiudadT'){
 					if(auxSeg==3){
 						otro=compruebaSeg(aux,1);
 						if(otro==true){return otro}
@@ -753,10 +818,19 @@ piezaDerecha = function(pieza,posSeg,tablero,otro){
 				}else if(aux.tipo=='MonCamino'){
 					otro=compruebaSeg(aux,1,2,3,6,7,8,9);
 					if(otro==true){return otro}
-					//otro=piezaIzquierda(aux,1,tablero,otro); depende donde venga
-					otro=piezaDerecha(aux,7,tablero,otro);
+					otro=piezaArriba(aux,1,tablero,otro);
+					if(otro==true){return otro}
+					otro=piezaDerecha(aux,9,tablero,otro);
+					if(otro==true){return otro}
 					otro=piezaAbajo(aux,7,tablero,otro);
-					otro=piezaArriba(aux,7,tablero,otro);
+					if(otro==true){return otro}
+					if (auxSeg == 3){
+						otro=piezaIzquierda(aux,7,tablero,otro);
+						if(otro==true){return otro}
+					}else if(auxSeg == 9){
+						otro=piezaIzquierda(aux,1,tablero,otro);
+						if(otro==true){return otro}
+					}
 				}
 			}
 		}
@@ -771,19 +845,17 @@ piezaIzquierda = function(pieza,posSeg,tablero,otro){
 		//console.log('no mas piezas izquierda');
 		return false;
 	}
+	//Mismo procedimiento que en los lados anteriores
 	if(pieza.Izquierda != 'Ciudad' && aux.Derecha != 'Ciudad' && otro==false){
-		//Primero compruebo que en esa pieza no hay ladrones
 		if(aux.tipo == 'CiudadF' || aux.tipo =='CiudadG'|| aux.tipo =='CiudadQ' || aux.tipo =='CiudadR'){//cierra con estos 
-			for(i=0;i<aux.seguidores.length;i++){
-				if(aux.seguiguidores[i].tipo== 'granjero'){otro = true; return otro}
-			}
+			otro=compruebaSeg(aux,3,6,9);
+			if(otro==true){return otro}
 		}else{
 			if(aux.Derecha== 'Granja'){
 				if(aux.tipo == 'MonCamino' || aux.tipo =='MonGranja'|| aux.tipo =='CiudadE' ||
 		  		   aux.tipo == 'CiudadH' || aux.tipo =='CiudadI'|| aux.tipo =='CiudadM' || aux.tipo == 'CiudadN'){
-					for(i=0;i<aux.seguidores.length;i++){
-						if(aux.seguidores[i].tipo== 'granjero'){otro = true; return otro}
-					}
+					otro=compruebaSeg(aux,1,2,3,4,5,6,7,8,9);
+					if(otro==true){return otro}
 					if(aux.Abajo != 'Ciudad'){
 						otro=piezaAbajo(aux,9,tablero,otro);
 						if(otro==true){return otro}	
@@ -857,7 +929,7 @@ piezaIzquierda = function(pieza,posSeg,tablero,otro){
 					auxSeg=7;
 				}
 
-				if(aux.tipo == 'CiudadS' || aux.tipo=='CiudadT'){//cierra con estos
+				if(aux.tipo == 'CiudadS' || aux.tipo=='CiudadT'){
 					if(auxSeg==1){
 						otro=compruebaSeg(aux,3);
 						if(otro==true){return otro}
@@ -865,7 +937,6 @@ piezaIzquierda = function(pieza,posSeg,tablero,otro){
 						otro=compruebaSeg(aux,9);
 						if(otro==true){return otro}
 					}
-				//compruebsi hay seguidores arriba en las posicion que coinciden con la granja de auxpos
 				}else if(aux.tipo == 'CiudadD' || aux.tipo =='Recto'){
 					if(auxSeg==1){
 						otro=compruebaSeg(aux,1,2,3);
@@ -943,7 +1014,7 @@ piezaIzquierda = function(pieza,posSeg,tablero,otro){
 						otro=piezaAbajo(aux,9,tablero,otro);
 						if(otro==true){return otro}
 					}
-				}else if(aux.tipo == 'CiudadL' || aux.tipo =='Cruce3'){//ciudadL mal recursividad
+				}else if(aux.tipo == 'CiudadL' || aux.tipo =='Cruce3'){
 					if(aux.Izquierda != 'Camino'){
 						if(auxSeg==1){
 							otro=compruebaSeg(aux,3);
@@ -992,18 +1063,22 @@ piezaIzquierda = function(pieza,posSeg,tablero,otro){
 				}else if(aux.tipo=='MonCamino'){
 					otro=compruebaSeg(aux,1,2,3,4,7,8,9);
 					if(otro==true){return otro}
-					otro=piezaIzquierda(aux,7,tablero,otro);
+					otro=piezaArriba(aux,3,tablero,otro);
 					if(otro==true){return otro}
-					otro=piezaDerecha(aux,7,tablero,otro);
+					otro=piezaIzquierda(aux,1,tablero,otro);
 					if(otro==true){return otro}
-					otro=piezaAbajo(aux,7,tablero,otro);
+					otro=piezaAbajo(aux,9,tablero,otro);
 					if(otro==true){return otro}
-					otro=piezaArriba(aux,7,tablero,otro);
-					if(otro==true){return otro}
+					if (auxSeg == 1){
+						otro=piezaDerecha(aux,9,tablero,otro);
+						if(otro==true){return otro}
+					}else if(auxSeg == 7){
+						otro=piezaDerecha(aux,3,tablero,otro);
+						if(otro==true){return otro}
+					}
 				}
 			}
 		}
 	}
 	return otro;
 }
-//probarloque nunca se ha probao  en todas las piezas. Moncamino entero

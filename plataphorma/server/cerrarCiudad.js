@@ -1,4 +1,4 @@
-cerrarCiudad = function(pieza,final){
+cerrarCiudad = function(pieza,final, Tablero){
 	var finalesCiudad = ["CiudadD", "CiudadE", "CiudadH", "CiudadI", "CiudadJ", "CiudadK", "CiudadL"];
 	var seguidoresEncontrados = [];
 	var puntos = 0;
